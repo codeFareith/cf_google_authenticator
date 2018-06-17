@@ -1,0 +1,6 @@
+plugin {
+    tx_felogin_pi1 {
+        # cat=plugin.tx_felogin_pi1; type=String; label=Path to frontend login template.
+        templateFile = {$plugin.tx_felogin_pi1.templateFile}
+    }
+}

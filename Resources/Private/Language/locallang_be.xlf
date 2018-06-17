@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.0">
+    <file datatype="plaintext"
+          date="2018-06-03T12:00:00Z"
+          original="messages"
+          product-name="cf_google_authenticator"
+          source-language="en"
+    >
+        <header/>
+        <body>
+            <trans-unit id="googleQrImage">
+                <source>Google Authenticator QR-Code</source>
+            </trans-unit>
+
+            <trans-unit id="secret">
+                <source>Secret</source>
+            </trans-unit>
+
+            <trans-unit id="otp">
+                <source>One-time password</source>
+            </trans-unit>
+
+            <trans-unit id="storeSecret">
+                <source>Store this secret in a safe place.</source>
+            </trans-unit>
+            <trans-unit id="recoverAuthenticator">
+                <source>You will need this if you ever have to recover your authenticator.</source>
+            </trans-unit>
+            <trans-unit id="disableAuthenticator">
+                <source>To disable Google Authenticator, uncheck the checkbox above and enter a valid one-time password.</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
