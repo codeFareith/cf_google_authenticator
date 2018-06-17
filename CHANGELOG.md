@@ -6,5 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.0.1] - 2018-06-17
+### Changed
+- Use <img> instead of <f:image> to resolve an issue, with the QR-Code in the backend
+
 ## [1.0.0] - 2018-06-17
 - Initial development
