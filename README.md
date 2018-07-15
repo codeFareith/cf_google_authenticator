@@ -9,7 +9,7 @@ The extension needs to be installed as any other extension of TYPO3 CMS:
 1. Switch to the module “Extension Manager”.
 2. Get the extension
     1. **Get it from the Extension Manager**: Press the “Retrieve/Update” button, search for the extension key cf_google_authenticator and import the extension from the repository.
-    2. **Get it from typo3.org**: You can always get current version from [http://typo3.org/extensions/repository/view/news/current/](http://typo3.org/extensions/repository/view/news/current/) by downloading either the t3x or zip version. Upload the file afterwards in the Extension Manager.
+    2. **Get it from typo3.org**: You can always get current version from [https://extensions.typo3.org/extension/cf_google_authenticator/](https://extensions.typo3.org/extension/cf_google_authenticator/) by downloading either the t3x or zip version. Upload the file afterwards in the Extension Manager.
 3. Change the extension configuration to your needs
 
 ### Usage
