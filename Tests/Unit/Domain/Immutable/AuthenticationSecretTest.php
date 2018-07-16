@@ -8,22 +8,17 @@
  * @see https://www.fareith.de
  * @see https://typo3.org
  */
-namespace CodeFareith\CfGoogleAuthenticator\Unit\Immutable;
+namespace CodeFareith\CfGoogleAuthenticator\Tests\Unit\Domain\Immutable;
 
 use CodeFareith\CfGoogleAuthenticator\Domain\Immutable\AuthenticationSecret;
-use PHPUnit\Framework\TestCase;
+use CodeFareith\CfGoogleAuthenticator\Tests\Unit\BaseTestCase;
 
-/**
- * Class AuthenticationSecretTest
- * @package CodeFareith\CfGoogleAuthenticator\Unit\Immutable
- */
-class AuthenticationSecretTest extends TestCase
+class AuthenticationSecretTest extends BaseTestCase
 {
     /**
      * @param string $issuer
      * @param string $accountName
      * @param string $secretKey
-     *
      * @dataProvider invalidIssuerProvider
      */
     public function testCannotBeCreatedFromInvalidIssuer(string $issuer, string $accountName, string $secretKey): void
@@ -37,7 +32,6 @@ class AuthenticationSecretTest extends TestCase
      * @param string $issuer
      * @param string $accountName
      * @param string $secretKey
-     *
      * @dataProvider invalidAccountNameProvider
      */
     public function testCannotBeCreatedFromInvalidAccountName(string $issuer, string $accountName, string $secretKey): void
@@ -51,7 +45,6 @@ class AuthenticationSecretTest extends TestCase
      * @param string $issuer
      * @param string $accountName
      * @param string $secretKey
-     *
      * @dataProvider validDataProvider
      */
     public function testCanBeCreatedFromValidData(string $issuer, string $accountName, string $secretKey): void
@@ -66,7 +59,6 @@ class AuthenticationSecretTest extends TestCase
      * @param string $issuer
      * @param string $accountName
      * @param string $secretKey
-     *
      * @dataProvider validDataProvider
      */
     public function testIssuer(string $issuer, string $accountName, string $secretKey): void
@@ -83,7 +75,6 @@ class AuthenticationSecretTest extends TestCase
      * @param string $issuer
      * @param string $accountName
      * @param string $secretKey
-     *
      * @dataProvider validDataProvider
      */
     public function testAccountName(string $issuer, string $accountName, string $secretKey): void
@@ -100,7 +91,6 @@ class AuthenticationSecretTest extends TestCase
      * @param string $issuer
      * @param string $accountName
      * @param string $secretKey
-     *
      * @dataProvider validDataProvider
      */
     public function testSecretKey(string $issuer, string $accountName, string $secretKey): void
@@ -117,7 +107,6 @@ class AuthenticationSecretTest extends TestCase
      * @param string $issuer
      * @param string $accountName
      * @param string $secretKey
-     *
      * @dataProvider validDataProvider
      */
     public function testUri(string $issuer, string $accountName, string $secretKey): void
@@ -159,7 +148,6 @@ class AuthenticationSecretTest extends TestCase
      * @param string $issuer
      * @param string $accountName
      * @param string $secretKey
-     *
      * @dataProvider validDataProvider
      */
     public function testLabel(string $issuer, string $accountName, string $secretKey): void

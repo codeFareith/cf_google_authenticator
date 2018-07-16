@@ -1,5 +1,10 @@
 <?php
 /**
+ * @author Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
+ * @copyright (c) 2018 by Robin von den Bergen
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version 1.0.0
+ *
  * @link https://github.com/codeFareith/cf_google_authenticator
  * @see https://www.fareith.de
  * @see https://typo3.org
@@ -31,10 +36,11 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
  */
 class UserSettings
 {
+    /*─────────────────────────────────────────────────────────────────────────────*\
+            Methods
+    \*─────────────────────────────────────────────────────────────────────────────*/
     /**
-     * @param array $data
-     * @param UserElement $userElement
-     * @return string
+     * @param mixed[] $data
      * @throws \Exception
      */
     public function createSecretField(array $data, UserElement $userElement): string

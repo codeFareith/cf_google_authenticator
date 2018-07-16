@@ -22,6 +22,7 @@ use CodeFareith\CfGoogleAuthenticator\Hook\FeLogin;
 use CodeFareith\CfGoogleAuthenticator\Hook\TCEMain;
 use CodeFareith\CfGoogleAuthenticator\Provider\Login\GoogleAuthenticatorLoginProvider;
 use CodeFareith\CfGoogleAuthenticator\Service\GoogleAuthenticatorService;
+use CodeFareith\CfGoogleAuthenticator\Utility\ExtensionBasicDataUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 defined('TYPO3_MODE')
@@ -30,15 +31,10 @@ defined('TYPO3_MODE')
 \call_user_func(
     function($_EXTKEY)
     {
-        // get extension configuration
-        $extConf = \unserialize(
-            $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY],
-            [
-                'allowed_classes' => false
-            ]
-        );
+        $globalsReference = &$GLOBALS;
 
-        // register GoogleAuthenticatorService
+        $extConf = ExtensionBasicDataUtility::getExtensionConfiguration();
+
         ExtensionManagementUtility::addService(
             $_EXTKEY,
             'auth',
@@ -56,9 +52,8 @@ defined('TYPO3_MODE')
             ]
         );
 
-        // register GoogleAuthenticatorLoginProvider
         if((bool)$extConf['googleAuthenticatorEnableBE'] === true) {
-            $GLOBALS['TYPO3_CONF_VARS']
+            $globalsReference['TYPO3_CONF_VARS']
                 ['EXTCONF']
                     ['backend']
                         ['loginProviders']
@@ -66,15 +61,13 @@ defined('TYPO3_MODE')
                                 ['provider'] = GoogleAuthenticatorLoginProvider::class;
         }
 
-        // register hook for TCEMain
-        $GLOBALS['TYPO3_CONF_VARS']
+        $globalsReference['TYPO3_CONF_VARS']
             ['SC_OPTIONS']
                 ['t3lib/class.t3lib_tcemain.php']
                     ['processDatamapClass']
                         [$_EXTKEY] = TCEMain::class;
 
-        // register hook for FeLogin
-        $GLOBALS['TYPO3_CONF_VARS']
+        $globalsReference['TYPO3_CONF_VARS']
             ['EXTCONF']
                 ['felogin']
                     ['postProcContent']

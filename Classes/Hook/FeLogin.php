@@ -11,6 +11,8 @@
  */
 namespace CodeFareith\CfGoogleAuthenticator\Hook;
 
+use CodeFareith\CfGoogleAuthenticator\Utility\ExtensionBasicDataUtility;
+use CodeFareith\CfGoogleAuthenticator\Utility\PathUtility;
 use TYPO3\CMS\Core\Service\MarkerBasedTemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -28,49 +30,71 @@ use TYPO3\CMS\Lang\LanguageService;
  */
 class FeLogin
 {
-    /**
-     * @param array $params
-     * @param FrontendLoginController $controller
-     * @return string
-     */
+    /*─────────────────────────────────────────────────────────────────────────────*\
+            Properties
+    \*─────────────────────────────────────────────────────────────────────────────*/
+    /** @var ObjectManager */
+    private $objectManager;
+    /** @var MarkerBasedTemplateService */
+    private $markerBasedTemplateService;
+    /** @var LanguageService */
+    private $languageService;
+
+    /*─────────────────────────────────────────────────────────────────────────────*\
+            Methods
+    \*─────────────────────────────────────────────────────────────────────────────*/
     public function createOneTimePasswordField(array $params, FrontendLoginController $controller): string
     {
-        $extName = \explode('\\', __NAMESPACE__)[1];
-        $extKey = GeneralUtility::camelCaseToLowerCaseUnderscored($extName);
-        $extConf = \unserialize(
-            $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$extKey],
-            [
-                'allowed_classes' => false
-            ]
-        );
-
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-        $markerBasedTemplateService = $objectManager->get(MarkerBasedTemplateService::class);
-        $languageService = $objectManager->get(LanguageService::class);
-
         $marker = [];
 
-        if((bool)$extConf['googleAuthenticatorEnableFE'] === true) {
-
+        if($this->isGoogleAuthenticatorEnabled()) {
+            $localLangLink = PathUtility::makeLocalLangLinkPath('GoogleAuthenticatorOTP');
             $marker = [
-                '###OTP_LABEL###' => $languageService->sL(
-                    \vsprintf(
-                        '%s:%s:%s/Resources/Private/Language/%s:%s',
-                        [
-                            'LLL',
-                            'EXT',
-                            $extKey,
-                            'locallang.xlf',
-                            'GoogleAuthenticatorOTP'
-                        ]
-                    )
-                )
+                '###OTP_LABEL###' => $this->getLanguageService()->sL($localLangLink)
             ];
-
         }
 
-        $content = $markerBasedTemplateService->substituteMarkerArrayCached($params['content'], $marker);
+        $content = $this->getMarkerBasedTemplateService()->substituteMarkerArrayCached($params['content'], $marker);
 
         return $content;
+    }
+
+    private function isGoogleAuthenticatorEnabled(): bool
+    {
+        $result = false;
+        $extConf = ExtensionBasicDataUtility::getExtensionConfiguration();
+
+        if($extConf['googleAuthenticatorEnableFE'] !== null) {
+            $result = (bool)$extConf['googleAuthenticatorEnableFE'];
+        }
+
+        return $result;
+    }
+
+    private function getObjectManager(): ObjectManager
+    {
+        if($this->objectManager === null) {
+            $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        }
+
+        return $this->objectManager;
+    }
+
+    private function getMarkerBasedTemplateService(): MarkerBasedTemplateService
+    {
+        if($this->markerBasedTemplateService === null) {
+            $this->markerBasedTemplateService = $this->getObjectManager()->get(MarkerBasedTemplateService::class);
+        }
+
+        return $this->markerBasedTemplateService;
+    }
+
+    private function getLanguageService(): LanguageService
+    {
+        if($this->languageService === null) {
+            $this->languageService = $this->getObjectManager()->get(LanguageService::class);
+        }
+
+        return $this->languageService;
     }
 }

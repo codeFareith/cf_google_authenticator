@@ -1,7 +1,11 @@
 {
-  "name": "codefareith/cf_google_authenticator",
+  "name": "codefareith/cf-google-authenticator",
   "type": "typo3-cms-extension",
   "description": "Enable Google 2FA (two factor authentication) for both, frontend- and backend accounts.",
+  "homepage": "https://www.fareith.de",
+  "license": [
+    "GPL-2.0+"
+  ],
   "keywords": [
     "TYPO3",
     "extension",
@@ -10,7 +14,9 @@
     "2FA",
     "two-factor-authentication"
   ],
-  "homepage": "https://www.fareith.de",
+  "support": {
+    "issues": "https://github.com/codeFareith/cf_google_authenticator/issues"
+  },
   "authors": [
     {
       "name": "Robin von den Bergen",
@@ -18,45 +24,52 @@
       "homepage": "https://www.fareith.de"
     }
   ],
-  "license": [
-    "GPL-2.0+"
-  ],
+
   "require": {
-    "typo3/cms-core": "^7.6.0 || >= 8.5.0 <9"
+    "typo3/cms-core": "^7.6.0 || ^8.7.0 <9",
+    "typo3/cms-felogin": "^7.6.0 || ^8.7.0 <9"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
-    "typo3/testing-framework": "^2"
+    "typo3/testing-framework": "^2",
+    "phpunit/php-code-coverage": "5.3",
+    "codeception/codeception": "^2.4"
   },
+
   "autoload": {
     "psr-4": {
-      "CodeFareith\\CfGoogleAuthenticator\\": "Classes"
+      "CodeFareith\\CfGoogleAuthenticator\\": "Classes/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "CodeFareith\\CfGoogleAuthenticator\\Tests\\": "Tests"
+      "CodeFareith\\CfGoogleAuthenticator\\Tests\\": "Tests/"
     }
   },
+
   "replace": {
     "cf_google_authenticator": "self.version",
-    "typo3-ter/cf_google_authenticator": "self.version"
+    "typo3-ter/cf-google-authenticator": "self.version"
   },
+
   "config": {
     "vendor-dir": ".Build/vendor",
     "bin-dir": ".Build/bin"
   },
+
   "scripts": {
     "post-autoload-dump": [
       "mkdir -p .Build/Web/typo3conf/ext/",
       "[ -L .Build/Web/typo3conf/ext/cf_google_authenticator ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/cf_google_authenticator"
     ]
   },
+
   "extra": {
     "branch-alias": {
-      "dev-master": "1.x-dev"
+      "dev-master": "1.0.x-dev"
     },
     "typo3/cms": {
+      "extension-key": "cf_google_authenticator",
       "cms-package-dir": "{$vendor-dir}/typo3/cms",
       "web-dir": ".Build/Web"
     }

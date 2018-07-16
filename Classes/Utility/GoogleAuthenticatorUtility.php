@@ -24,17 +24,19 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * Class GoogleAuthenticatorUtility
  * @package CodeFareith\CfGoogleAuthenticator\Utility
  */
-class GoogleAuthenticatorUtility
+final class GoogleAuthenticatorUtility
 {
-    protected const KEY_REGENERATION = 30;
-    protected const OTP_LENGTH = 6;
+    /*─────────────────────────────────────────────────────────────────────────────*\
+            Constants
+    \*─────────────────────────────────────────────────────────────────────────────*/
+    /** @var int */
+    private const KEY_REGENERATION = 30;
+    /** @var int */
+    private const OTP_LENGTH = 6;
 
-    /**
-     * @param string $secret
-     * @param string $otp
-     * @param int $discrepancy
-     * @return bool
-     */
+    /*─────────────────────────────────────────────────────────────────────────────*\
+            Methods
+    \*─────────────────────────────────────────────────────────────────────────────*/
     public static function verifyOneTimePassword(string $secret, string $otp, int $discrepancy = 1): bool
     {
         if(\strlen($otp) !== self::OTP_LENGTH) {
@@ -55,12 +57,7 @@ class GoogleAuthenticatorUtility
         return false;
     }
 
-    /**
-     * @param string $secret
-     * @param float $timeSlice
-     * @return string
-     */
-    protected static function getCheckCode(string $secret, float $timeSlice): string
+    private static function getCheckCode(string $secret, float $timeSlice): string
     {
         $secretKey = Base32Utility::decode($secret);
 
