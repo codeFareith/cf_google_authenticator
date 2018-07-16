@@ -11,8 +11,13 @@
  */
 namespace CodeFareith\CfGoogleAuthenticator\Hook;
 
-use CodeFareith\CfGoogleAuthenticator\Utility\GoogleAuthenticatorUtility;
+use CodeFareith\CfGoogleAuthenticator\Domain\DataTransferObject\PreProcessFieldArrayDTO;
+use CodeFareith\CfGoogleAuthenticator\Exception\MissingRequiredField;
+use CodeFareith\CfGoogleAuthenticator\Exception\PropertyNotInitialized;
+use CodeFareith\CfGoogleAuthenticator\Handler\GoogleAuthenticatorSetupHandler;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * Hook for the TYPO3 Core Engine
@@ -26,67 +31,35 @@ use TYPO3\CMS\Core\DataHandling\DataHandler;
  */
 class TCEMain
 {
+    /*─────────────────────────────────────────────────────────────────────────────*\
+            Methods
+    \*─────────────────────────────────────────────────────────────────────────────*/
     /**
-     * Process the submitted data and decide wether
-     * to enable / disable the Google Authenticator
-     * for the given user.
-     *
-     * @param array $fieldArray
-     * @param string $table
-     * @param string $id
-     * @param DataHandler $pObj
+     * @param mixed[] $fieldArray
+     * @throws MissingRequiredField
+     * @throws PropertyNotInitialized
+     * @throws \ReflectionException
      */
-    public function processDatamap_preProcessFieldArray(array &$fieldArray, string $table, string $id, DataHandler $pObj): void
+    public function processDatamap_preProcessFieldArray(
+        array &$fieldArray,
+        string $table,
+        int $id,
+        DataHandler $dataHandler
+    ): void
     {
-        if(
-            ($table === 'be_users' || $table === 'fe_users')
-            && $fieldArray['tx_cfgoogleauthenticator_enable'] !== null
-        ) {
-            $record = $pObj->recordInfo($table, $id, '*');
+        $objectManager = $this->getObjectManager();
 
-            $isEnabledInUser = (bool)$record['tx_cfgoogleauthenticator_enable'];
-            $secretKeyInUser = \str_replace('-', '', $record['tx_cfgoogleauthenticator_secret']);
+        $preProcessFieldArrayDTO = $objectManager->get(PreProcessFieldArrayDTO::class);
+        $preProcessFieldArrayDTO->init($fieldArray, $table, $id, $dataHandler);
 
-            $isEnabledInForm = (bool)$fieldArray['tx_cfgoogleauthenticator_enable'];
-            $secretKeyInForm = \str_replace('-', '', $fieldArray['tx_cfgoogleauthenticator_secret']);
-            $oneTimePwInForm = \preg_replace('/\s+/', '', $fieldArray['tx_cfgoogleauthenticator_otp']);
+        $googleAuthenticatorSetupHandler = $objectManager->get(GoogleAuthenticatorSetupHandler::class);
+        $result = $googleAuthenticatorSetupHandler->process($preProcessFieldArrayDTO);
 
-            // check if 2FA is enabled for the user
-            if($isEnabledInUser === true) {
-                // check if the user tries to disable 2FA
-                if($isEnabledInForm === false) {
-                    // to disable 2FA, the user has to enter a valid 2FA code
-                    if(GoogleAuthenticatorUtility::verifyOneTimePassword($secretKeyInUser, $oneTimePwInForm) === true) {
-                        // if the 2FA code is valid, disable 2FA and reset 2FA id
-                        $isEnabledInUser = $isEnabledInForm;
-                        $secretKeyInUser = '';
-                    } else {
-                        // if the 2FA code is invalid, keep 2FA enabled
-                        $isEnabledInUser = 1;
-                    }
-                }
-            } else {
-                // check if user wants to enable 2FA
-                if($isEnabledInForm === true) {
-                    // to enable 2FA, the user has to enter a valid 2FA code
-                    if(GoogleAuthenticatorUtility::verifyOneTimePassword($secretKeyInForm, $oneTimePwInForm) === true) {
-                        // if the 2FA code is valid, enable 2FA and save 2FA id
-                        $isEnabledInUser = $isEnabledInForm;
-                        $secretKeyInUser = $secretKeyInForm;
-                    } else {
-                        // if the 2FA code is invalid, disable 2FA and reset 2FA id
-                        $isEnabledInUser = 0;
-                        $secretKeyInUser = '';
-                    }
-                } else {
-                    // if user keeps 2FA disabled, reset submitted 2FA id
-                    $isEnabledInUser = $isEnabledInForm;
-                    $secretKeyInUser = '';
-                }
-            }
+        $fieldArray = \array_merge($fieldArray, $result);
+    }
 
-            $fieldArray['tx_cfgoogleauthenticator_enable'] = (int)$isEnabledInUser;
-            $fieldArray['tx_cfgoogleauthenticator_secret'] = $secretKeyInUser;
-        }
+    protected function getObjectManager(): ObjectManager
+    {
+        return GeneralUtility::makeInstance(ObjectManager::class);
     }
 }

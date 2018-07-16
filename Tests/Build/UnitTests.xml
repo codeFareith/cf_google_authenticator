@@ -1,16 +1,23 @@
 <phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/6.3/phpunit.xsd"
+
     backupGlobals="false"
     backupStaticAttributes="false"
     bootstrap="../../.Build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTestsBootstrap.php"
+    cacheTokens="false"
     colors="true"
     convertErrorsToExceptions="true"
+    convertNoticesToExceptions="true"
     convertWarningsToExceptions="true"
+    mapTestClassNameToCoveredClassName="false"
     forceCoversAnnotation="false"
     processIsolation="false"
     stopOnError="false"
     stopOnFailure="false"
     stopOnIncomplete="false"
     stopOnSkipped="false"
+    stopOnRisky="false"
     strict="false"
     verbose="false">
 
@@ -19,4 +26,10 @@
             <directory>../Unit/</directory>
         </testsuite>
     </testsuites>
+
+    <logging>
+        <log type="coverage-clover" target="../Reports/logs/clover.xml"/>
+        <log type="coverage-html" target="../Reports/coverage" charset="UTF-8" yui="true" highlight="true" lowUpperBound="35" highLowerBound="70" />
+        <log type="testdox-text" target="../Reports/testdox/executed.txt"/>
+    </logging>
 </phpunit>
