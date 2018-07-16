@@ -32,7 +32,7 @@ If you'll ever lost your Google Authenticator, the only way to disable 2FA is vi
 by setting "tx_cfgoogleauthenticator_enable" to 0, for the desired user.
 
 #### Frontend
-Unfortunately, de-/activating 2FA for frontend users is not implemented yet.
+Unfortunately, 2FA for frontend users can currently only be set up via the backend.
 
 ## History
 See [CHANGELOG.md](CHANGELOG.md)

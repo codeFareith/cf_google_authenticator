@@ -27,7 +27,6 @@ defined('TYPO3_MODE')
 \call_user_func(
     function($_EXTKEY)
     {
-        // register backend stylesheet
         $GLOBALS['TBE_STYLES']['stylesheet2'] = \vsprintf(
             '%s:%s/Resources/Public/Css/%s',
             [

@@ -9,43 +9,27 @@
  * @see https://www.fareith.de
  * @see https://typo3.org
  */
-namespace CodeFareith\CfGoogleAuthenticator\Provider\Login;
+namespace CodeFareith\CfGoogleAuthenticator\Domain\Mapper;
 
-use CodeFareith\CfGoogleAuthenticator\Utility\PathUtility;
-use TYPO3\CMS\Backend\Controller\LoginController;
-use TYPO3\CMS\Backend\LoginProvider\UsernamePasswordLoginProvider;
-use TYPO3\CMS\Core\Page\PageRenderer;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\View\StandaloneView;
+use CodeFareith\CfGoogleAuthenticator\Domain\Struct\GoogleAuthenticatorSettings;
 
-/**
- * Google Authenticator login provider
- *
- * The login provider class overrides the backend login form
- * with a custom template, which comes up with an additional
- * field for the Google Authenticator one-time-password.
- *
- * Class GoogleAuthenticatorLoginProvider
- * @package CodeFareith\CfGoogleAuthenticator\Provider\Login
- */
-class GoogleAuthenticatorLoginProvider extends UsernamePasswordLoginProvider
+class GoogleAuthenticatorSettingsMapper extends AbstractMapper
 {
     /*─────────────────────────────────────────────────────────────────────────────*\
             Properties
     \*─────────────────────────────────────────────────────────────────────────────*/
-    /** @var string */
-    public static $loginTemplateFilePath = 'Resources/Private/Templates/Backend/Login.html';
+    /** @var string[] */
+    protected static $requiredFields = [];
 
     /*─────────────────────────────────────────────────────────────────────────────*\
             Methods
     \*─────────────────────────────────────────────────────────────────────────────*/
-    public function render(StandaloneView $view, PageRenderer $pageRenderer, LoginController $loginController): void
+    protected static function mapArrayOnStruct(array $data): GoogleAuthenticatorSettings
     {
-        parent::render($view, $pageRenderer, $loginController);
+        $struct = new GoogleAuthenticatorSettings();
+        $struct->setEnabled((bool)$data['tx_cfgoogleauthenticator_enable']);
+        $struct->setSecretKey((string)$data['tx_cfgoogleauthenticator_secret']);
 
-        $extensionPath = PathUtility::makeExtensionPath(self::$loginTemplateFilePath);
-        $absolutePath = GeneralUtility::getFileAbsFileName($extensionPath);
-
-        $view->setTemplatePathAndFilename($absolutePath);
+        return $struct;
     }
 }
