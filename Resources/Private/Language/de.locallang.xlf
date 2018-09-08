@@ -12,6 +12,10 @@
             <trans-unit id="GoogleAuthenticatorOTP">
                 <target>Google Authenticator Code</target>
             </trans-unit>
+
+            <trans-unit id="plugin.setup">
+                <target>Google Two-Factor-Authentication Setup</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

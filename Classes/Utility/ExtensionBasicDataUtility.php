@@ -9,6 +9,7 @@
  * @see https://www.fareith.de
  * @see https://typo3.org
  */
+
 namespace CodeFareith\CfGoogleAuthenticator\Utility;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -52,7 +53,7 @@ final class ExtensionBasicDataUtility
             ]
         );
 
-        if(!\is_array($extensionConfiguration)) {
+        if (!\is_array($extensionConfiguration)) {
             $extensionConfiguration = [];
         }
 

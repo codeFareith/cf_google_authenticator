@@ -9,6 +9,7 @@
  * @see https://www.fareith.de
  * @see https://typo3.org
  */
+
 namespace CodeFareith\CfGoogleAuthenticator\Utility;
 
 /**
@@ -27,8 +28,10 @@ final class Base32Utility
     \*─────────────────────────────────────────────────────────────────────────────*/
     /** @var string */
     public const RFC4648 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567=';
+
     /** @var string */
     public const CROCKFORD = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
+
     /** @var string */
     public const MIME_09AV = '0123456789ABCDEFGHIJKLMNOPQRSTUV';
 
@@ -42,7 +45,7 @@ final class Base32Utility
     {
         $key = '';
 
-        while(\strlen($key) < $length) {
+        while (\strlen($key) < $length) {
             $rand = \random_int(0, 31);
             $key .= $charset[$rand];
         }
@@ -52,7 +55,7 @@ final class Base32Utility
 
     public static function encode(string $string, string $charset = self::RFC4648): string
     {
-        if($string === '') {
+        if ($string === '') {
             return '';
         }
 
@@ -66,7 +69,7 @@ final class Base32Utility
     {
         $base32String = self::sanitizeBase32($base32String);
 
-        if($base32String === '') {
+        if ($base32String === '') {
             return '';
         }
 
@@ -168,7 +171,7 @@ final class Base32Utility
         $binaryStringLength = \strlen($binaryString);
         $binaryStringSub = \substr($binaryString, $binaryStringLength - 1);
 
-        if ($binaryStringSub  === ' ') {
+        if ($binaryStringSub === ' ') {
             $binaryString = \substr($binaryString, 0, -1);
         }
 

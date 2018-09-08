@@ -9,6 +9,7 @@
  * @see https://www.fareith.de
  * @see https://typo3.org
  */
+
 namespace CodeFareith\CfGoogleAuthenticator\Utility;
 
 /**
@@ -32,7 +33,7 @@ final class PathUtility
     \*─────────────────────────────────────────────────────────────────────────────*/
     public static function makePath(string ...$segments): string
     {
-        foreach($segments as &$segment) {
+        foreach ($segments as &$segment) {
             $segment = self::stripLeadingAndTrailingSlash($segment);
         }
         unset($segment);

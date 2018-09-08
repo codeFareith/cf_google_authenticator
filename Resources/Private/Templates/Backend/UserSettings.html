@@ -1,0 +1,40 @@
+<f:layout name="Backend/Default" />
+
+<f:section name="main">
+
+    <f:be.pageRenderer
+        includeRequireJsModules="{
+            0:'TYPO3/CMS/CfGoogleAuthenticator/Backend/UserSettings'
+        }"
+    />
+
+    <div class="form-control-wrap" style="max-width: 360px">
+        <f:if condition="{isEnabled}">
+            <f:then>
+                <f:render
+                    partial="Backend/Form/OneTimePassword"
+                />
+
+                <div>
+                    <span>
+                        <f:translate key="LLL:EXT:cf_google_authenticator/Resources/Private/Language/locallang_be.xlf:disableAuthenticator" />
+                    </span>
+                </div>
+            </f:then>
+            <f:else>
+                <f:render
+                    partial="Backend/Form/QrCode"
+                    arguments="{src: qrCodeUri, secret: authenticatorSecret}"
+                />
+                <f:render
+                    partial="Backend/Form/Secret"
+                    arguments="{secret: authenticatorSecret}"
+                />
+                <f:render
+                    partial="Backend/Form/OneTimePassword"
+                />
+            </f:else>
+        </f:if>
+    </div>
+
+</f:section>

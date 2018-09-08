@@ -9,14 +9,17 @@
  * @see https://www.fareith.de
  * @see https://typo3.org
  */
+
 namespace CodeFareith\CfGoogleAuthenticator\Hook;
 
 use CodeFareith\CfGoogleAuthenticator\Domain\Immutable\AuthenticationSecret;
-use CodeFareith\CfGoogleAuthenticator\Service\GoogleQrImageGenerator;
+use CodeFareith\CfGoogleAuthenticator\Service\GoogleQrCodeGenerator;
+use CodeFareith\CfGoogleAuthenticator\Service\QrCodeGeneratorInterface;
 use CodeFareith\CfGoogleAuthenticator\Utility\Base32Utility;
-use TYPO3\CMS\Backend\Form\Element\UserElement;
+use CodeFareith\CfGoogleAuthenticator\Utility\PathUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
@@ -37,72 +40,159 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
 class UserSettings
 {
     /*─────────────────────────────────────────────────────────────────────────────*\
+            Properties
+    \*─────────────────────────────────────────────────────────────────────────────*/
+    /** @var mixed[] */
+    protected $data;
+
+    /** @var AuthenticationSecret */
+    private $authenticationSecret;
+
+    /** @var ObjectManager */
+    private $objectManager;
+
+    /** @var QrCodeGeneratorInterface */
+    private $qrCodeGenerator;
+
+    /*─────────────────────────────────────────────────────────────────────────────*\
             Methods
     \*─────────────────────────────────────────────────────────────────────────────*/
     /**
      * @param mixed[] $data
+     * @return string
      * @throws \Exception
      */
-    public function createSecretField(array $data, UserElement $userElement): string
+    public function createSecretField(array $data): string
     {
-        $layer = '';
-        if($data['table'] === 'fe_users') {
-            $layer = 'Frontend';
-        } else if($data['table'] === 'be_users') {
-            $layer = 'Backend';
-        }
+        $this->data = $data;
 
-        $issuer = \vsprintf(
-            '%s - %s',
+        $authenticationSecret = $this->getAuthenticationSecret();
+        $templateView = $this->initializeTemplateView();
+        $isEnabled = $this->isGoogleAuthenticatorEnabled();
+        $qrCodeUri = $this->getQrCodeGenerator()->generateUri($authenticationSecret);
+
+        $templateView->assignMultiple(
             [
-                $GLOBALS['TYPO3_CONF_VARS']['SYS']['sitename'],
-                $layer
+                'table' => $data['table'],
+                'uid' => (int)$data['row']['uid'],
+                'isEnabled' => $isEnabled,
+                'qrCodeUri' => $qrCodeUri,
+                'authenticatorSecret' => $this->getAuthenticationSecret()->getSecretKey(),
             ]
         );
-        $accountName = $data['row']['username'];
 
-        $secretKey = $data['row']['tx_cfgoogleauthenticator_secret'];
-        if(empty($secretKey)) {
-            $secretKey = Base32Utility::generateRandomString(16);
-        }
-        $secretImmutable = GeneralUtility::makeInstance(
-            AuthenticationSecret::class,
-            $issuer,
-            $accountName,
-            $secretKey
-        );
+        return $templateView->render();
+    }
 
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-        $imageGenerator = $objectManager->get(GoogleQrImageGenerator::class);
+    private function initializeTemplateView(): StandaloneView
+    {
+        $templatePath = $this->getTemplatePath();
 
-        $templatePath = GeneralUtility::getFileAbsFileName(
-            'EXT:cf_google_authenticator/Resources/Private/'
-        );
-
-        $templateView = $objectManager->get(StandaloneView::class);
+        $templateView = $this->getObjectManager()->get(StandaloneView::class);
         $templateView->setLayoutRootPaths([$templatePath . 'Layouts/']);
         $templateView->setPartialRootPaths([$templatePath . 'Partials/']);
         $templateView->setTemplateRootPaths([$templatePath . 'Templates/']);
 
         $templateView->setTemplatePathAndFilename(
             GeneralUtility::getFileAbsFileName(
-                'EXT:cf_google_authenticator/Resources/Private/Templates/Backend/SecretField.html'
+                PathUtility::makeExtensionPath('Resources/Private/Templates/Backend/UserSettings.html')
             )
         );
+    }
 
-        $chunkedSecret = \chunk_split($secretImmutable->getSecretKey(), 4, '-');
-        $chunkedSecretSub = \substr($chunkedSecret, 0, -1);
+    private function getTemplatePath(): string
+    {
+        return GeneralUtility::getFileAbsFileName(
+            PathUtility::makeExtensionPath('Resources/Private/')
+        );
+    }
 
-        $templateView->assignMultiple(
+    private function getIssuer(): string
+    {
+        return \vsprintf(
+            '%s - %s',
             [
-                'table' => $data['table'],
-                'uid' => (int)$data['row']['uid'],
-                'googleQrImageSrc' => $imageGenerator->generateUri($secretImmutable),
-                'googleAuthenticatorEnable' => (bool)$data['row']['tx_cfgoogleauthenticator_enable'],
-                'googleAuthenticatorSecret' => $chunkedSecretSub,
+                $this->getSiteName(),
+                $this->getLayer()
             ]
         );
+    }
 
-        return $templateView->render();
+    private function getSiteName(): string
+    {
+        return $GLOBALS['TYPO3_CONF_VARS']['SYS']['sitename'];
+    }
+
+    private function getLayer(): string
+    {
+        $layer = '';
+
+        if ($this->data['table'] === 'fe_user') {
+            $layer = 'Frontend';
+        } else if ($this->data['table'] === 'be_user') {
+            $layer = 'Backend';
+        }
+
+        return $layer;
+    }
+
+    private function getUsername(): string
+    {
+        return $this->data['row']['username'];
+    }
+
+    /**
+     * @throws \Exception
+     */
+    private function getAuthenticationSecret(): AuthenticationSecret
+    {
+        if ($this->authenticationSecret === null) {
+            /** @noinspection PhpMethodParametersCountMismatchInspection */
+            $this->authenticationSecret = $this->getObjectManager()->get(
+                AuthenticationSecret::class,
+                $this->getIssuer(),
+                $this->getUsername(),
+                $this->getSecretKey()
+            );
+        }
+
+        return $this->authenticationSecret;
+    }
+
+    /**
+     * @throws \Exception
+     */
+    private function getSecretKey(): string
+    {
+        if ($this->isGoogleAuthenticatorEnabled()) {
+            $secretKey = $this->data['row']['tx_cfgoogleauthenticator_secret'];
+        } else {
+            $secretKey = Base32Utility::generateRandomString(16);
+        }
+
+        return $secretKey;
+    }
+
+    private function isGoogleAuthenticatorEnabled(): bool
+    {
+        return (bool)$this->data['row']['tx_cfgoogleauthenticator_enabled'];
+    }
+
+    private function getObjectManager(): ObjectManagerInterface
+    {
+        if ($this->objectManager === null) {
+            $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        }
+
+        return $this->objectManager;
+    }
+
+    private function getQrCodeGenerator(): QrCodeGeneratorInterface
+    {
+        if ($this->qrCodeGenerator === null) {
+            $this->qrCodeGenerator = $this->getObjectManager()->get(GoogleQrCodeGenerator::class);
+        }
+
+        return $this->qrCodeGenerator;
     }
 }

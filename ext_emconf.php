@@ -27,7 +27,7 @@ $EM_CONF[$_EXTKEY] = [
     'author_company' => '',
 
     'state' => 'stable',
-    'version' => '1.0.3',
+    'version' => '1.0.4',
 
     'uploadFolders' => false,
     'createDirs' => '',
@@ -44,6 +44,12 @@ $EM_CONF[$_EXTKEY] = [
         ],
         'suggests' => [
 
+        ]
+    ],
+
+    'autoload' => [
+        'psr-4' => [
+            'CodeFareith\\CfGoogleAuthenticator\\' => 'Classes'
         ]
     ]
 ];
