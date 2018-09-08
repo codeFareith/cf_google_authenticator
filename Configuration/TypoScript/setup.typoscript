@@ -37,8 +37,4 @@ plugin {
             }
         }
     }
-
-    tx_felogin_pi1 {
-        templateFile = {$plugin.tx_felogin_pi1.templateFile}
-    }
 }

@@ -12,7 +12,10 @@
                 <source>BE enabled: Enable Google Authenticator for the backend login.</source>
             </trans-unit>
             <trans-unit id="basic.googleAuthenticatorEnableFE">
-                <source>FE enabled: Enable Google Authenticator for the frontend login.</source>
+                <source>FE enabled: Enable Google Authenticator for the frontend login. Hint: make sure to clear the cache after making changes on this setting.</source>
+            </trans-unit>
+            <trans-unit id="basic.feLoginTemplate">
+                <source>FE-Login template file: if googleAuthenticatorEnableFE is set and you use EXT:felogin to log in to the frontend of your page, the original "FrontendLogin.html" template must be replaced with one that provides the one-time password field.</source>
             </trans-unit>
             <trans-unit id="basic.devlog">
                 <source>Devlog: Write debug information to devlog.</source>

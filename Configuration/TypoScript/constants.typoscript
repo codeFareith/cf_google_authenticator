@@ -6,8 +6,4 @@ plugin {
             templateRootPath = EXT:cf_google_authenticator/Resources/Private/Templates/
         }
     }
-
-    tx_felogin_pi1 {
-        templateFile = EXT:cf_google_authenticator/Resources/Private/Templates/FeLogin/FrontendLogin.html
-    }
 }

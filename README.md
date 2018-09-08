@@ -1,10 +1,16 @@
 # Google Authenticator
+
 > TYPO3 CMS extension to enable Google 2FA (two factor authentication) for both, frontend- and backend accounts.
 
+
+
 ## Getting Started
+
 Follow these instructions to enable Google 2FA in your TYPO3 CMS installation.
 
+
 ### Installation
+
 The extension needs to be installed as any other extension of TYPO3 CMS:
 1. Switch to the module “Extension Manager”.
 2. Get the extension
@@ -12,10 +18,14 @@ The extension needs to be installed as any other extension of TYPO3 CMS:
     2. **Get it from typo3.org**: You can always get current version from [https://extensions.typo3.org/extension/cf_google_authenticator/](https://extensions.typo3.org/extension/cf_google_authenticator/) by downloading either the t3x or zip version. Upload the file afterwards in the Extension Manager.
 3. Change the extension configuration to your needs
 
+
 ### Usage
+
 After installing and activating the extension you'll be able to activate 2FA for backend and frontend users.
 
+
 #### Backend
+
 1. Switch to the module "Backend Users"
 2. Select a user you wish to enable 2FA for
 3. Navigate to tab "Google Authenticator"
@@ -31,11 +41,31 @@ the app, to log into your backend account.
 If you'll ever lost your Google Authenticator, the only way to disable 2FA is via the database,
 by setting "tx_cfgoogleauthenticator_enable" to 0, for the desired user.
 
+
 #### Frontend
-Unfortunately, 2FA for frontend users can currently only be set up via the backend.
+
+In order to offer frontend users the possibility to secure their accounts via two-factor authentication, two conditions must be met:
+
+1. in the extension configuration the 2FA must be activated for the frontend (deactivated by default):
+    - Select the extension module and search for "[codeFareith] Google Authenticator".
+    - right click on the gear (Configure)
+    - activate the checkbox under "FE enabled" and then click on "save".
+
+2. via the backend, the necessary plugin must be placed on a page provided for this purpose:
+    - Select a preferred page via the page module and make sure that it is only accessible for logged in frontend users.
+    - Then create a new content element on the aforementioned page.
+    - Under the "Plug-Ins" tab, select "General Plug-In".
+    - In the next step open the next tab called "Plug-Ins".
+    - Select "Google Two-Factor-Authentication Setup" from the dropdown and click on save. Done!
+
+
 
 ## History
+
 See [CHANGELOG.md](CHANGELOG.md)
 
+
+
 ## License
+
 [GNU Public License](http://opensource.org/licenses/gpl-license.php)
