@@ -19,6 +19,8 @@
  * @see https://typo3.org
  */
 
+use CodeFareith\CfGoogleAuthenticator\Utility\PathUtility;
+
 /** @var $_EXTKEY string */
 
 defined('TYPO3_MODE')
@@ -27,14 +29,10 @@ defined('TYPO3_MODE')
 \call_user_func(
     function($_EXTKEY)
     {
-        $GLOBALS['TBE_STYLES']['stylesheet2'] = \vsprintf(
-            '%s:%s/Resources/Public/Css/%s',
-            [
-                'EXT',
-                $_EXTKEY,
-                'cf_google_authenticator.css'
-            ]
-        );
+        $globalsReference = &$GLOBALS;
+
+        $globalsReference['TBE_STYLES']
+            ['stylesheet2'] = PathUtility::makeExtensionPath('Resources/Public/Css/cf_google_authenticator.css');
     },
     $_EXTKEY
 );

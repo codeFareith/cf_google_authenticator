@@ -9,6 +9,7 @@
  * @see https://www.fareith.de
  * @see https://typo3.org
  */
+
 namespace CodeFareith\CfGoogleAuthenticator\Domain\DataTransferObject;
 
 use TYPO3\CMS\Core\DataHandling\DataHandler;

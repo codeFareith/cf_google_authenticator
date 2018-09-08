@@ -9,6 +9,7 @@
  * @see https://www.fareith.de
  * @see https://typo3.org
  */
+
 namespace CodeFareith\CfGoogleAuthenticator\Service;
 
 use CodeFareith\CfGoogleAuthenticator\Domain\Immutable\AuthenticationSecret;
@@ -24,8 +25,11 @@ use CodeFareith\CfGoogleAuthenticator\Domain\Immutable\AuthenticationSecret;
  * Class GoogleQrImageGenerator
  * @package CodeFareith\CfGoogleAuthenticator\Service
  */
-class GoogleQrImageGenerator implements QrImageGeneratorInterface
+class GoogleQrCodeGenerator implements QrCodeGeneratorInterface
 {
+    /*─────────────────────────────────────────────────────────────────────────────*\
+            Constants
+    \*─────────────────────────────────────────────────────────────────────────────*/
     public const CORRECTION_L = 'L'; // recover  7% data loss
     public const CORRECTION_M = 'M'; // recover 15% data loss
     public const CORRECTION_Q = 'Q'; // recover 25% data loss
@@ -33,38 +37,37 @@ class GoogleQrImageGenerator implements QrImageGeneratorInterface
 
     protected const BASE_URL = 'https://chart.googleapis.com/';
 
+    /*─────────────────────────────────────────────────────────────────────────────*\
+            Properties
+    \*─────────────────────────────────────────────────────────────────────────────*/
     /** @var int */
     protected $width;
+
     /** @var int */
     protected $height;
+
     /** @var string */
     protected $correction;
+
     /** @var int */
     protected $margin;
 
-    /**
-     * GoogleQrImageGenerator constructor.
-     * @param int $width
-     * @param int $height
-     * @param string $correction
-     * @param int $margin
-     */
+    /*─────────────────────────────────────────────────────────────────────────────*\
+            Methods
+    \*─────────────────────────────────────────────────────────────────────────────*/
     public function __construct(
         int $width = 200,
         int $height = 200,
         string $correction = self::CORRECTION_L,
         int $margin = 4
-    ) {
+    )
+    {
         $this->width = $width;
         $this->height = $height;
         $this->correction = $correction;
         $this->margin = $margin;
     }
 
-    /**
-     * @param AuthenticationSecret $secretImmutable
-     * @return string
-     */
     public function generateUri(AuthenticationSecret $secretImmutable): string
     {
         $data = [

@@ -1,0 +1,124 @@
+{namespace cf=CodeFareith\CfGoogleAuthenticator\ViewHelpers}
+
+<f:layout name="Frontend/Default"/>
+
+<f:section name="main">
+    <f:security.ifAuthenticated>
+
+        <div class="uk-section">
+
+            <f:render
+                partial="Shared/FlashMessages"
+                arguments="{
+                    hasCloseButton: 1
+                }"
+            />
+
+            <f:render
+                partial="Shared/ValidationResults"
+            />
+
+            <div class="uk-container uk-flex">
+                <div class="uk-card uk-card-default uk-box-shadow-medium uk-width-1-2">
+                    <f:form method="post" controller="Frontend\Setup" action="update" object="{formData}" name="{formName}">
+                        <f:if condition="{isEnabled}">
+                            <f:then>
+
+                                <div class="uk-card-body">
+                                    <f:render
+                                        partial="Frontend/Form/Secret"
+                                        arguments="{hidden: 1}"
+                                    />
+                                    <f:render
+                                        partial="Frontend/Form/OneTimePassword"
+                                        arguments="{_all}"
+                                    />
+                                </div>
+
+                                <div class="uk-card-footer">
+                                    <f:form.submit
+                                        class="uk-button uk-button-primary uk-float-right"
+                                        name="disable"
+                                        value="Disable" />
+                                </div>
+
+                            </f:then>
+                            <f:else>
+
+                                <div class="uk-card-body">
+                                    <div class="uk-margin">
+                                        <div class="uk-grid-small uk-flex-middle" uk-grid>
+                                            <div class="uk-width-auto">
+                                                <span class="uk-badge">1</span>
+                                            </div>
+                                            <div class="uk-width-expand">
+                                                <span class="uk-card-title">
+                                                    <f:translate key="LLL:EXT:cf_google_authenticator/Resources/Private/Language/locallang.xlf:setup.index.step1.title"/>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <p>
+                                            <f:translate key="LLL:EXT:cf_google_authenticator/Resources/Private/Language/locallang.xlf:setup.index.step1.body"/>
+                                        </p>
+                                        <f:render
+                                            partial="Frontend/Form/QrCode"
+                                            arguments="{src: qrCodeUri}"
+                                        />
+                                    </div>
+
+                                    <div class="uk-margin">
+                                        <div class="uk-grid-small uk-flex-middle uk-margin" uk-grid>
+                                            <div class="uk-width-auto">
+                                                <span class="uk-badge">2</span>
+                                            </div>
+                                            <div class="uk-width-expand">
+                                                <span class="uk-card-title">
+                                                    <f:translate key="LLL:EXT:cf_google_authenticator/Resources/Private/Language/locallang.xlf:setup.index.step2.title"/>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <p>
+                                            <f:translate key="LLL:EXT:cf_google_authenticator/Resources/Private/Language/locallang.xlf:setup.index.step2.body"/>
+                                        </p>
+                                        <f:render
+                                            partial="Frontend/Form/Secret"
+                                        />
+                                    </div>
+
+                                    <div class="uk-margin">
+                                        <div class="uk-grid-small uk-flex-middle uk-margin" uk-grid>
+                                            <div class="uk-width-auto">
+                                                <span class="uk-badge">3</span>
+                                            </div>
+                                            <div class="uk-width-expand">
+                                                <span class="uk-card-title">
+                                                    <f:translate key="LLL:EXT:cf_google_authenticator/Resources/Private/Language/locallang.xlf:setup.index.step3.title"/>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <p>
+                                            <f:translate key="LLL:EXT:cf_google_authenticator/Resources/Private/Language/locallang.xlf:setup.index.step3.body"/>
+                                        </p>
+                                        <f:render
+                                            partial="Frontend/Form/OneTimePassword"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div class="uk-card-footer">
+                                    <f:form.submit
+                                        class="uk-button uk-button-primary uk-float-right"
+                                        name="enable"
+                                        value="Enable"
+                                    />
+                                </div>
+
+                            </f:else>
+                        </f:if>
+                    </f:form>
+                </div>
+            </div>
+        </div>
+
+    </f:security.ifAuthenticated>
+</f:section>

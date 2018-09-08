@@ -1,6 +1,13 @@
 plugin {
+    tx_cfgoogleauthenticator_setup {
+        view {
+            layoutRootPath = EXT:cf_google_authenticator/Resources/Private/Layouts/
+            partialRootPath = EXT:cf_google_authenticator/Resources/Private/Partials/
+            templateRootPath = EXT:cf_google_authenticator/Resources/Private/Templates/
+        }
+    }
+
     tx_felogin_pi1 {
-        # cat=plugin.tx_felogin_pi1; type=String; label=Path to frontend login template.
-        templateFile = EXT:cf_google_authenticator/Resources/Private/Templates/Felogin/FrontendLogin.html
+        templateFile = EXT:cf_google_authenticator/Resources/Private/Templates/FeLogin/FrontendLogin.html
     }
 }

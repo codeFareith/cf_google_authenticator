@@ -1,0 +1,132 @@
+<f:comment>
+
+    ValidationResults template
+    ==========================
+
+    This component is used to render form validation results as
+    alert boxes.
+    Errors are rendered as alert box type ```danger```.
+    Warnings are rendered as alert box type ```warning```.
+    Notices are rendered as alert box type ```primary```.
+
+    Usage:
+    ```
+    <f:render
+        partial="Shared/ValidationResults"
+    />
+    ```
+
+    It is possible, to render only a specific type of result by
+    providing the ```type``` parameter:
+    ```
+    <f:render
+        partial="Shared/ValidationResults"
+        arguments="{
+            type: 'primary'
+        }"
+    />
+    ```
+
+    Use ```primary``` or ```success`` to only render results of type notice.
+    Use ```warning``` to only render results of type warning.
+    Use ```danger``` to only render results of type error.
+
+</f:comment>
+
+
+<f:form.validationResults for="{for}">
+
+    <f:switch expression="{type}">
+        <f:case value="primary">
+            <f:render
+                section="inner"
+                arguments="{flattenedMessages: validationResults.flattenedNotices}"
+            />
+        </f:case>
+
+        <f:case value="success">
+            <f:render
+                section="inner"
+                arguments="{flattenedMessages: validationResults.flattenedNotices}"
+            />
+        </f:case>
+
+        <f:case value="warning">
+            <f:render
+                section="inner"
+                arguments="{flattenedMessages: validationResults.flattenedWarnings}"
+            />
+        </f:case>
+
+        <f:case value="danger">
+            <f:render
+                section="inner"
+                arguments="{flattenedMessages: validationResults.flattenedErrors}"
+            />
+        </f:case>
+
+        <f:defaultCase>
+            <f:render
+                section="inner"
+                arguments="{flattenedMessages: validationResults.flattenedErrors, type: 'danger'}"
+            />
+
+            <f:render
+                section="inner"
+                arguments="{flattenedMessages: validationResults.flattenedWarnings, type: 'warning'}"
+            />
+
+            <f:render
+                section="inner"
+                arguments="{flattenedMessages: validationResults.flattenedNotices, type: 'primary'}"
+            />
+        </f:defaultCase>
+    </f:switch>
+
+</f:form.validationResults>
+
+
+
+<f:section name="inner">
+
+    <f:if condition="{flattenedMessages}">
+        <f:for each="{flattenedMessages}" key="propertyPath" as="propertyMessages">
+
+            <f:if condition="{propertyPath}=={field}">
+                <f:for each="{propertyMessages}" as="propertyMessage">
+
+                    <f:if condition="{f:translate(key: '{for}.{propertyMessage.code}')}">
+                        <f:then>
+
+                            <f:render
+                                partial="Shared/Alert"
+                                arguments="{
+                                    type: '{type}',
+                                    hasCloseButton: 1,
+                                    message: {f:translate(key: '{for}.{propertyMessage.code}', arguments: '{propertyMessage.arguments}')}
+                                }"
+                            />
+
+                        </f:then>
+
+                        <f:else>
+
+                            <f:render
+                                partial="Shared/Alert"
+                                arguments="{
+                                    type: '{type}',
+                                    hasCloseButton: 1,
+                                    message: '{propertyMessage.message}'
+                                }"
+                            />
+
+                        </f:else>
+                    </f:if>
+
+                </f:for>
+            </f:if>
+
+        </f:for>
+    </f:if>
+
+</f:section>

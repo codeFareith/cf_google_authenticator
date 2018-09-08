@@ -15,23 +15,29 @@
  * @see https://typo3.org
  */
 
+use CodeFareith\CfGoogleAuthenticator\Utility\PathUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 defined('TYPO3_MODE')
     or die('Access denied');
 
-$lll = \vsprintf(
-    '%s:%s:%s/Resources/Private/Language/%s',
-    [
-        'LLL',
-        'EXT',
-        'cf_google_authenticator',
-        'locallang_db.xlf'
-    ]
-);
+\call_user_func(
+    function () {
+        ExtensionManagementUtility::addFieldsToUserSettings(
+            '--div--;'
+            . PathUtility::makeLocalLangLinkPath(
+                'tx_cfgoogleauthenticator',
+                'locallang_db.xlf'
+            ) . ',
+            tx_cfgoogleauthenticator_enable,
+            tx_cfgoogleauthenticator_secret'
+        );
 
-ExtensionManagementUtility::addFieldsToUserSettings(
-    '--div--;' . $lll . ':tx_cfgoogleauthenticator,
-    tx_cfgoogleauthenticator_enable,
-    tx_cfgoogleauthenticator_secret'
+        ExtensionManagementUtility::addStaticFile(
+            'cf_google_authenticator',
+            'Configuration/TypoScript',
+            '[CodeFareith] Google Authenticator'
+        );
+
+    }
 );

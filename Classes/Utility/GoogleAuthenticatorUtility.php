@@ -9,6 +9,7 @@
  * @see https://www.fareith.de
  * @see https://typo3.org
  */
+
 namespace CodeFareith\CfGoogleAuthenticator\Utility;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -29,9 +30,7 @@ final class GoogleAuthenticatorUtility
     /*─────────────────────────────────────────────────────────────────────────────*\
             Constants
     \*─────────────────────────────────────────────────────────────────────────────*/
-    /** @var int */
     private const KEY_REGENERATION = 30;
-    /** @var int */
     private const OTP_LENGTH = 6;
 
     /*─────────────────────────────────────────────────────────────────────────────*\
@@ -39,17 +38,17 @@ final class GoogleAuthenticatorUtility
     \*─────────────────────────────────────────────────────────────────────────────*/
     public static function verifyOneTimePassword(string $secret, string $otp, int $discrepancy = 1): bool
     {
-        if(\strlen($otp) !== self::OTP_LENGTH) {
+        if (\strlen($otp) !== self::OTP_LENGTH) {
             return false;
         }
 
         $dateTime = GeneralUtility::makeInstance(\DateTimeImmutable::class);
         $timeSlice = \floor($dateTime->getTimestamp() / self::KEY_REGENERATION);
 
-        for($i = -$discrepancy; $i <= $discrepancy; $i++) {
+        for ($i = -$discrepancy; $i <= $discrepancy; $i++) {
             $checkCode = self::getCheckCode($secret, $timeSlice + $i);
 
-            if(\hash_equals($checkCode, $otp)) {
+            if (\hash_equals($checkCode, $otp)) {
                 return true;
             }
         }
