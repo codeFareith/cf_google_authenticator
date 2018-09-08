@@ -9,6 +9,7 @@
  * @see https://www.fareith.de
  * @see https://typo3.org
  */
+
 namespace CodeFareith\CfGoogleAuthenticator\Handler;
 
 use CodeFareith\CfGoogleAuthenticator\Domain\DataTransferObject\GoogleAuthenticatorSettingsDTO;
@@ -26,8 +27,10 @@ class GoogleAuthenticatorSetupHandler
     \*─────────────────────────────────────────────────────────────────────────────*/
     /** @var ObjectManagerInterface */
     protected $objectManager;
+
     /** @var PreProcessFieldArrayDTO */
     private $preProcessFieldArrayDTO;
+
     /** @var GoogleAuthenticatorSettingsDTO */
     private $googleAuthenticatorSettingsDTO;
 
@@ -50,7 +53,7 @@ class GoogleAuthenticatorSetupHandler
 
         $this->setPreProcessFieldArrayDTO($preProcessFieldArrayDTO);
 
-        if($this->isUsersTable()) {
+        if ($this->isUsersTable()) {
             $this->initGoogleAuthenticatorSettingsDTO();
             $this->checkFieldArray();
 
@@ -103,11 +106,11 @@ class GoogleAuthenticatorSetupHandler
 
     private function checkFieldArray(): void
     {
-        if($this->hasUserEnabledAuthenticator()) {
+        if ($this->hasUserEnabledAuthenticator()) {
             $this->processEnableRequest();
-        } elseif($this->hasUserDisabledAuthenticator()) {
+        } else if ($this->hasUserDisabledAuthenticator()) {
             $this->processDisableRequest();
-        }  else {
+        } else {
             $this->keepOldSettings();
         }
     }
@@ -135,7 +138,7 @@ class GoogleAuthenticatorSetupHandler
             $this->googleAuthenticatorSettingsDTO->getOneTimePassword()
         );
 
-        if($isValid) {
+        if ($isValid) {
             $this->enableAuthenticator();
         } else {
             $this->keepOldSettings();
@@ -149,7 +152,7 @@ class GoogleAuthenticatorSetupHandler
             $this->googleAuthenticatorSettingsDTO->getOneTimePassword()
         );
 
-        if($isValid) {
+        if ($isValid) {
             $this->disableAuthenticator();
         } else {
             $this->keepOldSettings();

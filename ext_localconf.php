@@ -23,7 +23,9 @@ use CodeFareith\CfGoogleAuthenticator\Hook\TCEMain;
 use CodeFareith\CfGoogleAuthenticator\Provider\Login\GoogleAuthenticatorLoginProvider;
 use CodeFareith\CfGoogleAuthenticator\Service\GoogleAuthenticatorService;
 use CodeFareith\CfGoogleAuthenticator\Utility\ExtensionBasicDataUtility;
+use CodeFareith\CfGoogleAuthenticator\Utility\PathUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
 defined('TYPO3_MODE')
     or die('Access denied.');
@@ -50,6 +52,27 @@ defined('TYPO3_MODE')
                 'exec' => '',
                 'className' => GoogleAuthenticatorService::class
             ]
+        );
+
+        ExtensionManagementUtility::addUserTSConfig(
+            vsprintf(
+                '<INCLUDE_TYPOSCRIPT: source="FILE:%s">',
+                [
+                    PathUtility::makeExtensionPath('Configuration/TypoScript/setup.typoscript')
+                ]
+            )
+        );
+
+        ExtensionUtility::configurePlugin(
+            ExtensionBasicDataUtility::getVendorName() . '.' . ExtensionBasicDataUtility::getExtensionKey(),
+            'Setup',
+            [
+                'Frontend\Setup' => 'index,form,update'
+            ],
+            [
+                'Frontend\Setup' => 'form,update'
+            ],
+            ExtensionUtility::PLUGIN_TYPE_PLUGIN
         );
 
         if((bool)$extConf['googleAuthenticatorEnableBE'] === true) {

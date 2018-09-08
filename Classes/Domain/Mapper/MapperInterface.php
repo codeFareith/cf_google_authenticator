@@ -9,11 +9,14 @@
  * @see https://www.fareith.de
  * @see https://typo3.org
  */
+
 namespace CodeFareith\CfGoogleAuthenticator\Domain\Mapper;
 
 interface MapperInterface
 {
     public static function hasRequiredFields(array $data): bool;
+
     public static function getMissingFields(array $data): array;
+
     public static function createStructFromArray(array $data);
 }

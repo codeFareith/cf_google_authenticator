@@ -9,6 +9,7 @@
  * @see https://www.fareith.de
  * @see https://typo3.org
  */
+
 namespace CodeFareith\CfGoogleAuthenticator\Hook;
 
 use CodeFareith\CfGoogleAuthenticator\Utility\ExtensionBasicDataUtility;
@@ -35,8 +36,10 @@ class FeLogin
     \*─────────────────────────────────────────────────────────────────────────────*/
     /** @var ObjectManager */
     private $objectManager;
+
     /** @var MarkerBasedTemplateService */
     private $markerBasedTemplateService;
+
     /** @var LanguageService */
     private $languageService;
 
@@ -47,7 +50,7 @@ class FeLogin
     {
         $marker = [];
 
-        if($this->isGoogleAuthenticatorEnabled()) {
+        if ($this->isGoogleAuthenticatorEnabled()) {
             $localLangLink = PathUtility::makeLocalLangLinkPath('GoogleAuthenticatorOTP');
             $marker = [
                 '###OTP_LABEL###' => $this->getLanguageService()->sL($localLangLink)
@@ -64,7 +67,7 @@ class FeLogin
         $result = false;
         $extConf = ExtensionBasicDataUtility::getExtensionConfiguration();
 
-        if($extConf['googleAuthenticatorEnableFE'] !== null) {
+        if ($extConf['googleAuthenticatorEnableFE'] !== null) {
             $result = (bool)$extConf['googleAuthenticatorEnableFE'];
         }
 
@@ -73,7 +76,7 @@ class FeLogin
 
     private function getObjectManager(): ObjectManager
     {
-        if($this->objectManager === null) {
+        if ($this->objectManager === null) {
             $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
         }
 
@@ -82,7 +85,7 @@ class FeLogin
 
     private function getMarkerBasedTemplateService(): MarkerBasedTemplateService
     {
-        if($this->markerBasedTemplateService === null) {
+        if ($this->markerBasedTemplateService === null) {
             $this->markerBasedTemplateService = $this->getObjectManager()->get(MarkerBasedTemplateService::class);
         }
 
@@ -91,7 +94,7 @@ class FeLogin
 
     private function getLanguageService(): LanguageService
     {
-        if($this->languageService === null) {
+        if ($this->languageService === null) {
             $this->languageService = $this->getObjectManager()->get(LanguageService::class);
         }
 

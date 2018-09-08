@@ -9,6 +9,7 @@
  * @see https://www.fareith.de
  * @see https://typo3.org
  */
+
 namespace CodeFareith\CfGoogleAuthenticator\Domain\Mapper;
 
 use CodeFareith\CfGoogleAuthenticator\Exception\MissingRequiredField;
@@ -32,8 +33,6 @@ abstract class AbstractMapper implements MapperInterface
     \*─────────────────────────────────────────────────────────────────────────────*/
     /**
      * Check if the given array has all fields/keys defined in static::requiredFields.
-     *
-     * @param mixed[] $data
      */
     final public static function hasRequiredFields(array $data): bool
     {
@@ -42,8 +41,6 @@ abstract class AbstractMapper implements MapperInterface
 
     /**
      * Get all fields/keys defined in static::requiredFields, but missing in the given array
-     *
-     * @param mixed[] $data
      */
     final public static function getMissingFields(array $data): array
     {
@@ -59,21 +56,20 @@ abstract class AbstractMapper implements MapperInterface
      * Create a struct using data from the given array.
      * Any child class has to initialize static::requiredFields - otherwise an exception is thrown.
      *
-     * @param mixed[] $data
      * @throws MissingRequiredField
      * @throws PropertyNotInitialized
      */
     final public static function createStructFromArray(array $data)
     {
-        if(static::$requiredFields === null) {
+        if (static::$requiredFields === null) {
             throw new PropertyNotInitialized('requiredFields', static::class);
         }
 
-        if(self::hasRequiredFields($data) === false) {
+        if (self::hasRequiredFields($data) === false) {
             $missingFields = self::getMissingFields($data);
             $previous = null;
 
-            while($next = array_pop($missingFields)) {
+            while ($next = array_pop($missingFields)) {
                 $previous = new MissingRequiredField($next, $previous);
             }
 
@@ -86,8 +82,6 @@ abstract class AbstractMapper implements MapperInterface
     /**
      * Map array values to struct.
      * Should be defined in child class.
-     *
-     * @param mixed[] $data
      */
     abstract protected static function mapArrayOnStruct(array $data);
 }

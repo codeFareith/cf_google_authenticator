@@ -9,6 +9,7 @@
  * @see https://www.fareith.de
  * @see https://typo3.org
  */
+
 namespace CodeFareith\CfGoogleAuthenticator\Domain\Immutable;
 
 /**
@@ -21,7 +22,7 @@ namespace CodeFareith\CfGoogleAuthenticator\Domain\Immutable;
  * and consists of an issuer, an account name and a secret key.
  *
  * @see \CodeFareith\CfGoogleAuthenticator\Service\GoogleAuthenticatorService
- * @see \CodeFareith\CfGoogleAuthenticator\Service\QrImageGeneratorInterface
+ * @see \CodeFareith\CfGoogleAuthenticator\Service\QrCodeGeneratorInterface
  *
  * Class AuthenticationSecret
  * @package CodeFareith\CfGoogleAuthenticator\Domain\Immutable
@@ -39,12 +40,16 @@ class AuthenticationSecret implements ImmutableInterface
     \*─────────────────────────────────────────────────────────────────────────────*/
     /** @var string */
     protected $issuer;
+
     /** @var string */
     protected $accountName;
+
     /** @var string */
     protected $secretKey;
+
     /** @var string */
     protected $uri;
+
     /** @var string */
     protected $label;
 
@@ -56,7 +61,7 @@ class AuthenticationSecret implements ImmutableInterface
      */
     public function __construct(string $issuer, string $accountName, string $secretKey)
     {
-        if(\strpos($issuer.$accountName, ':') !== false) {
+        if (\strpos($issuer . $accountName, ':') !== false) {
             throw new \InvalidArgumentException(
                 'Neither the \'issuer\' parameter nor the \'accountName\' parameter may contain a colon.'
             );
@@ -77,7 +82,7 @@ class AuthenticationSecret implements ImmutableInterface
 
     public function getUri(): string
     {
-        if($this->uri === null) {
+        if ($this->uri === null) {
             $params = [
                 'secret' => $this->getSecretKey(),
                 'issuer' => \rawurlencode($this->getIssuer())
@@ -101,7 +106,7 @@ class AuthenticationSecret implements ImmutableInterface
 
     public function getLabel(): string
     {
-        if($this->label === null) {
+        if ($this->label === null) {
             $this->label = \vsprintf(
                 '%s:%s',
                 [

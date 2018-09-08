@@ -13,14 +13,14 @@
                 <target>Google Authenticator</target>
             </trans-unit>
 
-            <trans-unit id="be_users.tx_cfgoogleauthenticator_enable">
+            <trans-unit id="be_users.tx_cfgoogleauthenticator_enabled">
                 <target>Google Authenticator aktivieren</target>
             </trans-unit>
             <trans-unit id="be_users.tx_cfgoogleauthenticator_secret">
                 <target>Google Authenticator Schlüssel</target>
             </trans-unit>
 
-            <trans-unit id="fe_users.tx_cfgoogleauthenticator_enable">
+            <trans-unit id="fe_users.tx_cfgoogleauthenticator_enabled">
                 <target>Google Authenticator aktivieren</target>
             </trans-unit>
             <trans-unit id="fe_users.tx_cfgoogleauthenticator_secret">

@@ -1,6 +1,44 @@
 plugin {
+    tx_cfgoogleauthenticator {
+        persistence {
+            classes {
+                CodeFareith\CfGoogleAuthenticator\Domain\Model\FrontendUser {
+                    mapping {
+                        tableName = fe_users
+                    }
+                }
+                CodeFareith\CfGoogleAuthenticator\Domain\Model\BackendUser {
+                    mapping {
+                        tableName = be_users
+                    }
+                }
+            }
+        }
+
+        objects {
+            TYPO3\CMS\Extbase\Domain\Model\FrontendUser.className = CodeFareith\CfGoogleAuthenticator\Domain\Model\FrontendUser
+            TYPO3\CMS\Extbase\Domain\Model\BackendUser.className = CodeFareith\CfGoogleAuthenticator\Domain\Model\BackendUser
+        }
+    }
+
+    tx_cfgoogleauthenticator_setup {
+        view {
+            layoutRootPaths {
+                0 = EXT:cf_google_authenticator/Resources/Private/Layouts/
+                1 = {$plugin.tx_cfgoogleauthenticator_setup.view.layoutRootPath}
+            }
+            partialRootPaths {
+                0 = EXT:cf_google_authenticator/Resources/Private/Partials/
+                1 = {$plugin.tx_cfgoogleauthenticator_setup.view.partialRootPath}
+            }
+            templateRootPaths {
+                0 = EXT:cf_google_authenticator/Resources/Private/Templates/
+                1 = {$plugin.tx_cfgoogleauthenticator_setup.view.templateRootPath}
+            }
+        }
+    }
+
     tx_felogin_pi1 {
-        # cat=plugin.tx_felogin_pi1; type=String; label=Path to frontend login template.
         templateFile = {$plugin.tx_felogin_pi1.templateFile}
     }
 }

@@ -9,6 +9,7 @@
  * @see https://www.fareith.de
  * @see https://typo3.org
  */
+
 namespace CodeFareith\CfGoogleAuthenticator\Domain\DataTransferObject;
 
 use CodeFareith\CfGoogleAuthenticator\Domain\Struct\GoogleAuthenticatorSettings;
@@ -32,8 +33,10 @@ class GoogleAuthenticatorSettingsDTO
     \*─────────────────────────────────────────────────────────────────────────────*/
     /** @var GoogleAuthenticatorSettings */
     protected $oldSettings;
+
     /** @var GoogleAuthenticatorSettings */
     protected $newSettings;
+
     /** @var string */
     protected $oneTimePassword;
 

@@ -9,6 +9,7 @@
  * @see https://www.fareith.de
  * @see https://typo3.org
  */
+
 namespace CodeFareith\CfGoogleAuthenticator\Domain\Struct;
 
 use CodeFareith\CfGoogleAuthenticator\Exception\PropertyNotFound;
@@ -20,6 +21,7 @@ abstract class AbstractStruct implements StructInterface
     \*─────────────────────────────────────────────────────────────────────────────*/
     /** @var string[][] */
     protected static $mapping;
+
     /** @var \ReflectionClass */
     private $reflection;
 
@@ -36,7 +38,7 @@ abstract class AbstractStruct implements StructInterface
         $properties = $this->getReflectionClass()
             ->getProperties(\ReflectionProperty::IS_PUBLIC | \ReflectionProperty::IS_PROTECTED);
 
-        foreach($properties as $property) {
+        foreach ($properties as $property) {
             $property->setAccessible(true);
 
             $key = static::$mapping[$property->getName()] ?? $property->getName();
@@ -67,7 +69,7 @@ abstract class AbstractStruct implements StructInterface
      */
     public function offsetGet($offset)
     {
-        if(!$this->offsetExists($offset)) {
+        if (!$this->offsetExists($offset)) {
             throw new PropertyNotFound($offset, __CLASS__);
         }
 
@@ -84,7 +86,7 @@ abstract class AbstractStruct implements StructInterface
      */
     public function offsetSet($offset, $value): void
     {
-        if(!$this->offsetExists($offset)) {
+        if (!$this->offsetExists($offset)) {
             throw new PropertyNotFound($offset, __CLASS__);
         }
 
@@ -100,7 +102,7 @@ abstract class AbstractStruct implements StructInterface
      */
     public function offsetUnset($offset): void
     {
-        if(!$this->offsetExists($offset)) {
+        if (!$this->offsetExists($offset)) {
             throw new PropertyNotFound($offset, __CLASS__);
         }
 
@@ -114,7 +116,7 @@ abstract class AbstractStruct implements StructInterface
      */
     private function getReflectionClass(): \ReflectionClass
     {
-        if($this->reflection === null) {
+        if ($this->reflection === null) {
             $this->reflection = new \ReflectionClass(static::class);
         }
 

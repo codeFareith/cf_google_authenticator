@@ -9,6 +9,7 @@
  * @see https://www.fareith.de
  * @see https://typo3.org
  */
+
 namespace CodeFareith\CfGoogleAuthenticator\Hook;
 
 use CodeFareith\CfGoogleAuthenticator\Domain\DataTransferObject\PreProcessFieldArrayDTO;
@@ -32,6 +33,15 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
 class TCEMain
 {
     /*─────────────────────────────────────────────────────────────────────────────*\
+            Properties
+    \*─────────────────────────────────────────────────────────────────────────────*/
+    /** @var ObjectManager */
+    protected $objectManager;
+
+    /** @var GoogleAuthenticatorSetupHandler */
+    protected $googleAuthenticatorSetupHandler;
+
+    /*─────────────────────────────────────────────────────────────────────────────*\
             Methods
     \*─────────────────────────────────────────────────────────────────────────────*/
     /**
@@ -47,19 +57,29 @@ class TCEMain
         DataHandler $dataHandler
     ): void
     {
-        $objectManager = $this->getObjectManager();
-
-        $preProcessFieldArrayDTO = $objectManager->get(PreProcessFieldArrayDTO::class);
+        $preProcessFieldArrayDTO = $this->getObjectManager()->get(PreProcessFieldArrayDTO::class);
         $preProcessFieldArrayDTO->init($fieldArray, $table, $id, $dataHandler);
 
-        $googleAuthenticatorSetupHandler = $objectManager->get(GoogleAuthenticatorSetupHandler::class);
-        $result = $googleAuthenticatorSetupHandler->process($preProcessFieldArrayDTO);
+        $result = $this->getGoogleAuthenticatorSetupHandler()->process($preProcessFieldArrayDTO);
 
         $fieldArray = \array_merge($fieldArray, $result);
     }
 
     protected function getObjectManager(): ObjectManager
     {
-        return GeneralUtility::makeInstance(ObjectManager::class);
+        if ($this->objectManager === null) {
+            $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        }
+
+        return $this->objectManager;
+    }
+
+    protected function getGoogleAuthenticatorSetupHandler(): GoogleAuthenticatorSetupHandler
+    {
+        if ($this->googleAuthenticatorSetupHandler === null) {
+            $this->googleAuthenticatorSetupHandler = $this->getObjectManager()->get(GoogleAuthenticatorSetupHandler::class);
+        }
+
+        return $this->googleAuthenticatorSetupHandler;
     }
 }

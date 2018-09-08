@@ -9,6 +9,7 @@
  * @see https://www.fareith.de
  * @see https://typo3.org
  */
+
 namespace CodeFareith\CfGoogleAuthenticator\Service;
 
 use CodeFareith\CfGoogleAuthenticator\Utility\GoogleAuthenticatorUtility;
@@ -31,12 +32,15 @@ use TYPO3\CMS\Sv\AbstractAuthenticationService;
  */
 class GoogleAuthenticatorService extends AbstractAuthenticationService
 {
+    /*─────────────────────────────────────────────────────────────────────────────*\
+            Properties
+    \*─────────────────────────────────────────────────────────────────────────────*/
     /** @var array */
     protected $extConf;
 
-    /**
-     * @return bool
-     */
+    /*─────────────────────────────────────────────────────────────────────────────*\
+            Methods
+    \*─────────────────────────────────────────────────────────────────────────────*/
     public function init(): bool
     {
         $extName = \explode('\\', __NAMESPACE__)[1];
@@ -51,15 +55,11 @@ class GoogleAuthenticatorService extends AbstractAuthenticationService
         return ((bool)$this->extConf['googleAuthenticatorEnable' . TYPO3_MODE]);
     }
 
-    /**
-     * @param array $user
-     * @return int
-     */
     public function authUser(array $user): int
     {
         $status = -1;
 
-        if((bool)$user['tx_cfgoogleauthenticator_enable'] === true) {
+        if ((bool)$user['tx_cfgoogleauthenticator_enable'] === true) {
             $this->writeDevLog(
                 \vsprintf(
                     '%s login using Google Authenticator for user: %s',
@@ -73,7 +73,7 @@ class GoogleAuthenticatorService extends AbstractAuthenticationService
             $otp = GeneralUtility::_GP('google-authenticator-otp');
             $secret = $user['tx_cfgoogleauthenticator_secret'];
 
-            if(GoogleAuthenticatorUtility::verifyOneTimePassword($secret, $otp) === true) {
+            if (GoogleAuthenticatorUtility::verifyOneTimePassword($secret, $otp) === true) {
                 $status = 200;
             }
         } else {
@@ -93,12 +93,9 @@ class GoogleAuthenticatorService extends AbstractAuthenticationService
         return $status;
     }
 
-    /**
-     * @param string $message
-     */
     private function writeDevLog(string $message): void
     {
-        if((bool)$this->extConf['devlog'] === true) {
+        if ((bool)$this->extConf['devlog'] === true) {
             GeneralUtility::devLog(
                 $message,
                 'tx_cfgoogleauthenticator_sv',

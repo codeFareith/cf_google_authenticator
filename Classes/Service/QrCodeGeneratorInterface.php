@@ -9,6 +9,7 @@
  * @see https://www.fareith.de
  * @see https://typo3.org
  */
+
 namespace CodeFareith\CfGoogleAuthenticator\Service;
 
 use CodeFareith\CfGoogleAuthenticator\Domain\Immutable\AuthenticationSecret;
@@ -21,11 +22,7 @@ use CodeFareith\CfGoogleAuthenticator\Domain\Immutable\AuthenticationSecret;
  * Interface QrImageGeneratorInterface
  * @package CodeFareith\CfGoogleAuthenticator\Service
  */
-interface QrImageGeneratorInterface
+interface QrCodeGeneratorInterface
 {
-    /**
-     * @param AuthenticationSecret $secretImmutable
-     * @return string
-     */
     public function generateUri(AuthenticationSecret $secretImmutable): string;
 }
