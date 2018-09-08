@@ -75,6 +75,12 @@ defined('TYPO3_MODE')
             ExtensionUtility::PLUGIN_TYPE_PLUGIN
         );
 
+        if((bool)$extConf['googleAuthenticatorEnableFE'] === true) {
+            ExtensionManagementUtility::addTypoScriptConstants(
+                'styles.content.loginform.templateFile = ' . $extConf['feLoginTemplate']
+            );
+        }
+
         if((bool)$extConf['googleAuthenticatorEnableBE'] === true) {
             $globalsReference['TYPO3_CONF_VARS']
                 ['EXTCONF']

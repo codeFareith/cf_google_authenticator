@@ -45,7 +45,6 @@ class TCEMain
             Methods
     \*─────────────────────────────────────────────────────────────────────────────*/
     /**
-     * @param mixed[] $fieldArray
      * @throws MissingRequiredField
      * @throws PropertyNotInitialized
      * @throws \ReflectionException
@@ -53,12 +52,12 @@ class TCEMain
     public function processDatamap_preProcessFieldArray(
         array &$fieldArray,
         string $table,
-        int $id,
+        $id,
         DataHandler $dataHandler
     ): void
     {
         $preProcessFieldArrayDTO = $this->getObjectManager()->get(PreProcessFieldArrayDTO::class);
-        $preProcessFieldArrayDTO->init($fieldArray, $table, $id, $dataHandler);
+        $preProcessFieldArrayDTO->init($fieldArray, $table, (int)$id, $dataHandler);
 
         $result = $this->getGoogleAuthenticatorSetupHandler()->process($preProcessFieldArrayDTO);
 
