@@ -7,7 +7,7 @@ define(
         $(function() {
             var selectors = {
                     iFrame: 'body',
-                    inputEnable: '[data-formengine-input-name$="[tx_cfgoogleauthenticator_enable]"]',
+                    inputEnable: '[data-formengine-input-name$="[tx_cfgoogleauthenticator_enabled]"]',
                     inputSecret: '[name$="[tx_cfgoogleauthenticator_secret]"]',
                     inputOtp: '[name$="[tx_cfgoogleauthenticator_otp]"]',
                     formSection: '.form-section'
@@ -23,9 +23,12 @@ define(
                 }
             );
 
-            function update() {
-                var isEnabled = $inputEnable.prop('checked');
+            console.log($iFrame, $inputEnable);
 
+            function update() {
+                console.log('UPDATE TRIGGERED');
+                var isEnabled = $inputEnable.prop('checked');
+                console.info(isEnabled);
                 if(isEnabled === true) {
                     $iFrame.find(selectors.inputSecret).closest(selectors.formSection).slideDown();
                 } else {
