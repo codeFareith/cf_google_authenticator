@@ -13,6 +13,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 
 
+## [1.0.5] - 2018-09-26
+
+### Changed
+
+- fix a bug that made it impossible to edit a backend user
+
+- fix a bug in the JavaScript that kept the 2FA QR code hidden
+
+- fix a bug in the user module that made it impossible to create
+new frontend users using the backend.
+
+
+
 ## [1.0.4] - 2018-07-23
 
 ### Added
