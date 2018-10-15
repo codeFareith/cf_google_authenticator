@@ -19,7 +19,7 @@ class GoogleAuthenticatorSettings extends AbstractStruct
     \*─────────────────────────────────────────────────────────────────────────────*/
     /** @var array */
     protected static $mapping = [
-        'enabled' => 'tx_cfgoogleauthenticator_enable',
+        'enabled' => 'tx_cfgoogleauthenticator_enabled',
         'secretKey' => 'tx_cfgoogleauthenticator_secret'
     ];
 

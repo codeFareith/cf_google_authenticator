@@ -12,7 +12,19 @@
 
 namespace CodeFareith\CfGoogleAuthenticator\Domain\Form;
 
+/**
+ * Setup form values object
+ *
+ * Use this class to hold setup form values that either originate from a
+ * submitted setup form or to pass initial values of a form to the view.
+ *
+ * @see \CodeFareith\CfGoogleAuthenticator\Controller\Frontend\SetupController
+ *
+ * Class SetupForm
+ * @package CodeFareith\CfGoogleAuthenticator\Domain\Form
+ */
 class SetupForm
+    implements FormInterface
 {
     /*─────────────────────────────────────────────────────────────────────────────*\
             Constants
@@ -31,10 +43,10 @@ class SetupForm
     /*─────────────────────────────────────────────────────────────────────────────*\
             Methods
     \*─────────────────────────────────────────────────────────────────────────────*/
-    public function __construct(string $secret, string $oneTimePassword = '')
+    public function __construct(string $secret, string $oneTimePassword = null)
     {
         $this->secret = $secret;
-        $this->oneTimePassword = $oneTimePassword;
+        $this->oneTimePassword = $oneTimePassword ?? '';
     }
 
     public function getSecret(): string

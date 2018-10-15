@@ -24,6 +24,7 @@ use CodeFareith\CfGoogleAuthenticator\Provider\Login\GoogleAuthenticatorLoginPro
 use CodeFareith\CfGoogleAuthenticator\Service\GoogleAuthenticatorService;
 use CodeFareith\CfGoogleAuthenticator\Utility\ExtensionBasicDataUtility;
 use CodeFareith\CfGoogleAuthenticator\Utility\PathUtility;
+use CodeFareith\CfGoogleAuthenticator\Utility\TypoScriptUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
@@ -55,11 +56,10 @@ defined('TYPO3_MODE')
         );
 
         ExtensionManagementUtility::addUserTSConfig(
-            vsprintf(
-                '<INCLUDE_TYPOSCRIPT: source="FILE:%s">',
-                [
-                    PathUtility::makeExtensionPath('Configuration/TypoScript/setup.typoscript')
-                ]
+            TypoScriptUtility::getIncludeTypoScriptFileTag(
+                PathUtility::makeExtensionPath(
+                    'Configuration/TypoScript/setup.typoscript'
+                )
             )
         );
 

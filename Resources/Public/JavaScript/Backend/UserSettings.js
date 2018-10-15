@@ -5,7 +5,7 @@ define(
     function($) {
 
         $(function() {
-            var selectors = {
+            let selectors = {
                     iFrame: 'body',
                     inputEnable: '[data-formengine-input-name$="[tx_cfgoogleauthenticator_enabled]"]',
                     inputSecret: '[name$="[tx_cfgoogleauthenticator_secret]"]',
@@ -18,7 +18,7 @@ define(
             $iFrame.on(
                 'click',
                 selectors.inputEnable,
-                function(event) {
+                function() {
                     update();
                 }
             );
@@ -26,9 +26,8 @@ define(
             console.log($iFrame, $inputEnable);
 
             function update() {
-                console.log('UPDATE TRIGGERED');
-                var isEnabled = $inputEnable.prop('checked');
-                console.info(isEnabled);
+                let isEnabled = $inputEnable.prop('checked');
+
                 if(isEnabled === true) {
                     $iFrame.find(selectors.inputSecret).closest(selectors.formSection).slideDown();
                 } else {

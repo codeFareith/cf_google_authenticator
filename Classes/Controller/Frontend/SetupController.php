@@ -23,9 +23,19 @@ use CodeFareith\CfGoogleAuthenticator\Validation\Validator\SetupFormValidator;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
 use TYPO3\CMS\Lang\LanguageService;
 
-class SetupController extends ActionController
+/**
+ * 2FA setup controller
+ *
+ * Handle any actions in the setup frontend plugin
+ *
+ * Class SetupController
+ * @package CodeFareith\CfGoogleAuthenticator\Controller\Frontend
+ */
+class SetupController
+    extends ActionController
 {
     /*─────────────────────────────────────────────────────────────────────────────*\
             Properties
@@ -36,6 +46,9 @@ class SetupController extends ActionController
     /** @var QrCodeGeneratorInterface */
     protected $qrCodeGenerator;
 
+    /** @var SetupFormValidator */
+    protected $setupFormValidator;
+
     /** @var AuthenticationSecret */
     private $authenticationSecret;
 
@@ -44,13 +57,15 @@ class SetupController extends ActionController
     \*─────────────────────────────────────────────────────────────────────────────*/
     public function __construct(
         FrontendUserRepository $frontendUserRepository,
-        GoogleQrCodeGenerator $qrCodeGenerator
+        GoogleQrCodeGenerator $qrCodeGenerator,
+        SetupFormValidator $setupFormValidator
     )
     {
         parent::__construct();
 
         $this->frontendUserRepository = $frontendUserRepository;
         $this->qrCodeGenerator = $qrCodeGenerator;
+        $this->setupFormValidator = $setupFormValidator;
     }
 
     /**
@@ -76,22 +91,13 @@ class SetupController extends ActionController
     }
 
     /**
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
+     * @throws NoSuchArgumentException
      */
     public function initializeUpdateAction(): void
     {
         if ($this->request->hasArgument(SetupForm::FORM_NAME)) {
-            $formData = (array)$this->request->getArgument(SetupForm::FORM_NAME);
-
-            /** @noinspection PhpMethodParametersCountMismatchInspection */
-            $formObject = $this->objectManager->get(
-                SetupForm::class,
-                $formData['secret'],
-                $formData['oneTimePassword']
-            );
-
-            $validator = $this->objectManager->get(SetupFormValidator::class);
-            $results = $validator->validate($formObject);
+            $formObject = $this->getFormObject();
+            $results = $this->setupFormValidator->validate($formObject);
 
             $this->request->setOriginalRequest(clone $this->request);
             $this->request->setOriginalRequestMappingResults($results);
@@ -99,7 +105,7 @@ class SetupController extends ActionController
     }
 
     /**
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException
+     * @throws NoSuchArgumentException
      * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
@@ -108,9 +114,7 @@ class SetupController extends ActionController
     public function updateAction(): void
     {
         if ($this->isValidUpdateRequest()) {
-            $userId = $this->getFrontendUserId();
-            /** @var FrontendUser $user */
-            $user = $this->frontendUserRepository->findByUid($userId);
+            $user = $this->getFrontendUser();
 
             if ($user !== null) {
                 $formData = (array)$this->request->getArgument(SetupForm::FORM_NAME);
@@ -144,37 +148,9 @@ class SetupController extends ActionController
         $this->forward('index');
     }
 
-    private function isValidUpdateRequest(): bool
-    {
-        $mappingResults = $this->request->getOriginalRequestMappingResults();
-
-        $hasErrors = $mappingResults->hasErrors();
-        $hasArgument = $this->request->hasArgument(SetupForm::FORM_NAME);
-
-        return (!$hasErrors && $hasArgument);
-    }
-
     private function isUserLoggedin(): bool
     {
         return (bool)$GLOBALS['TSFE']->loginUser;
-    }
-
-    private function isGoogleAuthenticatorEnabled(): bool
-    {
-        return (bool)$GLOBALS['TSFE']->fe_user->user['tx_cfgoogleauthenticator_enabled'];
-    }
-
-    /**
-     * @throws \Exception
-     */
-    private function getSetupForm(): SetupForm
-    {
-        /** @noinspection PhpMethodParametersCountMismatchInspection */
-        return $this->objectManager->get(
-            SetupForm::class,
-            $this->getAuthenticationSecret()->getSecretKey(),
-            ''
-        );
     }
 
     /**
@@ -213,6 +189,7 @@ class SetupController extends ActionController
 
     private function getUsername(): string
     {
+        /** @noinspection PhpInternalEntityUsedInspection */
         return $GLOBALS['TSFE']->fe_user->user['username'];
     }
 
@@ -222,6 +199,7 @@ class SetupController extends ActionController
     private function getSecretKey(): string
     {
         if ($this->isGoogleAuthenticatorEnabled()) {
+            /** @noinspection PhpInternalEntityUsedInspection */
             $secretKey = $GLOBALS['TSFE']->fe_user->user['tx_cfgoogleauthenticator_secret'];
         } else {
             $secretKey = Base32Utility::generateRandomString(16);
@@ -230,8 +208,66 @@ class SetupController extends ActionController
         return $secretKey;
     }
 
+    private function isValidUpdateRequest(): bool
+    {
+        $mappingResults = $this->request->getOriginalRequestMappingResults();
+
+        $hasErrors = $mappingResults->hasErrors();
+        $hasArgument = $this->request->hasArgument(SetupForm::FORM_NAME);
+
+        return (!$hasErrors && $hasArgument);
+    }
+
+    private function isGoogleAuthenticatorEnabled(): bool
+    {
+        /** @noinspection PhpInternalEntityUsedInspection */
+        return (bool)$GLOBALS['TSFE']->fe_user->user['tx_cfgoogleauthenticator_enabled'];
+    }
+
+    /**
+     * @throws \Exception
+     */
+    private function getSetupForm(): SetupForm
+    {
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
+        return $this->objectManager->get(
+            SetupForm::class,
+            $this->getAuthenticationSecret()->getSecretKey(),
+            ''
+        );
+    }
+
+    /**
+     * @throws NoSuchArgumentException
+     */
+    private function getFormObject()
+    {
+        $formData = (array)$this->request->getArgument(SetupForm::FORM_NAME);
+
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
+        $formObject = $this->objectManager->get(
+            SetupForm::class,
+            $formData['secret'],
+            $formData['oneTimePassword']
+        );
+
+        return $formObject;
+    }
+
+    private function getFrontendUser(): FrontendUser
+    {
+        $user = null;
+
+        $userId = $this->getFrontendUserId();
+        /** @var FrontendUser $user */
+        $user = $this->frontendUserRepository->findByUid($userId);
+
+        return $user;
+    }
+
     private function getFrontendUserId(): int
     {
+        /** @noinspection PhpInternalEntityUsedInspection */
         return $GLOBALS['TSFE']->fe_user->user['uid'];
     }
 

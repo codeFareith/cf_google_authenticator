@@ -27,7 +27,8 @@ namespace CodeFareith\CfGoogleAuthenticator\Domain\Immutable;
  * Class AuthenticationSecret
  * @package CodeFareith\CfGoogleAuthenticator\Domain\Immutable
  */
-class AuthenticationSecret implements ImmutableInterface
+class AuthenticationSecret
+    implements ImmutableInterface
 {
     /*─────────────────────────────────────────────────────────────────────────────*\
             Constants

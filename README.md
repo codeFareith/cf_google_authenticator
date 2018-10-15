@@ -44,7 +44,7 @@ by setting "tx_cfgoogleauthenticator_enable" to 0, for the desired user.
 
 #### Frontend
 
-In order to offer frontend users the possibility to secure their accounts via two-factor authentication, two conditions must be met:
+In order to offer frontend users the possibility to secure their accounts via two-factor authentication, two conditions must be met<sup>1</sup>:
 
 1. in the extension configuration the 2FA must be activated for the frontend (deactivated by default):
     - Select the extension module and search for "[codeFareith] Google Authenticator".
@@ -58,6 +58,7 @@ In order to offer frontend users the possibility to secure their accounts via tw
     - In the next step open the next tab called "Plug-Ins".
     - Select "Google Two-Factor-Authentication Setup" from the dropdown and click on save. Done!
 
+<sup>1</sup> After enabling/disabling frontend 2FA, you might need to flush frontend cache in order to show/hide the one-time password field in the login form
 
 
 ## History

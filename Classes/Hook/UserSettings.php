@@ -15,11 +15,10 @@ namespace CodeFareith\CfGoogleAuthenticator\Hook;
 use CodeFareith\CfGoogleAuthenticator\Domain\Immutable\AuthenticationSecret;
 use CodeFareith\CfGoogleAuthenticator\Service\GoogleQrCodeGenerator;
 use CodeFareith\CfGoogleAuthenticator\Service\QrCodeGeneratorInterface;
+use CodeFareith\CfGoogleAuthenticator\Traits\GeneralUtilityObjectManager;
 use CodeFareith\CfGoogleAuthenticator\Utility\Base32Utility;
 use CodeFareith\CfGoogleAuthenticator\Utility\PathUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
@@ -29,16 +28,16 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
  * to extend the view by creating a secret key and an image of
  * the QR code for the Google Authenticator.
  *
- * @author Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
- * @copyright (c) 2018 by Robin von den Bergen
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version 1.0.0
- *
  * Class UserSettings
  * @package CodeFareith\CfGoogleAuthenticator\Hook
  */
 class UserSettings
 {
+    /*─────────────────────────────────────────────────────────────────────────────*\
+            Traits
+    \*─────────────────────────────────────────────────────────────────────────────*/
+    use GeneralUtilityObjectManager;
+
     /*─────────────────────────────────────────────────────────────────────────────*\
             Properties
     \*─────────────────────────────────────────────────────────────────────────────*/
@@ -47,9 +46,6 @@ class UserSettings
 
     /** @var AuthenticationSecret */
     private $authenticationSecret;
-
-    /** @var ObjectManager */
-    private $objectManager;
 
     /** @var QrCodeGeneratorInterface */
     private $qrCodeGenerator;
@@ -178,15 +174,6 @@ class UserSettings
     private function isGoogleAuthenticatorEnabled(): bool
     {
         return (bool)$this->data['row']['tx_cfgoogleauthenticator_enabled'];
-    }
-
-    private function getObjectManager(): ObjectManagerInterface
-    {
-        if ($this->objectManager === null) {
-            $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-        }
-
-        return $this->objectManager;
     }
 
     private function getQrCodeGenerator(): QrCodeGeneratorInterface

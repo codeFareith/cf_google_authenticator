@@ -10,9 +10,16 @@
  * @see https://typo3.org
  */
 
-namespace CodeFareith\CfGoogleAuthenticator\Domain\Struct;
+namespace CodeFareith\CfGoogleAuthenticator\Domain\Form;
 
-interface StructInterface extends \ArrayAccess
+/**
+ * Form interface
+ *
+ * This interface should be used for any form object
+ *
+ * Interface FormInterface
+ * @package CodeFareith\CfGoogleAuthenticator\Domain\Form
+ */
+interface FormInterface
 {
-    public function toArray(bool $boolToInt = null): array;
 }

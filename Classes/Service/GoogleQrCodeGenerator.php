@@ -30,10 +30,12 @@ class GoogleQrCodeGenerator implements QrCodeGeneratorInterface
     /*─────────────────────────────────────────────────────────────────────────────*\
             Constants
     \*─────────────────────────────────────────────────────────────────────────────*/
-    public const CORRECTION_L = 'L'; // recover  7% data loss
-    public const CORRECTION_M = 'M'; // recover 15% data loss
-    public const CORRECTION_Q = 'Q'; // recover 25% data loss
-    public const CORRECTION_H = 'H'; // recover 30% data loss
+    public const
+        CORRECTION_L = 'L',     // recover  7% data loss
+        CORRECTION_M = 'M',     // recover 15% data loss
+        CORRECTION_Q = 'Q',     // recover 25% data loss
+        CORRECTION_H = 'H'      // recover 30% data loss
+    ;
 
     protected const BASE_URL = 'https://chart.googleapis.com/';
 
@@ -56,16 +58,16 @@ class GoogleQrCodeGenerator implements QrCodeGeneratorInterface
             Methods
     \*─────────────────────────────────────────────────────────────────────────────*/
     public function __construct(
-        int $width = 200,
-        int $height = 200,
-        string $correction = self::CORRECTION_L,
-        int $margin = 4
+        int $width = null,
+        int $height = null,
+        string $correction = null,
+        int $margin = null
     )
     {
-        $this->width = $width;
-        $this->height = $height;
-        $this->correction = $correction;
-        $this->margin = $margin;
+        $this->width = $width ?? 200;
+        $this->height = $height ?? 200;
+        $this->correction = $correction ?? self::CORRECTION_L;
+        $this->margin = $margin ?? 4;
     }
 
     public function generateUri(AuthenticationSecret $secretImmutable): string
