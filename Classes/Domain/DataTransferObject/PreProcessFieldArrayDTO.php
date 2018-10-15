@@ -43,12 +43,12 @@ class PreProcessFieldArrayDTO
     /*─────────────────────────────────────────────────────────────────────────────*\
             Methods
     \*─────────────────────────────────────────────────────────────────────────────*/
-    public function init(
+    public function __construct(
         array &$fieldArray,
         string $table,
         int $id,
         DataHandler $dataHandler
-    ): void
+    )
     {
         $this->fieldArray = &$fieldArray;
         $this->table = $table;

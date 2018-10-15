@@ -72,8 +72,9 @@ final class PathUtility
         );
     }
 
-    public static function makeLocalLangLinkPath(string $id, string $file = 'locallang.xlf'): string
+    public static function makeLocalLangLinkPath(string $id, string $file = null): string
     {
+        $file = $file ?? 'locallang.xlf';
         $relativePath = self::makePath(self::$languageDirectoryPath, $file);
         $extensionLink = self::makeExtensionPath($relativePath);
 

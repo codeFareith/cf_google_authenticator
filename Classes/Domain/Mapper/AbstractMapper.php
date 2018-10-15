@@ -33,6 +33,8 @@ abstract class AbstractMapper implements MapperInterface
     \*─────────────────────────────────────────────────────────────────────────────*/
     /**
      * Check if the given array has all fields/keys defined in static::requiredFields.
+     *
+     * @param string[] $data
      */
     final public static function hasRequiredFields(array $data): bool
     {
@@ -41,6 +43,8 @@ abstract class AbstractMapper implements MapperInterface
 
     /**
      * Get all fields/keys defined in static::requiredFields, but missing in the given array
+     *
+     * @param string[] $data
      */
     final public static function getMissingFields(array $data): array
     {
@@ -56,6 +60,8 @@ abstract class AbstractMapper implements MapperInterface
      * Create a struct using data from the given array.
      * Any child class has to initialize static::requiredFields - otherwise an exception is thrown.
      *
+     * @param mixed $data
+     * @return mixed
      * @throws MissingRequiredField
      * @throws PropertyNotInitialized
      */
@@ -66,14 +72,7 @@ abstract class AbstractMapper implements MapperInterface
         }
 
         if (self::hasRequiredFields($data) === false) {
-            $missingFields = self::getMissingFields($data);
-            $previous = null;
-
-            while ($next = array_pop($missingFields)) {
-                $previous = new MissingRequiredField($next, $previous);
-            }
-
-            throw $previous;
+            self::throwMissingRequiredFieldExceptionStack($data);
         }
 
         return static::mapArrayOnStruct($data);
@@ -82,6 +81,30 @@ abstract class AbstractMapper implements MapperInterface
     /**
      * Map array values to struct.
      * Should be defined in child class.
+     *
+     * @param mixed $data
+     * @return mixed
      */
     abstract protected static function mapArrayOnStruct(array $data);
+
+    /**
+     * Create and throw MissingRequiredField exception stack
+     *
+     * @param array $data
+     * @throws MissingRequiredField
+     */
+    private static function throwMissingRequiredFieldExceptionStack(array $data): void
+    {
+        $previous = null;
+        $next = null;
+        $missingFields = self::getMissingFields($data);
+        $length = \count($missingFields);
+
+        for($i = $length; $i > 0; $i--) {
+            $next = $missingFields[$length];
+            $previous = new MissingRequiredField($next, $previous);
+        }
+
+        throw $previous;
+    }
 }

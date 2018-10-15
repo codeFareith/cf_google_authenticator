@@ -12,12 +12,10 @@
 
 namespace CodeFareith\CfGoogleAuthenticator\Hook;
 
+use CodeFareith\CfGoogleAuthenticator\Traits\GeneralUtilityObjectManager;
 use CodeFareith\CfGoogleAuthenticator\Utility\ExtensionBasicDataUtility;
 use CodeFareith\CfGoogleAuthenticator\Utility\PathUtility;
 use TYPO3\CMS\Core\Service\MarkerBasedTemplateService;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
-use TYPO3\CMS\Felogin\Controller\FrontendLoginController;
 use TYPO3\CMS\Lang\LanguageService;
 
 /**
@@ -32,11 +30,13 @@ use TYPO3\CMS\Lang\LanguageService;
 class FeLogin
 {
     /*─────────────────────────────────────────────────────────────────────────────*\
+            Traits
+    \*─────────────────────────────────────────────────────────────────────────────*/
+    use GeneralUtilityObjectManager;
+
+    /*─────────────────────────────────────────────────────────────────────────────*\
             Properties
     \*─────────────────────────────────────────────────────────────────────────────*/
-    /** @var ObjectManager */
-    private $objectManager;
-
     /** @var MarkerBasedTemplateService */
     private $markerBasedTemplateService;
 
@@ -46,7 +46,7 @@ class FeLogin
     /*─────────────────────────────────────────────────────────────────────────────*\
             Methods
     \*─────────────────────────────────────────────────────────────────────────────*/
-    public function createOneTimePasswordField(array $params, FrontendLoginController $controller): string
+    public function createOneTimePasswordField(array $params): string
     {
         $marker = [];
 
@@ -72,15 +72,6 @@ class FeLogin
         }
 
         return $result;
-    }
-
-    private function getObjectManager(): ObjectManager
-    {
-        if ($this->objectManager === null) {
-            $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-        }
-
-        return $this->objectManager;
     }
 
     private function getMarkerBasedTemplateService(): MarkerBasedTemplateService

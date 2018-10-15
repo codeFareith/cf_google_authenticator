@@ -13,6 +13,10 @@
             <f:then>
                 <f:render
                     partial="Backend/Form/OneTimePassword"
+                    arguments="{
+                        table: table,
+                        uid: uid
+                    }"
                 />
 
                 <div>
@@ -24,14 +28,27 @@
             <f:else>
                 <f:render
                     partial="Backend/Form/QrCode"
-                    arguments="{src: qrCodeUri, secret: authenticatorSecret}"
+                    arguments="{
+                        src: qrCodeUri,
+                        secret: authenticatorSecret,
+                        table: table,
+                        uid: uid
+                    }"
                 />
                 <f:render
                     partial="Backend/Form/Secret"
-                    arguments="{secret: authenticatorSecret}"
+                    arguments="{
+                        secret: authenticatorSecret,
+                        table: table,
+                        uid: uid
+                    }"
                 />
                 <f:render
                     partial="Backend/Form/OneTimePassword"
+                    arguments="{
+                        table: table,
+                        uid: uid
+                    }"
                 />
             </f:else>
         </f:if>

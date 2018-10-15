@@ -28,7 +28,7 @@ class GoogleAuthenticatorSettingsMapper extends AbstractMapper
     protected static function mapArrayOnStruct(array $data): GoogleAuthenticatorSettings
     {
         $struct = new GoogleAuthenticatorSettings();
-        $struct->setEnabled((bool)$data['tx_cfgoogleauthenticator_enable']);
+        $struct->setEnabled((bool)$data['tx_cfgoogleauthenticator_enabled']);
         $struct->setSecretKey((string)$data['tx_cfgoogleauthenticator_secret']);
 
         return $struct;

@@ -12,6 +12,7 @@
 
 namespace CodeFareith\CfGoogleAuthenticator\Service;
 
+use CodeFareith\CfGoogleAuthenticator\Utility\ExtensionBasicDataUtility;
 use CodeFareith\CfGoogleAuthenticator\Utility\GoogleAuthenticatorUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Sv\AbstractAuthenticationService;
@@ -43,31 +44,21 @@ class GoogleAuthenticatorService extends AbstractAuthenticationService
     \*─────────────────────────────────────────────────────────────────────────────*/
     public function init(): bool
     {
-        $extName = \explode('\\', __NAMESPACE__)[1];
-        $extKey = GeneralUtility::camelCaseToLowerCaseUnderscored($extName);
-        $this->extConf = \unserialize(
-            $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$extKey],
-            [
-                'allowed_classes' => false
-            ]
-        );
-
+        $this->extConf = ExtensionBasicDataUtility::getExtensionConfiguration();
         return ((bool)$this->extConf['googleAuthenticatorEnable' . TYPO3_MODE]);
     }
 
     public function authUser(array $user): int
     {
-        $status = -1;
+        $logArgs = [
+            TYPO3_MODE,
+            $user['username']
+        ];
 
-        if ((bool)$user['tx_cfgoogleauthenticator_enable'] === true) {
-            $this->writeDevLog(
-                \vsprintf(
-                    '%s login using Google Authenticator for user: %s',
-                    [
-                        TYPO3_MODE,
-                        $user['username']
-                    ]
-                )
+        if ((bool)$user['tx_cfgoogleauthenticator_enabled'] === true) {
+            $this->vsprintfDevLog(
+                '%s login using Google Authenticator for user: %s',
+                $logArgs
             );
 
             $otp = GeneralUtility::_GP('google-authenticator-otp');
@@ -75,16 +66,13 @@ class GoogleAuthenticatorService extends AbstractAuthenticationService
 
             if (GoogleAuthenticatorUtility::verifyOneTimePassword($secret, $otp) === true) {
                 $status = 200;
+            } else {
+                $status = 0;
             }
         } else {
-            $this->writeDevLog(
-                \vsprintf(
-                    '%s login using TYPO3 password authentication for user: %s',
-                    [
-                        TYPO3_MODE,
-                        $user['username']
-                    ]
-                )
+            $this->vsprintfDevLog(
+                '%s login using TYPO3 password authentication for user: %s',
+                $logArgs
             );
 
             $status = 100;
@@ -98,9 +86,15 @@ class GoogleAuthenticatorService extends AbstractAuthenticationService
         if ((bool)$this->extConf['devlog'] === true) {
             GeneralUtility::devLog(
                 $message,
-                'tx_cfgoogleauthenticator_sv',
-                0
+                'tx_cfgoogleauthenticator_sv'
             );
         }
+    }
+
+    private function vsprintfDevLog(string $message, array $args): void
+    {
+        $this->writeDevLog(
+            vsprintf($message, $args)
+        );
     }
 }

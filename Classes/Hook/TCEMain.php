@@ -16,9 +16,8 @@ use CodeFareith\CfGoogleAuthenticator\Domain\DataTransferObject\PreProcessFieldA
 use CodeFareith\CfGoogleAuthenticator\Exception\MissingRequiredField;
 use CodeFareith\CfGoogleAuthenticator\Exception\PropertyNotInitialized;
 use CodeFareith\CfGoogleAuthenticator\Handler\GoogleAuthenticatorSetupHandler;
+use CodeFareith\CfGoogleAuthenticator\Traits\GeneralUtilityObjectManager;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * Hook for the TYPO3 Core Engine
@@ -33,11 +32,13 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
 class TCEMain
 {
     /*─────────────────────────────────────────────────────────────────────────────*\
+            Traits
+    \*─────────────────────────────────────────────────────────────────────────────*/
+    use GeneralUtilityObjectManager;
+
+    /*─────────────────────────────────────────────────────────────────────────────*\
             Properties
     \*─────────────────────────────────────────────────────────────────────────────*/
-    /** @var ObjectManager */
-    protected $objectManager;
-
     /** @var GoogleAuthenticatorSetupHandler */
     protected $googleAuthenticatorSetupHandler;
 
@@ -45,6 +46,10 @@ class TCEMain
             Methods
     \*─────────────────────────────────────────────────────────────────────────────*/
     /**
+     * @noinspection MoreThanThreeArgumentsInspection
+     *
+     * @param mixed $fieldArray
+     * @param string|int $id
      * @throws MissingRequiredField
      * @throws PropertyNotInitialized
      * @throws \ReflectionException
@@ -56,21 +61,35 @@ class TCEMain
         DataHandler $dataHandler
     ): void
     {
-        $preProcessFieldArrayDTO = $this->getObjectManager()->get(PreProcessFieldArrayDTO::class);
-        $preProcessFieldArrayDTO->init($fieldArray, $table, (int)$id, $dataHandler);
-
+        $preProcessFieldArrayDTO = $this->getPreProcessFieldArrayDTO($fieldArray, $table, (int)$id, $dataHandler);
         $result = $this->getGoogleAuthenticatorSetupHandler()->process($preProcessFieldArrayDTO);
 
         $fieldArray = \array_merge($fieldArray, $result);
     }
 
-    protected function getObjectManager(): ObjectManager
+    /**
+     * @noinspection MoreThanThreeArgumentsInspection
+     *
+     * @param mixed $fieldArray
+     * @return PreProcessFieldArrayDTO
+     */
+    private function getPreProcessFieldArrayDTO(
+        array &$fieldArray,
+        string $table,
+        int $id,
+        DataHandler $dataHandler
+    ): PreProcessFieldArrayDTO
     {
-        if ($this->objectManager === null) {
-            $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-        }
+        /** @noinspection PhpMethodParametersCountMismatchInspection */
+        $preProcessFieldArrayDTO = $this->getObjectManager()->get(
+            PreProcessFieldArrayDTO::class,
+            $fieldArray,
+            $table,
+            $id,
+            $dataHandler
+        );
 
-        return $this->objectManager;
+        return $preProcessFieldArrayDTO;
     }
 
     protected function getGoogleAuthenticatorSetupHandler(): GoogleAuthenticatorSetupHandler

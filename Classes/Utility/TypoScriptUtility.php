@@ -10,32 +10,26 @@
  * @see https://typo3.org
  */
 
-namespace CodeFareith\CfGoogleAuthenticator\Exception;
+namespace CodeFareith\CfGoogleAuthenticator\Utility;
 
-use Throwable;
-use TYPO3\CMS\Extbase\Exception;
-
-class PropertyNotFound extends Exception
+final class TypoScriptUtility
 {
     /*─────────────────────────────────────────────────────────────────────────────*\
             Constants
     \*─────────────────────────────────────────────────────────────────────────────*/
-    /** @var int */
-    public const CODE = 6132;
+    /** @var string */
+    private const INCLUDE_TYPO_SCRIPT_FILE = '<INCLUDE_TYPOSCRIPT: source="FILE:%s">';
 
     /*─────────────────────────────────────────────────────────────────────────────*\
             Methods
     \*─────────────────────────────────────────────────────────────────────────────*/
-    public function __construct(string $property, string $class, Throwable $previous = null)
+    public static function getIncludeTypoScriptFileTag(string $file): string
     {
-        $message = \vsprintf(
-            'The requested property "%s" was not found in class "%s".',
+        return vsprintf(
+            static::INCLUDE_TYPO_SCRIPT_FILE,
             [
-                $property,
-                $class
+                $file
             ]
         );
-
-        parent::__construct($message, self::CODE, $previous);
     }
 }

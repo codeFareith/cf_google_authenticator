@@ -27,13 +27,10 @@ final class Base32Utility
             Constants
     \*─────────────────────────────────────────────────────────────────────────────*/
     /** @var string */
-    public const RFC4648 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567=';
-
-    /** @var string */
-    public const CROCKFORD = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
-
-    /** @var string */
-    public const MIME_09AV = '0123456789ABCDEFGHIJKLMNOPQRSTUV';
+    public const
+        RFC4648 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567=',
+        CROCKFORD = '0123456789ABCDEFGHJKMNPQRSTVWXYZ',
+        MIME_09AV = '0123456789ABCDEFGHIJKLMNOPQRSTUV';
 
     /*─────────────────────────────────────────────────────────────────────────────*\
             Methods
@@ -41,140 +38,197 @@ final class Base32Utility
     /**
      * @throws \Exception
      */
-    public static function generateRandomString(int $length, string $charset = self::RFC4648): string
+    public static function generateRandomString(int $stringLength, string $charset = null): string
     {
+        $charset = $charset ?? self::RFC4648;
         $key = '';
 
-        while (\strlen($key) < $length) {
-            $rand = \random_int(0, 31);
-            $key .= $charset[$rand];
+        while (\strlen($key) < $stringLength) {
+            $index = \random_int(0, 31);
+            $key .= $charset[$index];
         }
 
         return $key;
     }
 
-    public static function encode(string $string, string $charset = self::RFC4648): string
+    public static function encode(string $string, string $charset = null): string
     {
-        if ($string === '') {
-            return '';
+        $charset = $charset ?? self::RFC4648;
+        $return = '';
+
+        if($string !== '') {
+            $binary = self::convertStringToBinary($string);
+            $array = self::convertBinaryToArray($binary);
+            $return = self::convertBinariesToBase32($array, $charset);
         }
 
-        $binaryString = self::convertStringToBinary($string);
-        $binaryArray = self::convertBinaryToArray($binaryString);
-
-        return self::convertArrayToBase32($binaryArray, $charset);
+        return $return;
     }
 
-    public static function decode($base32String, string $charset = self::RFC4648): string
+    public static function decode(string $base32, string $charset = null): string
     {
-        $base32String = self::sanitizeBase32($base32String);
+        $charset = $charset ?? self::RFC4648;
+        $sanitizedBase32 = self::sanitizeBase32($base32);
+        $return = '';
 
-        if ($base32String === '') {
-            return '';
+        if ($sanitizedBase32 !== '') {
+            $binaries = self::convertBase32ToBinaries($sanitizedBase32, $charset);
+            $return = self::convertBinariesToString($binaries);
         }
 
-        $binaryArray = self::convertBase32ToArray($base32String, $charset);
-
-        return self::convertArrayToString($binaryArray);
+        return $return;
     }
 
     private static function convertStringToBinary(string $string): string
     {
-        $binaryString = '';
+        $chars = \str_split($string);
 
-        foreach (\str_split($string) as $s) {
-            $ord = \ord($s);
-            $binaryString .= \sprintf('%08b', $ord);
-        }
-
-        return $binaryString;
+        return self::convertCharsToBinary($chars);
     }
 
-    private static function convertBinaryToArray(string $binaryString): array
+    private static function convertCharsToBinary(array $chars): string
     {
-        $binaryArray = self::chunk($binaryString, 5);
-        $binaryArrayLength = \count($binaryArray);
+        $result = '';
 
-        while ($binaryArrayLength % 8 !== 0) {
-            $binaryArray[] = null;
+        foreach ($chars as $char) {
+            $result .= self::convertCharToBinary($char);
         }
-        return $binaryArray;
+
+        return $result;
     }
 
-    private static function convertArrayToBase32(array $binaryArray, string $charset): string
+    private static function convertCharToBinary(string $char): string
     {
-        $base32String = '';
+        $ord = \ord($char);
 
-        foreach ($binaryArray as $bin) {
-            $char = 32;
-
-            if ($bin !== null) {
-                $bin = \str_pad(
-                    $bin,
-                    5,
-                    0,
-                    STR_PAD_RIGHT
-                );
-                $char = \bindec($bin);
-            }
-
-            $base32String .= $charset[$char];
-        }
-
-        return $base32String;
+        return \sprintf('%08b', $ord);
     }
 
-    private static function sanitizeBase32(string $base32String): string
+    private static function convertBinaryToArray(string $binary): array
+    {
+        $chunks = self::convertBinaryToChunks($binary, 5);
+
+        return self::arrayPadModulo($chunks, 8, null);
+    }
+
+    private static function convertBinaryToChunks(string $binary, int $bits): array
+    {
+        $chunked = \chunk_split($binary, $bits, ' ');
+        $length = \strlen($chunked);
+        $trailing = \substr($chunked, $length - 1);
+
+        if ($trailing === ' ') {
+            $chunked = \substr($chunked, 0, -1);
+        }
+
+        return \explode(' ', $chunked);
+    }
+
+    private static function arrayPadModulo(array $array, int $multiple, $value): array
+    {
+        while (\count($array) % $multiple !== 0) {
+            $array[] = $value;
+        }
+
+        return $array;
+    }
+
+    private static function convertBinariesToBase32(array $binaries, string $charset): string
+    {
+        $base32 = '';
+
+        foreach ($binaries as $binary) {
+            $base32 .= self::getCharFromCharsetByBinary($charset, $binary);
+        }
+
+        return $base32;
+    }
+
+    private static function getCharFromCharsetByBinary(string $charset, string $binary = null): string
+    {
+        $index = 32;
+
+        if ($binary !== null) {
+            $index = self::convertBinaryToDecimal($binary, 5);
+        }
+
+        return $charset[$index];
+    }
+
+    private static function convertBinaryToDecimal(string $binary, int $length): string
+    {
+        $bin = \str_pad(
+            $binary,
+            $length,
+            0
+        );
+        return \bindec($bin);
+    }
+
+    private static function sanitizeBase32(string $base32): string
     {
         $pattern = '/[^A-Z2-7]/';
-        $base32String = \strtoupper($base32String);
-        $base32String = \preg_replace($pattern, '', $base32String);
+        $upperBase32 = \strtoupper($base32);
 
-        return $base32String;
+        return \preg_replace($pattern, '', $upperBase32);
     }
 
-    private static function convertBase32ToArray(string $base32String, string $charset): array
+    private static function convertBase32ToBinaries(string $base32, string $charset): array
     {
-        $string = '';
-        $base32Array = \str_split($base32String);
+        $chars = \str_split($base32);
+        $binary = self::getBinaryFromCharsetByChars($charset, $chars);
+        $reduced = self::stringReduceModulo($binary, 8);
 
-        foreach ($base32Array as $str) {
-            $char = \strpos($charset, $str);
+        return self::convertBinaryToChunks($reduced, 8);
+    }
 
-            if ($char !== 32) {
-                $string .= sprintf('%05b', $char);
-            }
+    private static function getBinaryFromCharsetByChars(string $charset, array $chars): string
+    {
+        $binary = '';
+
+        foreach ($chars as $char) {
+            $binary .= self::getBinaryFromCharsetByChar($charset, $char);
         }
 
-        while (\strlen($string) % 8 !== 0) {
+        return $binary;
+    }
+
+    private static function getBinaryFromCharsetByChar(string $charset, string $char): string
+    {
+        $binary = '';
+        $index = \strpos($charset, $char);
+
+        if ($index !== 32) {
+            $binary = \sprintf('%05b', $index);
+        }
+
+        return $binary;
+    }
+
+    private static function stringReduceModulo(string $string, int $multiplier): string
+    {
+        while (\strlen($string) % $multiplier !== 0) {
             $string = \substr($string, 0, -1);
         }
 
-        return self::chunk($string, 8);
+        return $string;
     }
 
-    private static function convertArrayToString(array $binaryArray): string
+    private static function convertBinariesToString(array $binaries): string
     {
-        $realString = '';
+        $string = '';
 
-        foreach ($binaryArray as $bin) {
-            $pad = \str_pad($bin, 8, 0, STR_PAD_RIGHT);
-            $bindec = \bindec($pad);
-            $realString .= \chr($bindec);
+        foreach ($binaries as $binary) {
+            $string .= self::convertBinaryToChar($binary);
         }
-        return $realString;
+
+        return $string;
     }
 
-    private static function chunk(string $binaryString, int $bits): array
+    private static function convertBinaryToChar(string $binary): string
     {
-        $binaryString = \chunk_split($binaryString, $bits, ' ');
-        $binaryStringLength = \strlen($binaryString);
-        $binaryStringSub = \substr($binaryString, $binaryStringLength - 1);
+        $bindec = self::convertBinaryToDecimal($binary, 8);
 
-        if ($binaryStringSub === ' ') {
-            $binaryString = \substr($binaryString, 0, -1);
-        }
-
-        return \explode(' ', $binaryString);
+        return \chr($bindec);
     }
 }
