@@ -43,11 +43,11 @@ class GoogleAuthenticatorSettingsDTO
     /*─────────────────────────────────────────────────────────────────────────────*\
             Methods
     \*─────────────────────────────────────────────────────────────────────────────*/
-    public function init(
-        GoogleAuthenticatorSettings $oldSettings,
-        GoogleAuthenticatorSettings $newSettings,
-        string $oneTimePassword
-    ): void
+    public function __construct(
+        GoogleAuthenticatorSettings $oldSettings = null,
+        GoogleAuthenticatorSettings $newSettings = null,
+        string $oneTimePassword = null
+    )
     {
         $this->oldSettings = $oldSettings;
         $this->newSettings = $newSettings;

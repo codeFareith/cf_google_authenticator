@@ -57,21 +57,23 @@ class GoogleAuthenticatorSetupHandler
             $this->initGoogleAuthenticatorSettingsDTO();
             $this->checkFieldArray();
 
-            $result = $this->googleAuthenticatorSettingsDTO->getNewSettings()->toArray();
+            $result = $this->googleAuthenticatorSettingsDTO
+                ->getNewSettings()
+                ->toArray(true);
         }
 
         return $result;
-    }
-
-    private function setPreProcessFieldArrayDTO(PreProcessFieldArrayDTO $preProcessFieldArrayDTO): void
-    {
-        $this->preProcessFieldArrayDTO = $preProcessFieldArrayDTO;
     }
 
     private function isUsersTable(): bool
     {
         $table = $this->preProcessFieldArrayDTO->getTable();
         return ($table === 'be_users' || $table === 'fe_users');
+    }
+
+    private function setPreProcessFieldArrayDTO(PreProcessFieldArrayDTO $preProcessFieldArrayDTO): void
+    {
+        $this->preProcessFieldArrayDTO = $preProcessFieldArrayDTO;
     }
 
     /**
@@ -82,7 +84,7 @@ class GoogleAuthenticatorSetupHandler
     {
         $this->googleAuthenticatorSettingsDTO = $this->objectManager->get(GoogleAuthenticatorSettingsDTO::class);
 
-        if($this->isNewUser() === false) {
+        if ($this->isNewUser() === false) {
             $recordInfo = $this->preProcessFieldArrayDTO->getDataHandler()->recordInfo(
                 $this->preProcessFieldArrayDTO->getTable(),
                 $this->preProcessFieldArrayDTO->getId(),
@@ -112,7 +114,7 @@ class GoogleAuthenticatorSetupHandler
     {
         if ($this->hasUserEnabledAuthenticator()) {
             $this->processEnableRequest();
-        } elseif($this->isNewUser() === false) {
+        } elseif ($this->isNewUser() === false) {
             if ($this->hasUserDisabledAuthenticator()) {
                 $this->processDisableRequest();
             } else {
@@ -121,15 +123,20 @@ class GoogleAuthenticatorSetupHandler
         }
     }
 
+    private function isNewUser(): bool
+    {
+        return ($this->preProcessFieldArrayDTO->getId() === 0);
+    }
+
     private function hasUserEnabledAuthenticator(): bool
     {
         $hasEnabled = $this->googleAuthenticatorSettingsDTO->getNewSettings()->isEnabled();
 
-        if($this->preProcessFieldArrayDTO->getId() !== 0) {
+        if ($this->isNewUser() === false) {
             $hasEnabled &= $this->googleAuthenticatorSettingsDTO->getOldSettings()->isEnabled() === false;
         }
 
-        return (bool)$hasEnabled;
+        return $hasEnabled;
     }
 
     private function hasUserDisabledAuthenticator(): bool
@@ -149,7 +156,7 @@ class GoogleAuthenticatorSetupHandler
 
         if ($isValid) {
             $this->enableAuthenticator();
-        } elseif($this->isNewUser() === false) {
+        } elseif ($this->isNewUser() === false) {
             $this->keepOldSettings();
         }
     }
@@ -188,10 +195,5 @@ class GoogleAuthenticatorSetupHandler
 
         $newSettings->setEnabled($oldSettings->isEnabled());
         $newSettings->setSecretKey($oldSettings->getSecretKey());
-    }
-
-    private function isNewUser(): bool
-    {
-        return ($this->preProcessFieldArrayDTO->getId() === 0);
     }
 }

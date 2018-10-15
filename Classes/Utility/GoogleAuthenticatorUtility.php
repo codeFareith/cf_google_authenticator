@@ -30,38 +30,43 @@ final class GoogleAuthenticatorUtility
     /*─────────────────────────────────────────────────────────────────────────────*\
             Constants
     \*─────────────────────────────────────────────────────────────────────────────*/
-    private const KEY_REGENERATION = 30;
-    private const OTP_LENGTH = 6;
+    private const
+        OTP_REGENERATION = 30,
+        OTP_LENGTH = 6
+    ;
 
     /*─────────────────────────────────────────────────────────────────────────────*\
             Methods
     \*─────────────────────────────────────────────────────────────────────────────*/
-    public static function verifyOneTimePassword(string $secret, string $otp, int $discrepancy = 1): bool
+    public static function verifyOneTimePassword(string $secret, string $otp, int $discrepancy = null): bool
     {
-        if (\strlen($otp) !== self::OTP_LENGTH) {
-            return false;
-        }
+        $discrepancy = $discrepancy ?? 1;
+        $return = false;
 
-        $dateTime = GeneralUtility::makeInstance(\DateTimeImmutable::class);
-        $timeSlice = \floor($dateTime->getTimestamp() / self::KEY_REGENERATION);
+        if (\strlen($otp) === self::OTP_LENGTH) {
 
-        for ($i = -$discrepancy; $i <= $discrepancy; $i++) {
-            $checkCode = self::getCheckCode($secret, $timeSlice + $i);
+            $dateTime = GeneralUtility::makeInstance(\DateTimeImmutable::class);
+            $timeSlice = \floor($dateTime->getTimestamp() / self::OTP_REGENERATION);
 
-            if (\hash_equals($checkCode, $otp)) {
-                return true;
+            for ($i = -$discrepancy; $i <= $discrepancy; $i++) {
+                $checkCode = self::getCheckCode($secret, $timeSlice + $i);
+
+                if (\hash_equals($checkCode, $otp)) {
+                    $return = true;
+                    break;
+                }
             }
         }
 
-        return false;
+        return $return;
     }
 
     private static function getCheckCode(string $secret, float $timeSlice): string
     {
         $secretKey = Base32Utility::decode($secret);
 
-        $pad = \str_pad('', 4, \chr(0));
         $pack = \pack('N*', $timeSlice);
+        $pad = \str_pad('', 4, \chr(0));
         $time = ($pad . $pack);
 
         $hash = \hash_hmac('SHA1', $time, $secretKey, true);

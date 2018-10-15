@@ -28,6 +28,8 @@ class SetupFormValidator extends GenericObjectValidator
 
     public function isValid($object): bool
     {
+        $result = true;
+
         /** @var SetupForm $object */
         $secret = $object->getSecret();
         $oneTimePassword = $object->getOneTimePassword();
@@ -40,9 +42,9 @@ class SetupFormValidator extends GenericObjectValidator
                 'otp_invalid'
             );
 
-            return false;
+            $result = false;
         }
 
-        return true;
+        return $result;
     }
 }

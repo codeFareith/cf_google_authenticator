@@ -12,6 +12,16 @@
 
 namespace CodeFareith\CfGoogleAuthenticator\Domain\Immutable;
 
+/**
+ * Immutable interface
+ *
+ * This interface should be used in any immutable object
+ *
+ * @see \CodeFareith\CfGoogleAuthenticator\Domain\Immutable\AuthenticationSecret
+ *
+ * Interface ImmutableInterface
+ * @package CodeFareith\CfGoogleAuthenticator\Domain\Immutable
+ */
 interface ImmutableInterface
 {
 }

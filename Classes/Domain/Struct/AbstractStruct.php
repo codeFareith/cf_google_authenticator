@@ -31,20 +31,30 @@ abstract class AbstractStruct implements StructInterface
     /**
      * @throws \ReflectionException
      */
-    final public function toArray(): array
+    final public function toArray(bool $boolToInt = null): array
     {
+        $boolToInt = $boolToInt ?? false;
         $array = [];
 
         $properties = $this->getReflectionClass()
-            ->getProperties(\ReflectionProperty::IS_PUBLIC | \ReflectionProperty::IS_PROTECTED);
+            ->getProperties(
+                \ReflectionProperty::IS_PUBLIC
+                | \ReflectionProperty::IS_PROTECTED
+            );
 
         foreach ($properties as $property) {
-            $property->setAccessible(true);
+            if ($property->getName() !== 'mapping') {
+                $property->setAccessible(true);
 
-            $key = static::$mapping[$property->getName()] ?? $property->getName();
-            $value = $property->getValue($this);
+                $key = static::$mapping[$property->getName()] ?? $property->getName();
+                $value = $property->getValue($this);
 
-            $array[$key] = $value;
+                if ($boolToInt && \is_bool($value)) {
+                    $value = (int)$value;
+                }
+
+                $array[$key] = $value;
+            }
         }
 
         return $array;
@@ -52,7 +62,6 @@ abstract class AbstractStruct implements StructInterface
 
     /**
      * @param mixed $offset
-     * @return bool
      * @throws \ReflectionException
      */
     public function offsetExists($offset): bool

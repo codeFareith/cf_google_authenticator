@@ -11,6 +11,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - nothing, yet
 
+## [1.0.6] - 2018-10-15
+
+### Changed
+
+- fix some major bugs which caused the Google Authenticator service to be ignored
+- refactoring
+
+
+### Added
+
+#### Files
+
+- Classes/Domain/Form/FormInterface.php
+- Classes/Traits/GeneralUtilityObjectManager.php
+- Classes/Utility/TypoScriptUtility.php 
+
 
 
 ## [1.0.5] - 2018-09-26
@@ -18,9 +34,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 
 - fix a bug that made it impossible to edit a backend user
-
 - fix a bug in the JavaScript that kept the 2FA QR code hidden
-
 - fix a bug in the user module that made it impossible to create
 new frontend users using the backend.
 
@@ -63,21 +77,15 @@ their frontend accounts.
 ### Changed
 
 - `GoogleQrImageGenerator` renamed to `GoogleQrCodeGenerator`
-
 - `QrImageGeneratorInterface` renamed to `QrCodeGeneratorInterface`
-
 - `Classes/Hook/TCEMain::getObjectManager()` now requests the `ObjectManager`
 via `GeneralUtility::makeInstance()` only at the first call, then stores
 the reference in, and - when needed - loads it from its appropriate instance variable.
-
 - analogous to this behaves `getGoogleAuthenticatorSetupHandler()`.
-
 - `Classes/Hook/UserSettings::createSecretField()` now only does "one thing".
 Data retrieval and preparation have been delegated to other functions.
-
 - structure of `ext_localconf.php`, `ext_tables.php`, `be_users.php`,
 `fe_users.php` and `sys_template.php` has been improved.
-
 - `constants.typoscript` and `setup.typoscript` have been enhanced
 to meet frontend requirements
 
@@ -111,7 +119,6 @@ to meet frontend requirements
 ### Changed
 
 - A lot of refactoring
-
 - Apart from the code structure, nothing has changed significantly
 
 
@@ -121,7 +128,6 @@ to meet frontend requirements
 ### Changed
 
 - Replace wrong extension link in README.md
-
 - Add PHP 7.1+ as dependency in ext_emconf.php
 
 
