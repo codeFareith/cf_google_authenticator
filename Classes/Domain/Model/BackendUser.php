@@ -14,6 +14,7 @@ namespace CodeFareith\CfGoogleAuthenticator\Domain\Model;
 
 use TYPO3\CMS\Extbase\Domain\Model\BackendUser as BEUser;
 
+/** @noinspection LongInheritanceChainInspection */
 class BackendUser extends BEUser
 {
     /*─────────────────────────────────────────────────────────────────────────────*\

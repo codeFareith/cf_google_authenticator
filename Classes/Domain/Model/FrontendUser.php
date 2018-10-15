@@ -14,6 +14,7 @@ namespace CodeFareith\CfGoogleAuthenticator\Domain\Model;
 
 use TYPO3\CMS\Extbase\Domain\Model\FrontendUser as FEUser;
 
+/** @noinspection LongInheritanceChainInspection */
 class FrontendUser extends FEUser
 {
     /*─────────────────────────────────────────────────────────────────────────────*\
