@@ -35,9 +35,9 @@ $EM_CONF[$_EXTKEY] = [
 
     'constraints' => [
         'depends' => [
-            'php' => '7.1.0-0.0.0',
-            'typo3' => '7.6.0-0.0.0',
-            'felogin' => '7.6.0-0.0.0'
+            'php' => '7.1-',
+            'typo3' => '7.6.0-9.9.99',
+            'felogin' => '7.6.0-9.9.99'
         ],
         'conflicts' => [
 
