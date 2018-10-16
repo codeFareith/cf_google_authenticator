@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - nothing, yet
 
+## [1.1.0] - 2018-10-15
+
+### Added
+
+- compatibility with TYPO3 CMS v9
+
+
+
 ## [1.0.6] - 2018-10-15
 
 ### Changed
