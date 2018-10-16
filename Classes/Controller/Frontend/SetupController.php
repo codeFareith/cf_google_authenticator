@@ -17,6 +17,7 @@ use CodeFareith\CfGoogleAuthenticator\Domain\Immutable\AuthenticationSecret;
 use CodeFareith\CfGoogleAuthenticator\Domain\Model\FrontendUser;
 use CodeFareith\CfGoogleAuthenticator\Service\GoogleQrCodeGenerator;
 use CodeFareith\CfGoogleAuthenticator\Service\QrCodeGeneratorInterface;
+use CodeFareith\CfGoogleAuthenticator\Traits\GeneralUtilityContext;
 use CodeFareith\CfGoogleAuthenticator\Utility\Base32Utility;
 use CodeFareith\CfGoogleAuthenticator\Utility\PathUtility;
 use CodeFareith\CfGoogleAuthenticator\Validation\Validator\SetupFormValidator;
