@@ -27,7 +27,7 @@ $EM_CONF[$_EXTKEY] = [
     'author_company' => '',
 
     'state' => 'stable',
-    'version' => '1.0.6',
+    'version' => '1.1.0',
 
     'uploadFolders' => false,
     'createDirs' => '',
@@ -35,9 +35,9 @@ $EM_CONF[$_EXTKEY] = [
 
     'constraints' => [
         'depends' => [
-            'php' => '7.1-',
-            'typo3' => '7.6.0-8.9.99',
-            'felogin' => '7.6.0-8.9.99'
+            'php' => '7.1.0-0.0.0',
+            'typo3' => '7.6.0-0.0.0',
+            'felogin' => '7.6.0-0.0.0'
         ],
         'conflicts' => [
 
