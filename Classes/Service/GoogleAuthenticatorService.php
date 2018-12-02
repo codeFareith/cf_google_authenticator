@@ -17,6 +17,8 @@ use CodeFareith\CfGoogleAuthenticator\Utility\GoogleAuthenticatorUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Sv\AbstractAuthenticationService;
 
+/** @noinspection LongInheritanceChainInspection */
+
 /**
  * Google Authenticator Service
  *
@@ -33,6 +35,12 @@ use TYPO3\CMS\Sv\AbstractAuthenticationService;
  */
 class GoogleAuthenticatorService extends AbstractAuthenticationService
 {
+    public const
+        AUTH_FAIL_AND_STOP = -1,
+        AUTH_FAIL_AND_PROCEED = 0,
+        AUTH_SUCCEED_AND_PROCEED = 70,
+        AUTH_SUCCEED_AND_STOP = 200;
+
     /*─────────────────────────────────────────────────────────────────────────────*\
             Properties
     \*─────────────────────────────────────────────────────────────────────────────*/
@@ -65,9 +73,9 @@ class GoogleAuthenticatorService extends AbstractAuthenticationService
             $secret = $user['tx_cfgoogleauthenticator_secret'];
 
             if (GoogleAuthenticatorUtility::verifyOneTimePassword($secret, $otp) === true) {
-                $status = 200;
+                $status = self::AUTH_SUCCEED_AND_PROCEED;
             } else {
-                $status = 0;
+                $status = self::AUTH_FAIL_AND_STOP;
             }
         } else {
             $this->vsprintfDevLog(
@@ -75,7 +83,7 @@ class GoogleAuthenticatorService extends AbstractAuthenticationService
                 $logArgs
             );
 
-            $status = 100;
+            $status = static::AUTH_FAIL_AND_PROCEED;
         }
 
         return $status;
