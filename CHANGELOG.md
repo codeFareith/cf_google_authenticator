@@ -11,6 +11,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - nothing, yet
 
+## [1.1.1] - 2018-10-15
+
+### Changed
+
+- on success, GoogleAuthenticatorService returns status code 70, instead of 200,
+so that further services can also perform their own authentication
+
+
+
 ## [1.1.0] - 2018-10-15
 
 ### Added
