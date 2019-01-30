@@ -37,7 +37,7 @@ class GoogleAuthenticatorService extends AbstractAuthenticationService
 {
     public const
         AUTH_FAIL_AND_STOP = -1,
-        AUTH_FAIL_AND_PROCEED = 0,
+        AUTH_FAIL_AND_PROCEED = 100,
         AUTH_SUCCEED_AND_PROCEED = 70,
         AUTH_SUCCEED_AND_STOP = 200;
 
