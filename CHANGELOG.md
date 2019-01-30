@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - nothing, yet
 
+## [1.1.2] - 2018-10-15
+
+### Changed
+
+- constant `AUTH_FAIL_AND_PROCEED` in `GoogleAuthenticatorService` set to 100
+
+
+
 ## [1.1.1] - 2018-10-15
 
 ### Changed
