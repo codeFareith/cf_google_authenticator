@@ -1,0 +1,18 @@
+config {
+    tx_extbase {
+        persistence {
+            classes {
+                CodeFareith\CfGoogleAuthenticator\Domain\Model\FrontendUser {
+                    mapping {
+                        tableName = fe_users
+                    }
+                }
+                CodeFareith\CfGoogleAuthenticator\Domain\Model\BackendUser {
+                    mapping {
+                        tableName = be_users
+                    }
+                }
+            }
+        }
+    }
+}
