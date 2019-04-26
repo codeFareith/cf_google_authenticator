@@ -18,6 +18,7 @@ use CodeFareith\CfGoogleAuthenticator\Domain\Mapper\GoogleAuthenticatorSettingsM
 use CodeFareith\CfGoogleAuthenticator\Exception\MissingRequiredField;
 use CodeFareith\CfGoogleAuthenticator\Exception\PropertyNotInitialized;
 use CodeFareith\CfGoogleAuthenticator\Utility\GoogleAuthenticatorUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
 
 class GoogleAuthenticatorSetupHandler
@@ -68,7 +69,20 @@ class GoogleAuthenticatorSetupHandler
     private function isUsersTable(): bool
     {
         $table = $this->preProcessFieldArrayDTO->getTable();
-        return ($table === 'be_users' || $table === 'fe_users');
+        $result = ($table === 'be_users' || $table === 'fe_users');
+        if (!$result && is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cf_google_authenticator']['isUsersTable'])) {
+            foreach ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['cf_google_authenticator']['isUsersTable'] as $funcRef) {
+                $params = [
+                    'table' => $table,
+                ];
+                $result = GeneralUtility::callUserFunction($funcRef, $params, $this);
+                if ($result) {
+                    // No need to invoke another hook
+                    break;
+                }
+            }
+        }
+        return $result;
     }
 
     private function setPreProcessFieldArrayDTO(PreProcessFieldArrayDTO $preProcessFieldArrayDTO): void
