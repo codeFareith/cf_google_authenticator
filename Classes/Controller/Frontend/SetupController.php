@@ -15,16 +15,21 @@ namespace CodeFareith\CfGoogleAuthenticator\Controller\Frontend;
 use CodeFareith\CfGoogleAuthenticator\Domain\Form\SetupForm;
 use CodeFareith\CfGoogleAuthenticator\Domain\Immutable\AuthenticationSecret;
 use CodeFareith\CfGoogleAuthenticator\Domain\Model\FrontendUser;
+use CodeFareith\CfGoogleAuthenticator\Domain\Repository\FrontendUserRepository;
 use CodeFareith\CfGoogleAuthenticator\Service\GoogleQrCodeGenerator;
 use CodeFareith\CfGoogleAuthenticator\Service\QrCodeGeneratorInterface;
-use CodeFareith\CfGoogleAuthenticator\Traits\GeneralUtilityContext;
 use CodeFareith\CfGoogleAuthenticator\Utility\Base32Utility;
 use CodeFareith\CfGoogleAuthenticator\Utility\PathUtility;
 use CodeFareith\CfGoogleAuthenticator\Validation\Validator\SetupFormValidator;
+use Exception;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
-use TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
+use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
+use TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException;
+use TYPO3\CMS\Extbase\Object\InvalidClassException;
+use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
+use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 use TYPO3\CMS\Lang\LanguageService;
 
 /**
@@ -50,6 +55,9 @@ class SetupController
     /** @var SetupFormValidator */
     protected $setupFormValidator;
 
+    /** @var LanguageService */
+    protected $languageService;
+
     /** @var AuthenticationSecret */
     private $authenticationSecret;
 
@@ -59,7 +67,8 @@ class SetupController
     public function __construct(
         FrontendUserRepository $frontendUserRepository,
         GoogleQrCodeGenerator $qrCodeGenerator,
-        SetupFormValidator $setupFormValidator
+        SetupFormValidator $setupFormValidator,
+        LanguageService $languageService
     )
     {
         parent::__construct();
@@ -67,10 +76,11 @@ class SetupController
         $this->frontendUserRepository = $frontendUserRepository;
         $this->qrCodeGenerator = $qrCodeGenerator;
         $this->setupFormValidator = $setupFormValidator;
+        $this->languageService = $languageService;
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function indexAction(): void
     {
@@ -107,10 +117,10 @@ class SetupController
 
     /**
      * @throws NoSuchArgumentException
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException
+     * @throws StopActionException
+     * @throws IllegalObjectTypeException
+     * @throws UnknownObjectException
+     * @throws UnsupportedRequestTypeException
      */
     public function updateAction(): void
     {
@@ -155,7 +165,7 @@ class SetupController
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     private function getAuthenticationSecret(): AuthenticationSecret
     {
@@ -195,7 +205,7 @@ class SetupController
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     private function getSecretKey(): string
     {
@@ -226,16 +236,30 @@ class SetupController
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     private function getSetupForm(): SetupForm
     {
         /** @noinspection PhpMethodParametersCountMismatchInspection */
-        return $this->objectManager->get(
+        $object = $this->objectManager->get(
             SetupForm::class,
             $this->getAuthenticationSecret()->getSecretKey(),
             ''
         );
+
+        if (!$object instanceof SetupForm) {
+            throw new InvalidClassException(
+                \vsprintf(
+                    'Invalid class. Expected "%s", got "%s".',
+                    [
+                        SetupForm::class,
+                        \get_class($object),
+                    ]
+                )
+            );
+        }
+
+        return $object;
     }
 
     /**
@@ -274,6 +298,6 @@ class SetupController
 
     private function getLanguageService(): LanguageService
     {
-        return $GLOBALS['LANG'];
+        return $this->languageService;
     }
 }
