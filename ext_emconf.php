@@ -26,7 +26,7 @@ $EM_CONF[$_EXTKEY] = [
     'author_email' => 'rvdb@fareith.de',
     'author_company' => '',
 
-    'state' => 'beta',
+    'state' => 'stable',
     'version' => '1.1.3',
 
     'uploadFolders' => false,
