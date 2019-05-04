@@ -11,6 +11,25 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - nothing, yet
 
+## [1.1.3] - 2019-05-04
+
+### Changed
+
+- provide `TYPO3\CMS\Lang\LanguageService` via constructor injection
+in `CodeFareith\CfGoogleAuthenticator\Controller\Frontend\SetupController`
+- use `CodeFareith\CfGoogleAuthenticator\Domain\Repository\FrontendUserRepository` instead of
+`TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository` in `CodeFareith\CfGoogleAuthenticator\Controller\Frontend\SetupController`
+- remove object mapping in `setup.typoscript` and move table mapping to `ext_typoscript_setup.typoscript`
+
+### Added
+
+#### Files
+
+- Classes/Domain/Repository/FrontendUserRepository
+- ext_typoscript_setup.typoscript
+
+
+
 ## [1.1.2] - 2018-10-15
 
 ### Changed
