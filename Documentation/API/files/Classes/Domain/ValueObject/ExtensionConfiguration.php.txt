@@ -1,0 +1,90 @@
+<?php
+/**
+ * @author Robin von den Bergen <robin.vondenbergen@interlutions.de>
+ */
+
+namespace CodeFareith\CfGoogleAuthenticator\Domain\ValueObject;
+
+class ExtensionConfiguration
+{
+    protected const DEFAULT_TEMPLATE = 'EXT:cf_google_authenticator/Resources/Private/Templates/FeLogin/FrontendLogin.html';
+
+    /**
+     * @var bool
+     */
+    protected $beEnabled;
+
+    /**
+     * @var bool
+     */
+    protected $feEnabled;
+
+    /**
+     * @var string
+     */
+    protected $template;
+
+    /**
+     * @var bool
+     */
+    protected $devlogEnabled;
+
+    public function __construct(
+        bool $beEnabled,
+        bool $feEnabled,
+        string $template,
+        bool $devlogEnabled
+    )
+    {
+        $beEnabled = $beEnabled ?? true;
+        $feEnabled = $feEnabled ?? false;
+        $template = $template ?? static::DEFAULT_TEMPLATE;
+        $devlogEnabled = $devlogEnabled ?? false;
+
+        $this->setBeEnabled($beEnabled);
+        $this->setFeEnabled($feEnabled);
+        $this->setTemplate($template);
+        $this->setDevlogEnabled($devlogEnabled);
+    }
+
+    public function isBeEnabled(): bool
+    {
+        return $this->beEnabled;
+    }
+
+    public function setBeEnabled(bool $beEnabled): void
+    {
+        $this->beEnabled = $beEnabled;
+    }
+
+    public function isFeEnabled(): bool
+    {
+        return $this->feEnabled;
+    }
+
+    public function setFeEnabled(bool $feEnabled): void
+    {
+        $this->feEnabled = $feEnabled;
+    }
+
+    public function getTemplate(): string
+    {
+        return $this->template;
+    }
+
+    public function setTemplate(string $template): void
+    {
+        $this->template = $template;
+    }
+
+    public function isDevlogEnabled(): bool
+    {
+        return $this->devlogEnabled;
+    }
+
+    public function setDevlogEnabled(bool $devlogEnabled): void
+    {
+        $this->devlogEnabled = $devlogEnabled;
+    }
+}
+

@@ -1,0 +1,98 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+/**
+ * @author Robin von den Bergen &lt;robin.vondenbergen@interlutions.de&gt;
+ */
+
+namespace CodeFareith\CfGoogleAuthenticator\Application\Exception;
+
+use LengthException;
+use Throwable;
+use function time;
+use function vsprintf;
+
+class StringLengthViolation extends LengthException implements ApplicationException
+{
+    public static function limitExceeded(int $limit, int $actual, Throwable $previous = null): self
+    {
+        $message = vsprintf(
+            'The given string is too long. Permitted: %s characters. Actual: %s characters.',
+            [
+                $limit,
+                $actual,
+            ]
+        );
+
+        return new self($message, time(), $previous);
+    }
+
+    public static function limitUndershot(int $limit, int $actual, Throwable $previous = null): self
+    {
+        $message = vsprintf(
+            'The given string is too short. Permitted: %s characters. Actual: %s characters.',
+            [
+                $limit,
+                $actual,
+            ]
+        );
+
+        return new self($message, time(), $previous);
+    }
+
+    public static function requirementNotMet(int $required, int $actual, Throwable $previous = null): self
+    {
+        $message = vsprintf(
+            'The given string must consist of exactly %s characters. Actual: %s characters.',
+            [
+                $required,
+                $actual,
+            ]
+        );
+
+        return new self($message, time(), $previous);
+    }
+}
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>
