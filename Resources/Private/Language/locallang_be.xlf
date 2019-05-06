@@ -29,6 +29,31 @@
             <trans-unit id="disableAuthenticator">
                 <source>To disable Google Authenticator, uncheck the checkbox above and enter a valid one-time password.</source>
             </trans-unit>
+
+            <trans-unit id="setup.enable.success.title">
+                <source>Success!</source>
+            </trans-unit>
+            <trans-unit id="setup.enable.success.body">
+                <source>Your account is now protected by a two-factor authentication.</source>
+            </trans-unit>
+            <trans-unit id="setup.disable.success.title">
+                <source>Success!</source>
+            </trans-unit>
+            <trans-unit id="setup.disable.success.body">
+                <source>You disabled the two-factor authentication.</source>
+            </trans-unit>
+            <trans-unit id="setup.enable.error.title">
+                <source>Oops!</source>
+            </trans-unit>
+            <trans-unit id="setup.enable.error.body">
+                <source>The given one-time password was incorrect or has expired.</source>
+            </trans-unit>
+            <trans-unit id="setup.disable.error.title">
+                <source>Oops!</source>
+            </trans-unit>
+            <trans-unit id="setup.disable.error.body">
+                <source>The given one-time password was incorrect or has expired.</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>
