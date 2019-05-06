@@ -1,31 +1,37 @@
 <?php
 /**
- * @author Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
- * @copyright (c) 2018 by Robin von den Bergen
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version 1.0.0
+ * Class PathUtility
  *
- * @link https://github.com/codeFareith/cf_google_authenticator
- * @see https://www.fareith.de
- * @see https://typo3.org
+ * @author        Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
+ * @copyright (c) 2018-2019 by Robin von den Bergen
+ * @license       http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version       1.0.0
+ *
+ * @link          https://github.com/codeFareith/cf_google_authenticator
+ * @see           https://www.fareith.de
+ * @see           https://typo3.org
  */
 
 namespace CodeFareith\CfGoogleAuthenticator\Utility;
+
+use function implode;
+use function ltrim;
+use function rtrim;
+use function vsprintf;
 
 /**
  * Helper class to create extension links
  *
  * This utility provides methods for effortless path generation.
  *
- * Class PathUtility
  * @package CodeFareith\CfGoogleAuthenticator\Utility
+ * @since   1.0.0
  */
 final class PathUtility
 {
     /*─────────────────────────────────────────────────────────────────────────────*\
             Properties
     \*─────────────────────────────────────────────────────────────────────────────*/
-    /** @var string */
     public static $languageDirectoryPath = 'Resources/Private/Language';
 
     /*─────────────────────────────────────────────────────────────────────────────*\
@@ -50,24 +56,24 @@ final class PathUtility
 
     public static function stripLeadingSlash(string $string): string
     {
-        return \ltrim($string, '/\\');
+        return ltrim($string, '/\\');
     }
 
     public static function stripTrailingSlash(string $string): string
     {
-        return \rtrim($string, '/\\');
+        return rtrim($string, '/\\');
     }
 
     public static function makeExtensionPath(string $relativePath): string
     {
         $relativePath = self::stripLeadingSlash($relativePath);
 
-        return \vsprintf(
+        return vsprintf(
             '%s:%s/%s',
             [
                 'EXT',
                 ExtensionBasicDataUtility::getExtensionKey(),
-                $relativePath
+                $relativePath,
             ]
         );
     }
@@ -78,12 +84,12 @@ final class PathUtility
         $relativePath = self::makePath(self::$languageDirectoryPath, $file);
         $extensionLink = self::makeExtensionPath($relativePath);
 
-        return \vsprintf(
+        return vsprintf(
             '%s:%s:%s',
             [
                 'LLL',
                 $extensionLink,
-                $id
+                $id,
             ]
         );
     }

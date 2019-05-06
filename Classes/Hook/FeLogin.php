@@ -1,13 +1,15 @@
 <?php
 /**
- * @author Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
- * @copyright (c) 2018 by Robin von den Bergen
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version 1.0.0
+ * Class FeLogin
  *
- * @link https://github.com/codeFareith/cf_google_authenticator
- * @see https://www.fareith.de
- * @see https://typo3.org
+ * @author        Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
+ * @copyright (c) 2018-2019 by Robin von den Bergen
+ * @license       http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version       1.0.0
+ *
+ * @link          https://github.com/codeFareith/cf_google_authenticator
+ * @see           https://www.fareith.de
+ * @see           https://typo3.org
  */
 
 namespace CodeFareith\CfGoogleAuthenticator\Hook;
@@ -24,8 +26,8 @@ use TYPO3\CMS\Lang\LanguageService;
  * This class hooks into the 'felogin' extension to pass additional data
  * in the frontend login template.
  *
- * Class FeLogin
  * @package CodeFareith\CfGoogleAuthenticator\Hook
+ * @since   1.0.0
  */
 class FeLogin
 {
@@ -37,10 +39,14 @@ class FeLogin
     /*─────────────────────────────────────────────────────────────────────────────*\
             Properties
     \*─────────────────────────────────────────────────────────────────────────────*/
-    /** @var MarkerBasedTemplateService */
+    /**
+     * @var MarkerBasedTemplateService
+     */
     private $markerBasedTemplateService;
 
-    /** @var LanguageService */
+    /**
+     * @var LanguageService
+     */
     private $languageService;
 
     /*─────────────────────────────────────────────────────────────────────────────*\
@@ -53,7 +59,7 @@ class FeLogin
         if ($this->isGoogleAuthenticatorEnabled()) {
             $localLangLink = PathUtility::makeLocalLangLinkPath('GoogleAuthenticatorOTP');
             $marker = [
-                '###OTP_LABEL###' => $this->getLanguageService()->sL($localLangLink)
+                '###OTP_LABEL###' => $this->getLanguageService()->sL($localLangLink),
             ];
         }
 
@@ -68,7 +74,7 @@ class FeLogin
         $extConf = ExtensionBasicDataUtility::getExtensionConfiguration();
 
         if ($extConf['googleAuthenticatorEnableFE'] !== null) {
-            $result = (bool)$extConf['googleAuthenticatorEnableFE'];
+            $result = (bool) $extConf['googleAuthenticatorEnableFE'];
         }
 
         return $result;
@@ -77,7 +83,7 @@ class FeLogin
     private function getMarkerBasedTemplateService(): MarkerBasedTemplateService
     {
         if ($this->markerBasedTemplateService === null) {
-            $this->markerBasedTemplateService = $this->getObjectManager()->get(MarkerBasedTemplateService::class);
+            $this->markerBasedTemplateService = $this->objectManager()->get(MarkerBasedTemplateService::class);
         }
 
         return $this->markerBasedTemplateService;
@@ -86,7 +92,7 @@ class FeLogin
     private function getLanguageService(): LanguageService
     {
         if ($this->languageService === null) {
-            $this->languageService = $this->getObjectManager()->get(LanguageService::class);
+            $this->languageService = $this->objectManager()->get(LanguageService::class);
         }
 
         return $this->languageService;

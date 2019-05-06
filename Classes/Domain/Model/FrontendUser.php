@@ -1,13 +1,15 @@
 <?php
 /**
- * @author Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
- * @copyright (c) 2018 by Robin von den Bergen
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version 1.0.0
+ * Class FrontendUser
  *
- * @link https://github.com/codeFareith/cf_google_authenticator
- * @see https://www.fareith.de
- * @see https://typo3.org
+ * @author        Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
+ * @copyright (c) 2018-2019 by Robin von den Bergen
+ * @license       http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version       1.0.0
+ *
+ * @link          https://github.com/codeFareith/cf_google_authenticator
+ * @see           https://www.fareith.de
+ * @see           https://typo3.org
  */
 
 namespace CodeFareith\CfGoogleAuthenticator\Domain\Model;
@@ -15,15 +17,30 @@ namespace CodeFareith\CfGoogleAuthenticator\Domain\Model;
 use TYPO3\CMS\Extbase\Domain\Model\FrontendUser as FEUser;
 
 /** @noinspection LongInheritanceChainInspection */
-class FrontendUser extends FEUser
+
+/**
+ * Extension of the FrontendUser model
+ *
+ * Adds two new fields, their corresponding getters and setters,
+ * as well as some other methods for handling the related domain logic.
+ *
+ * @package CodeFareith\CfGoogleAuthenticator\Domain\Model
+ * @since   1.0.0
+ */
+class FrontendUser
+    extends FEUser
 {
     /*─────────────────────────────────────────────────────────────────────────────*\
             Properties
     \*─────────────────────────────────────────────────────────────────────────────*/
-    /** @var bool */
+    /**
+     * @var bool
+     */
     protected $txCfgoogleauthenticatorEnabled;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $txCfgoogleauthenticatorSecret;
 
     /*─────────────────────────────────────────────────────────────────────────────*\

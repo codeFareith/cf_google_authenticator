@@ -1,16 +1,35 @@
 <?php
 /**
- * @author Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
- * @copyright (c) 2018 by Robin von den Bergen
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version 1.0.0
+ * Class Base32Utility
  *
- * @link https://github.com/codeFareith/cf_google_authenticator
- * @see https://www.fareith.de
- * @see https://typo3.org
+ * @author        Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
+ * @copyright (c) 2018-2019 by Robin von den Bergen
+ * @license       http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version       1.0.0
+ *
+ * @link          https://github.com/codeFareith/cf_google_authenticator
+ * @see           https://www.fareith.de
+ * @see           https://typo3.org
  */
 
 namespace CodeFareith\CfGoogleAuthenticator\Utility;
+
+use Exception;
+use function bindec;
+use function chr;
+use function chunk_split;
+use function count;
+use function explode;
+use function ord;
+use function preg_replace;
+use function random_int;
+use function sprintf;
+use function str_pad;
+use function str_split;
+use function strlen;
+use function strpos;
+use function strtoupper;
+use function substr;
 
 /**
  * Base32 encoder / decoder
@@ -18,15 +37,14 @@ namespace CodeFareith\CfGoogleAuthenticator\Utility;
  * This utility class helps to encode and decode values with Base32.
  * It provides three different standard charsets: RFC4648, CROCKFORD and MIME_09AV.
  *
- * Class Base32Utility
  * @package CodeFareith\CfGoogleAuthenticator\Utility
+ * @since   1.0.0
  */
 final class Base32Utility
 {
     /*─────────────────────────────────────────────────────────────────────────────*\
             Constants
     \*─────────────────────────────────────────────────────────────────────────────*/
-    /** @var string */
     public const
         RFC4648 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567=',
         CROCKFORD = '0123456789ABCDEFGHJKMNPQRSTVWXYZ',
@@ -36,15 +54,15 @@ final class Base32Utility
             Methods
     \*─────────────────────────────────────────────────────────────────────────────*/
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public static function generateRandomString(int $stringLength, string $charset = null): string
     {
         $charset = $charset ?? self::RFC4648;
         $key = '';
 
-        while (\strlen($key) < $stringLength) {
-            $index = \random_int(0, 31);
+        while (strlen($key) < $stringLength) {
+            $index = random_int(0, 31);
             $key .= $charset[$index];
         }
 
@@ -56,7 +74,7 @@ final class Base32Utility
         $charset = $charset ?? self::RFC4648;
         $return = '';
 
-        if($string !== '') {
+        if ($string !== '') {
             $binary = self::convertStringToBinary($string);
             $array = self::convertBinaryToArray($binary);
             $return = self::convertBinariesToBase32($array, $charset);
@@ -81,7 +99,7 @@ final class Base32Utility
 
     private static function convertStringToBinary(string $string): string
     {
-        $chars = \str_split($string);
+        $chars = str_split($string);
 
         return self::convertCharsToBinary($chars);
     }
@@ -99,9 +117,9 @@ final class Base32Utility
 
     private static function convertCharToBinary(string $char): string
     {
-        $ord = \ord($char);
+        $ord = ord($char);
 
-        return \sprintf('%08b', $ord);
+        return sprintf('%08b', $ord);
     }
 
     private static function convertBinaryToArray(string $binary): array
@@ -113,20 +131,20 @@ final class Base32Utility
 
     private static function convertBinaryToChunks(string $binary, int $bits): array
     {
-        $chunked = \chunk_split($binary, $bits, ' ');
-        $length = \strlen($chunked);
-        $trailing = \substr($chunked, $length - 1);
+        $chunked = chunk_split($binary, $bits, ' ');
+        $length = strlen($chunked);
+        $trailing = substr($chunked, $length - 1);
 
         if ($trailing === ' ') {
-            $chunked = \substr($chunked, 0, -1);
+            $chunked = substr($chunked, 0, -1);
         }
 
-        return \explode(' ', $chunked);
+        return explode(' ', $chunked);
     }
 
     private static function arrayPadModulo(array $array, int $multiple, $value): array
     {
-        while (\count($array) % $multiple !== 0) {
+        while (count($array) % $multiple !== 0) {
             $array[] = $value;
         }
 
@@ -157,25 +175,26 @@ final class Base32Utility
 
     private static function convertBinaryToDecimal(string $binary, int $length): string
     {
-        $bin = \str_pad(
+        $bin = str_pad(
             $binary,
             $length,
             0
         );
-        return \bindec($bin);
+
+        return bindec($bin);
     }
 
     private static function sanitizeBase32(string $base32): string
     {
         $pattern = '/[^A-Z2-7]/';
-        $upperBase32 = \strtoupper($base32);
+        $upperBase32 = strtoupper($base32);
 
-        return \preg_replace($pattern, '', $upperBase32);
+        return preg_replace($pattern, '', $upperBase32);
     }
 
     private static function convertBase32ToBinaries(string $base32, string $charset): array
     {
-        $chars = \str_split($base32);
+        $chars = str_split($base32);
         $binary = self::getBinaryFromCharsetByChars($charset, $chars);
         $reduced = self::stringReduceModulo($binary, 8);
 
@@ -196,10 +215,10 @@ final class Base32Utility
     private static function getBinaryFromCharsetByChar(string $charset, string $char): string
     {
         $binary = '';
-        $index = \strpos($charset, $char);
+        $index = strpos($charset, $char);
 
         if ($index !== 32) {
-            $binary = \sprintf('%05b', $index);
+            $binary = sprintf('%05b', $index);
         }
 
         return $binary;
@@ -207,8 +226,8 @@ final class Base32Utility
 
     private static function stringReduceModulo(string $string, int $multiplier): string
     {
-        while (\strlen($string) % $multiplier !== 0) {
-            $string = \substr($string, 0, -1);
+        while (strlen($string) % $multiplier !== 0) {
+            $string = substr($string, 0, -1);
         }
 
         return $string;
@@ -229,6 +248,6 @@ final class Base32Utility
     {
         $bindec = self::convertBinaryToDecimal($binary, 8);
 
-        return \chr($bindec);
+        return chr($bindec);
     }
 }
