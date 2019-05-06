@@ -30,6 +30,31 @@
             <trans-unit id="disableAuthenticator">
                 <target>Um den Google Authenticator zu deaktivieren, wählen Sie oben das Kontrollkästchen ab und geben Sie einen gültiges Einmal-Passwort ein.</target>
             </trans-unit>
+
+            <trans-unit id="setup.enable.success.title">
+                <source>Erledigt!</source>
+            </trans-unit>
+            <trans-unit id="setup.enable.success.body">
+                <source>Dein Account ist nun zusätzlich durch eine Zwei-Faktor-Authentifizierung abgesichert.</source>
+            </trans-unit>
+            <trans-unit id="setup.disable.success.title">
+                <source>Erledigt!</source>
+            </trans-unit>
+            <trans-unit id="setup.disable.success.body">
+                <source>Du hast die Zwei-Faktor Authentifizierung deaktiviert.</source>
+            </trans-unit>
+            <trans-unit id="setup.enable.error.title">
+                <source>Oops!</source>
+            </trans-unit>
+            <trans-unit id="setup.enable.error.body">
+                <source>Das angegebene Einmalpasswort war falsch oder ist abgelaufen.</source>
+            </trans-unit>
+            <trans-unit id="setup.disable.error.title">
+                <source>Oops!</source>
+            </trans-unit>
+            <trans-unit id="setup.disable.error.body">
+                <source>Das angegebene Einmalpasswort war falsch oder ist abgelaufen.</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -2,12 +2,12 @@
 
 define(
     ['jquery'],
-    function($) {
+    function ($) {
 
-        $(function() {
+        $(function () {
             let selectors = {
                     iFrame: 'body',
-                    inputEnable: '[data-formengine-input-name$="[tx_cfgoogleauthenticator_enabled]"]',
+                    inputEnable: '[data-formengine-input-name$="[tx_cfgoogleauthenticator_enabled]"],[name$="[tx_cfgoogleauthenticator_enabled]"]',
                     inputSecret: '[name$="[tx_cfgoogleauthenticator_secret]"]',
                     inputOtp: '[name$="[tx_cfgoogleauthenticator_otp]"]',
                     formSection: '.form-section'
@@ -18,17 +18,13 @@ define(
             $iFrame.on(
                 'click',
                 selectors.inputEnable,
-                function() {
-                    update();
-                }
+                update
             );
-
-            console.log($iFrame, $inputEnable);
 
             function update() {
                 let isEnabled = $inputEnable.prop('checked');
 
-                if(isEnabled === true) {
+                if (isEnabled === true) {
                     $iFrame.find(selectors.inputSecret).closest(selectors.formSection).slideDown();
                 } else {
                     $iFrame.find(selectors.inputSecret).closest(selectors.formSection).slideUp();
@@ -37,5 +33,6 @@ define(
 
             update();
         });
+
     }
 );

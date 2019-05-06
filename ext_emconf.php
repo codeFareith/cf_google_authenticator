@@ -5,17 +5,17 @@
  * This file contains a declaration of what this extension is and does for the
  * Extension Manager.
  *
- * @author Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
- * @copyright (c) 2018 by Robin von den Bergen
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version 1.0.0
+ * @author        Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
+ * @copyright (c) 2018-2019 by Robin von den Bergen
+ * @license       http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version       1.0.0
  *
- * @link https://github.com/codeFareith/cf_google_authenticator
- * @see https://www.fareith.de
- * @see https://typo3.org
+ * @link          https://github.com/codeFareith/cf_google_authenticator
+ * @see           https://www.fareith.de
+ * @see           https://typo3.org
  */
 
-/** @var $_EXTKEY string */
+/** @var string $_EXTKEY */
 
 $EM_CONF[$_EXTKEY] = [
     'title' => '[codeFareith] Google Authenticator',
@@ -23,11 +23,11 @@ $EM_CONF[$_EXTKEY] = [
     'category' => 'misc',
 
     'author' => 'Robin "codeFareith" von den Bergen',
-    'author_email' => 'rvdb@fareith.de',
+    'author_email' => 'robin@vondenbergen.de',
     'author_company' => '',
 
     'state' => 'stable',
-    'version' => '1.1.3',
+    'version' => '1.1.4',
 
     'uploadFolders' => false,
     'createDirs' => '',
@@ -36,20 +36,23 @@ $EM_CONF[$_EXTKEY] = [
     'constraints' => [
         'depends' => [
             'php' => '7.1-',
-            'typo3' => '7.6.0-9.9.99',
-            'felogin' => '7.6.0-9.9.99'
+            'typo3' => '8.7.0-9.5.99',
         ],
         'conflicts' => [
-
         ],
         'suggests' => [
-
-        ]
+            'felogin' => '8.7.0-9.5.99',
+        ],
     ],
 
     'autoload' => [
         'psr-4' => [
-            'CodeFareith\\CfGoogleAuthenticator\\' => 'Classes'
-        ]
-    ]
+            'CodeFareith\\CfGoogleAuthenticator\\' => 'Classes',
+        ],
+    ],
+    'autoload-dev' => [
+        'psr-4' => [
+            'CodeFareith\\CfGoogleAuthenticator\\Tests\\' => 'Tests',
+        ],
+    ],
 ];

@@ -1,0 +1,54 @@
+<?php
+/**
+ * @author Robin von den Bergen <robin.vondenbergen@interlutions.de>
+ */
+
+namespace CodeFareith\CfGoogleAuthenticator\Application\Exception;
+
+use LengthException;
+use Throwable;
+use function time;
+use function vsprintf;
+
+class StringLengthViolation extends LengthException implements ApplicationException
+{
+    public static function limitExceeded(int $limit, int $actual, Throwable $previous = null): self
+    {
+        $message = vsprintf(
+            'The given string is too long. Permitted: %s characters. Actual: %s characters.',
+            [
+                $limit,
+                $actual,
+            ]
+        );
+
+        return new self($message, time(), $previous);
+    }
+
+    public static function limitUndershot(int $limit, int $actual, Throwable $previous = null): self
+    {
+        $message = vsprintf(
+            'The given string is too short. Permitted: %s characters. Actual: %s characters.',
+            [
+                $limit,
+                $actual,
+            ]
+        );
+
+        return new self($message, time(), $previous);
+    }
+
+    public static function requirementNotMet(int $required, int $actual, Throwable $previous = null): self
+    {
+        $message = vsprintf(
+            'The given string must consist of exactly %s characters. Actual: %s characters.',
+            [
+                $required,
+                $actual,
+            ]
+        );
+
+        return new self($message, time(), $previous);
+    }
+}
+

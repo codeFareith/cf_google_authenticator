@@ -1,35 +1,50 @@
 <?php
 /**
- * @author Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
- * @copyright (c) 2018 by Robin von den Bergen
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version 1.0.0
+ * Class AbstractStruct
  *
- * @link https://github.com/codeFareith/cf_google_authenticator
- * @see https://www.fareith.de
- * @see https://typo3.org
+ * @author        Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
+ * @copyright (c) 2018-2019 by Robin von den Bergen
+ * @license       http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version       1.0.0
+ *
+ * @link          https://github.com/codeFareith/cf_google_authenticator
+ * @see           https://www.fareith.de
+ * @see           https://typo3.org
  */
 
 namespace CodeFareith\CfGoogleAuthenticator\Domain\Struct;
 
 use CodeFareith\CfGoogleAuthenticator\Exception\PropertyNotFound;
+use ReflectionClass;
+use ReflectionException;
+use ReflectionProperty;
+use function is_bool;
 
-abstract class AbstractStruct implements StructInterface
+/**
+ * @package CodeFareith\CfGoogleAuthenticator\Domain\Struct
+ * @since   1.0.0
+ */
+abstract class AbstractStruct
+    implements StructInterface
 {
     /*─────────────────────────────────────────────────────────────────────────────*\
             Properties
     \*─────────────────────────────────────────────────────────────────────────────*/
-    /** @var string[][] */
+    /**
+     * @var string[]
+     */
     protected static $mapping;
 
-    /** @var \ReflectionClass */
+    /**
+     * @var ReflectionClass
+     */
     private $reflection;
 
     /*─────────────────────────────────────────────────────────────────────────────*\
             Methods
     \*─────────────────────────────────────────────────────────────────────────────*/
     /**
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     final public function toArray(bool $boolToInt = null): array
     {
@@ -38,8 +53,8 @@ abstract class AbstractStruct implements StructInterface
 
         $properties = $this->getReflectionClass()
             ->getProperties(
-                \ReflectionProperty::IS_PUBLIC
-                | \ReflectionProperty::IS_PROTECTED
+                ReflectionProperty::IS_PUBLIC
+                | ReflectionProperty::IS_PROTECTED
             );
 
         foreach ($properties as $property) {
@@ -49,8 +64,8 @@ abstract class AbstractStruct implements StructInterface
                 $key = static::$mapping[$property->getName()] ?? $property->getName();
                 $value = $property->getValue($this);
 
-                if ($boolToInt && \is_bool($value)) {
-                    $value = (int)$value;
+                if ($boolToInt && is_bool($value)) {
+                    $value = (int) $value;
                 }
 
                 $array[$key] = $value;
@@ -62,7 +77,8 @@ abstract class AbstractStruct implements StructInterface
 
     /**
      * @param mixed $offset
-     * @throws \ReflectionException
+     *
+     * @throws ReflectionException
      */
     public function offsetExists($offset): bool
     {
@@ -72,9 +88,10 @@ abstract class AbstractStruct implements StructInterface
 
     /**
      * @param mixed $offset
+     *
      * @return mixed
      * @throws PropertyNotFound
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function offsetGet($offset)
     {
@@ -90,8 +107,9 @@ abstract class AbstractStruct implements StructInterface
     /**
      * @param mixed $offset
      * @param mixed $value
+     *
      * @throws PropertyNotFound
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function offsetSet($offset, $value): void
     {
@@ -106,8 +124,9 @@ abstract class AbstractStruct implements StructInterface
 
     /**
      * @param mixed $offset
+     *
      * @throws PropertyNotFound
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function offsetUnset($offset): void
     {
@@ -121,12 +140,12 @@ abstract class AbstractStruct implements StructInterface
     }
 
     /**
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
-    private function getReflectionClass(): \ReflectionClass
+    private function getReflectionClass(): ReflectionClass
     {
         if ($this->reflection === null) {
-            $this->reflection = new \ReflectionClass(static::class);
+            $this->reflection = new ReflectionClass(static::class);
         }
 
         return $this->reflection;

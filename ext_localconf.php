@@ -6,17 +6,15 @@
  * It defines various hooks, registers services and request handlers,
  * etc.
  *
- * @author Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
+ * @author        Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
  * @copyright (c) 2018 by Robin von den Bergen
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version 1.0.0
+ * @license       http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version       1.0.0
  *
- * @link https://github.com/codeFareith/cf_google_authenticator
- * @see https://www.fareith.de
- * @see https://typo3.org
+ * @link          https://github.com/codeFareith/cf_google_authenticator
+ * @see           https://www.fareith.de
+ * @see           https://typo3.org
  */
-
-/** @var $_EXTKEY string */
 
 use CodeFareith\CfGoogleAuthenticator\Hook\FeLogin;
 use CodeFareith\CfGoogleAuthenticator\Hook\TCEMain;
@@ -31,9 +29,8 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 defined('TYPO3_MODE')
     or die('Access denied.');
 
-\call_user_func(
-    function($_EXTKEY)
-    {
+call_user_func(
+    function ($_EXTKEY) {
         $globalsReference = &$GLOBALS;
 
         $extConf = ExtensionBasicDataUtility::getExtensionConfiguration();
@@ -51,7 +48,7 @@ defined('TYPO3_MODE')
                 'quality' => 80,
                 'os' => '',
                 'exec' => '',
-                'className' => GoogleAuthenticatorService::class
+                'className' => GoogleAuthenticatorService::class,
             ]
         );
 
@@ -67,21 +64,21 @@ defined('TYPO3_MODE')
             ExtensionBasicDataUtility::getVendorName() . '.' . ExtensionBasicDataUtility::getExtensionKey(),
             'Setup',
             [
-                'Frontend\Setup' => 'index,form,update'
+                'Frontend\Setup' => 'index,form,update',
             ],
             [
-                'Frontend\Setup' => 'form,update'
+                'Frontend\Setup' => 'form,update',
             ],
             ExtensionUtility::PLUGIN_TYPE_PLUGIN
         );
 
-        if((bool)$extConf['googleAuthenticatorEnableFE'] === true) {
+        if ((bool) $extConf['googleAuthenticatorEnableFE'] === true) {
             ExtensionManagementUtility::addTypoScriptConstants(
                 'styles.content.loginform.templateFile = ' . $extConf['feLoginTemplate']
             );
         }
 
-        if((bool)$extConf['googleAuthenticatorEnableBE'] === true) {
+        if ((bool) $extConf['googleAuthenticatorEnableBE'] === true) {
             $globalsReference['TYPO3_CONF_VARS']
                 ['EXTCONF']
                     ['backend']
@@ -102,5 +99,6 @@ defined('TYPO3_MODE')
                     ['postProcContent']
                         [$_EXTKEY] = FeLogin::class . '->createOneTimePasswordField';
     },
+    /** @var string $_EXTKEY */
     $_EXTKEY
 );

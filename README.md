@@ -1,3 +1,11 @@
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/fareith/19.99)
+[![Build Status](https://travis-ci.org/codeFareith/cf_google_authenticator.svg?branch=master)](https://travis-ci.org/codeFareith/cf_google_authenticator)
+[![Latest Stable Version](https://poser.pugx.org/codefareith/cf-google-authenticator/v/stable)](https://packagist.org/packages/codefareith/cf-google-authenticator)
+[![Total Downloads](https://poser.pugx.org/codefareith/cf-google-authenticator/downloads)](https://packagist.org/packages/codefareith/cf-google-authenticator)
+[![Latest Unstable Version](https://poser.pugx.org/codefareith/cf-google-authenticator/v/unstable)](https://packagist.org/packages/codefareith/cf-google-authenticator)
+[![License](https://poser.pugx.org/codefareith/cf-google-authenticator/license)](https://packagist.org/packages/codefareith/cf-google-authenticator)
+
+
 # Google Authenticator
 
 > TYPO3 CMS extension to enable Google 2FA (two factor authentication) for both, frontend- and backend accounts.
@@ -16,6 +24,7 @@ The extension needs to be installed as any other extension of TYPO3 CMS:
 2. Get the extension
     1. **Get it from the Extension Manager**: Press the “Retrieve/Update” button, search for the extension key cf_google_authenticator and import the extension from the repository.
     2. **Get it from typo3.org**: You can always get current version from [https://extensions.typo3.org/extension/cf_google_authenticator/](https://extensions.typo3.org/extension/cf_google_authenticator/) by downloading either the t3x or zip version. Upload the file afterwards in the Extension Manager.
+    3. **Get it from packagist.org**: Add this extension as dependency using Composer: `composer require codefareith/cf-google-authenticator`
 3. Change the extension configuration to your needs
 
 

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpdocumentor>
+    <title>[codeFareith] Google Authenticator</title>
+
+    <parser>
+        <target>Documentation/API</target>
+    </parser>
+
+    <transformer>
+        <target>Documentation/API</target>
+    </transformer>
+
+    <transformations>
+        <template name="clean" />
+    </transformations>
+
+    <files>
+        <directory>Classes</directory>
+    </files>
+</phpdocumentor>

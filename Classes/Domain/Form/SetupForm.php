@@ -1,13 +1,15 @@
 <?php
 /**
- * @author Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
- * @copyright (c) 2018 by Robin von den Bergen
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version 1.0.0
+ * Class SetupForm
  *
- * @link https://github.com/codeFareith/cf_google_authenticator
- * @see https://www.fareith.de
- * @see https://typo3.org
+ * @author        Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
+ * @copyright (c) 2018-2019 by Robin von den Bergen
+ * @license       http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version       1.0.0
+ *
+ * @link          https://github.com/codeFareith/cf_google_authenticator
+ * @see           https://www.fareith.de
+ * @see           https://typo3.org
  */
 
 namespace CodeFareith\CfGoogleAuthenticator\Domain\Form;
@@ -18,10 +20,10 @@ namespace CodeFareith\CfGoogleAuthenticator\Domain\Form;
  * Use this class to hold setup form values that either originate from a
  * submitted setup form or to pass initial values of a form to the view.
  *
- * @see \CodeFareith\CfGoogleAuthenticator\Controller\Frontend\SetupController
+ * @see     \CodeFareith\CfGoogleAuthenticator\Controller\Frontend\SetupController
  *
- * Class SetupForm
  * @package CodeFareith\CfGoogleAuthenticator\Domain\Form
+ * @since   1.0.0
  */
 class SetupForm
     implements FormInterface
@@ -34,10 +36,14 @@ class SetupForm
     /*─────────────────────────────────────────────────────────────────────────────*\
             Properties
     \*─────────────────────────────────────────────────────────────────────────────*/
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $secret;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $oneTimePassword;
 
     /*─────────────────────────────────────────────────────────────────────────────*\
@@ -45,8 +51,10 @@ class SetupForm
     \*─────────────────────────────────────────────────────────────────────────────*/
     public function __construct(string $secret, string $oneTimePassword = null)
     {
-        $this->secret = $secret;
-        $this->oneTimePassword = $oneTimePassword ?? '';
+        $oneTimePassword = $oneTimePassword ?? '';
+
+        $this->setSecret($secret);
+        $this->setOneTimePassword($oneTimePassword);
     }
 
     public function getSecret(): string

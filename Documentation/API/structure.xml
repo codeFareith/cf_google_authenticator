@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project title="[codeFareith] Google Authenticator" version="3.0.0-alp">
+  <partials/>
+  <file path="Classes/Application/Encoder/Base32.php" generated-path="Classes.Application.Encoder.Base32.html" hash="1a5d8aab04da0ba5997239e7e7be97f6" package="global">
+    <docblock line="0">
+      <description>Class Base32 | Classes/Application/Encoder/Base32.php.</description>
+      <long-description></long-description>
+      <tag name="author" line="0" description=""/>
+      <tag name="copyright" line="0" description="(c) 2018-2019 by Robin von den Bergen"/>
+      <tag name="license" line="0" description="GNU Public License" link="http://opensource.org/licenses/gpl-license.php"/>
+      <tag name="version" line="0" description="2.0.0"/>
+      <tag name="link" line="0" description="" link="https://github.com/codeFareith/cf_google_authenticator"/>
+      <tag name="see" line="0" description="" link="https://www.fareith.de"/>
+      <tag name="see" line="0" description="" link="https://typo3.org"/>
+      <tag name="package" line="0" description="\"/>
+    </docblock>
+    <namespace-alias name="\CodeFareith\CfGoogleAuthenticator\Application\Encoder">\CodeFareith\CfGoogleAuthenticator\Application\Encoder</namespace-alias>
+    <class final="false" abstract="false" namespace="CodeFareith\CfGoogleAuthenticator\Application\Encoder" line="54" package="CodeFareith\CfGoogleAuthenticator\Application\Encoder">
+      <implements>\CodeFareith\CfGoogleAuthenticator\Application\Encoder\Encoder</implements>
+      <name>Base32</name>
+      <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Encoder\Base32</full_name>
+      <docblock line="54">
+        <description>Base32 encoder / decoder.</description>
+        <long-description>Class for encoding / decoding in Base32.
+Provides four standard character sets:
+* [\CodeFareith\CfGoogleAuthenticator\Application\Encoder\Base32::CHARSET_RFC4648](../classes/CodeFareith.CfGoogleAuthenticator.Application.Encoder.Base32.html#constant_CHARSET_RFC4648)
+* [\CodeFareith\CfGoogleAuthenticator\Application\Encoder\Base32::CHARSET_ZBASE32](../classes/CodeFareith.CfGoogleAuthenticator.Application.Encoder.Base32.html#constant_CHARSET_ZBASE32)
+* [\CodeFareith\CfGoogleAuthenticator\Application\Encoder\Base32::CHARSET_CROCKFORD](../classes/CodeFareith.CfGoogleAuthenticator.Application.Encoder.Base32.html#constant_CHARSET_CROCKFORD)
+* [\CodeFareith\CfGoogleAuthenticator\Application\Encoder\Base32::CHARSET_BASE32HEX](../classes/CodeFareith.CfGoogleAuthenticator.Application.Encoder.Base32.html#constant_CHARSET_BASE32HEX)
+Default pad string is '='.
+However, you can define your own character set and pad string during instantiation.
+In this case, the desired character set's length must be exactly 32 characters and
+the desired pad string's length must be exactly one character.</long-description>
+        <tag name="package" line="54" description="CodeFareith\CfGoogleAuthenticator\Application\Encoder"/>
+      </docblock>
+      <constant namespace="CodeFareith\CfGoogleAuthenticator\Application\Encoder" line="57" package="CodeFareith\CfGoogleAuthenticator\Application\Encoder">
+        <name>CHARSET_RFC4648</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Encoder\Base32::CHARSET_RFC4648</full_name>
+        <value>ABCDEFGHIJKLMNOPQRSTUVWXYZ234567</value>
+        <docblock line="57">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+      </constant>
+      <constant namespace="CodeFareith\CfGoogleAuthenticator\Application\Encoder" line="57" package="CodeFareith\CfGoogleAuthenticator\Application\Encoder">
+        <name>CHARSET_ZBASE32</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Encoder\Base32::CHARSET_ZBASE32</full_name>
+        <value>ybndrfg8ejkmcpqxot1uwisza345h769</value>
+        <docblock line="57">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+      </constant>
+      <constant namespace="CodeFareith\CfGoogleAuthenticator\Application\Encoder" line="57" package="CodeFareith\CfGoogleAuthenticator\Application\Encoder">
+        <name>CHARSET_CROCKFORD</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Encoder\Base32::CHARSET_CROCKFORD</full_name>
+        <value>0123456789ABCDEFGHJKMNPQRSTVWXYZ</value>
+        <docblock line="57">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+      </constant>
+      <constant namespace="CodeFareith\CfGoogleAuthenticator\Application\Encoder" line="57" package="CodeFareith\CfGoogleAuthenticator\Application\Encoder">
+        <name>CHARSET_BASE32HEX</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Encoder\Base32::CHARSET_BASE32HEX</full_name>
+        <value>0123456789ABCDEFGHIJKLMNOPQRSTUV</value>
+        <docblock line="57">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+      </constant>
+      <constant namespace="CodeFareith\CfGoogleAuthenticator\Application\Encoder" line="63" package="CodeFareith\CfGoogleAuthenticator\Application\Encoder">
+        <name>LENGTH_CHARSET</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Encoder\Base32::LENGTH_CHARSET</full_name>
+        <value>32</value>
+        <docblock line="63">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+      </constant>
+      <constant namespace="CodeFareith\CfGoogleAuthenticator\Application\Encoder" line="63" package="CodeFareith\CfGoogleAuthenticator\Application\Encoder">
+        <name>LENGTH_PAD_STRING</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Encoder\Base32::LENGTH_PAD_STRING</full_name>
+        <value>1</value>
+        <docblock line="63">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+      </constant>
+      <constant namespace="CodeFareith\CfGoogleAuthenticator\Application\Encoder" line="67" package="CodeFareith\CfGoogleAuthenticator\Application\Encoder">
+        <name>PAD_STRING</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Encoder\Base32::PAD_STRING</full_name>
+        <value>=</value>
+        <docblock line="67">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+      </constant>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="CodeFareith\CfGoogleAuthenticator\Application\Encoder" line="80" package="CodeFareith\CfGoogleAuthenticator\Application\Encoder">
+        <name>__construct</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Encoder\Base32::__construct()</full_name>
+        <docblock line="80">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>charset</name>
+          <default>null</default>
+          <type>string</type>
+        </argument>
+        <argument line="0" by_reference="false">
+          <name>padString</name>
+          <default>null</default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="CodeFareith\CfGoogleAuthenticator\Application\Encoder" line="89" package="CodeFareith\CfGoogleAuthenticator\Application\Encoder">
+        <name>setCharset</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Encoder\Base32::setCharset()</full_name>
+        <docblock line="89">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>charset</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="CodeFareith\CfGoogleAuthenticator\Application\Encoder" line="114" package="CodeFareith\CfGoogleAuthenticator\Application\Encoder">
+        <name>charset</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Encoder\Base32::charset()</full_name>
+        <docblock line="114">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="CodeFareith\CfGoogleAuthenticator\Application\Encoder" line="119" package="CodeFareith\CfGoogleAuthenticator\Application\Encoder">
+        <name>setPadString</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Encoder\Base32::setPadString()</full_name>
+        <docblock line="119">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>padString</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="CodeFareith\CfGoogleAuthenticator\Application\Encoder" line="135" package="CodeFareith\CfGoogleAuthenticator\Application\Encoder">
+        <name>padString</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Encoder\Base32::padString()</full_name>
+        <docblock line="135">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="CodeFareith\CfGoogleAuthenticator\Application\Encoder" line="140" package="CodeFareith\CfGoogleAuthenticator\Application\Encoder">
+        <name>encode</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Encoder\Base32::encode()</full_name>
+        <docblock line="140">
+          <description></description>
+          <long-description></long-description>
+          <tag name="inherited_from" description="\CodeFareith\CfGoogleAuthenticator\Application\Encoder\Encoder::encode()" refers="\CodeFareith\CfGoogleAuthenticator\Application\Encoder\Encoder::encode()" link="/classes/CodeFareith.CfGoogleAuthenticator.Application.Encoder.Encoder.html#method_encode"/>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>data</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="CodeFareith\CfGoogleAuthenticator\Application\Encoder" line="241" package="CodeFareith\CfGoogleAuthenticator\Application\Encoder">
+        <name>decode</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Encoder\Base32::decode()</full_name>
+        <docblock line="241">
+          <description></description>
+          <long-description></long-description>
+          <tag name="inherited_from" description="\CodeFareith\CfGoogleAuthenticator\Application\Encoder\Encoder::decode()" refers="\CodeFareith\CfGoogleAuthenticator\Application\Encoder\Encoder::decode()" link="/classes/CodeFareith.CfGoogleAuthenticator.Application.Encoder.Encoder.html#method_decode"/>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>data</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+    </class>
+    <source>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</source>
+  </file>
+  <file path="Classes/Application/Encoder/Encoder.php" generated-path="Classes.Application.Encoder.Encoder.html" hash="1f684a3990652881ed1acbf2b82c0cfb" package="global">
+    <docblock line="0">
+      <description></description>
+      <long-description></long-description>
+      <tag name="author" line="0" description=""/>
+      <tag name="package" line="0" description="\"/>
+    </docblock>
+    <namespace-alias name="\CodeFareith\CfGoogleAuthenticator\Application\Encoder">\CodeFareith\CfGoogleAuthenticator\Application\Encoder</namespace-alias>
+    <interface namespace="CodeFareith\CfGoogleAuthenticator\Application\Encoder" line="8" package="global">
+      <name>Encoder</name>
+      <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Encoder\Encoder</full_name>
+      <docblock line="8">
+        <description></description>
+        <long-description></long-description>
+        <tag name="package" line="8" description="\"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="CodeFareith\CfGoogleAuthenticator\Application\Encoder" line="10" package="global">
+        <name>decode</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Encoder\Encoder::decode()</full_name>
+        <docblock line="10">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>data</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="CodeFareith\CfGoogleAuthenticator\Application\Encoder" line="12" package="global">
+        <name>encode</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Encoder\Encoder::encode()</full_name>
+        <docblock line="12">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>data</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+    </interface>
+    <source>eJx9jrESgjAMhvc8RQYHZZBdOQU5dXdmKW2A3mHaK8XF891N0dGzS5sv+b+0OPrBQ55lgBmWao6DC3hzrWV8OEZDjCcKvVxFSHQrVGC7sNJypDDO0TqetoYOIskBWN1p8koT1s7QRQWycWjq7upcP1IlO4ij1Sq60FTej+kphubMWubDHmDxdsnwZfAElOPnVqaxm1mnhHwvdddTDJZ7XBkV1WaHn1I0vyLE/yIveAOk116U</source>
+  </file>
+  <file path="Classes/Application/Exception/ApplicationException.php" generated-path="Classes.Application.Exception.ApplicationException.html" hash="6df60af231cc58e241315cdab24d40e7" package="global">
+    <docblock line="0">
+      <description></description>
+      <long-description></long-description>
+      <tag name="author" line="0" description=""/>
+      <tag name="package" line="0" description="\"/>
+    </docblock>
+    <namespace-alias name="\CodeFareith\CfGoogleAuthenticator\Application\Exception">\CodeFareith\CfGoogleAuthenticator\Application\Exception</namespace-alias>
+    <interface namespace="CodeFareith\CfGoogleAuthenticator\Application\Exception" line="10" package="CodeFareith\CfGoogleAuthenticator\Exception">
+      <extends>\CodeFareith\CfGoogleAuthenticator\Exception\ExtensionException</extends>
+      <name>ApplicationException</name>
+      <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Exception\ApplicationException</full_name>
+      <docblock line="10">
+        <description>Interface ExtensionException</description>
+        <long-description></long-description>
+        <tag name="package" line="10" description="\"/>
+        <tag name="inherited_from" description="\CodeFareith\CfGoogleAuthenticator\Exception\ExtensionException" refers="\CodeFareith\CfGoogleAuthenticator\Exception\ExtensionException" link="/classes/CodeFareith.CfGoogleAuthenticator.Exception.ExtensionException.html"/>
+      </docblock>
+    </interface>
+    <source>eJyNjrEOgzAMRHd/hWcG+ICiFora7p1ZAjEQicZREqpKVf+9DgNC6lIvfjr57lye3OSgyDLADCu1xIk93rkzFp9sUZPFM/lRVumTmosqYrdqlbGR/LxEwzbkmo4SUgBY9aDgVE/YsKar8mTi1DbDjXmcqZYOstH0KrJva+fmhJLQXl49uUQHgCX8494cQpFsENqHrO8N6ZFdzXYAKEPJpwP++uENH/gCjcZoYw==</source>
+  </file>
+  <file path="Classes/Application/Exception/InvalidArgumentValueException.php" generated-path="Classes.Application.Exception.InvalidArgumentValueException.html" hash="cabeaf48d7ddd8a6ebcf111d080fda2d" package="global">
+    <docblock line="0">
+      <description></description>
+      <long-description></long-description>
+      <tag name="author" line="0" description=""/>
+      <tag name="package" line="0" description="\"/>
+    </docblock>
+    <namespace-alias name="\CodeFareith\CfGoogleAuthenticator\Application\Exception">\CodeFareith\CfGoogleAuthenticator\Application\Exception</namespace-alias>
+    <class final="false" abstract="false" namespace="CodeFareith\CfGoogleAuthenticator\Application\Exception" line="10" package="global">
+      <extends>\InvalidArgumentException</extends>
+      <implements>\CodeFareith\CfGoogleAuthenticator\Application\Exception\ApplicationException</implements>
+      <name>InvalidArgumentValueException</name>
+      <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Exception\InvalidArgumentValueException</full_name>
+      <docblock line="10">
+        <description></description>
+        <long-description></long-description>
+        <tag name="package" line="10" description="\"/>
+      </docblock>
+    </class>
+    <source>eJxljjsOwjAMQHefwnMHOAAVtFSAWBmYuqSNaSOlTpRPhYS4OwkDXy+2np8/5caOFpZFAVhgJWIYjcOT6RTjbBglMW7JDSmVLtNFogl2T1YpDuR0DMqwX0hapyVLABYTeSt6wsZI2gtHKoxtczkYM2iq0w3ioHoRjGtra3Uu04Z2d+3J5moFED3hkWehlazdEKc08dnutfD+VzgLHellAaagayCWf+a3pCarKWOPH++8nRvc4QHbsmqe</source>
+  </file>
+  <file path="Classes/Application/Exception/StringLengthViolation.php" generated-path="Classes.Application.Exception.StringLengthViolation.html" hash="1c362a856773af7b4e1a7b34c8de47ab" package="global">
+    <docblock line="0">
+      <description></description>
+      <long-description></long-description>
+      <tag name="author" line="0" description=""/>
+      <tag name="package" line="0" description="\"/>
+    </docblock>
+    <namespace-alias name="\CodeFareith\CfGoogleAuthenticator\Application\Exception">\CodeFareith\CfGoogleAuthenticator\Application\Exception</namespace-alias>
+    <class final="false" abstract="false" namespace="CodeFareith\CfGoogleAuthenticator\Application\Exception" line="13" package="global">
+      <extends>\LengthException</extends>
+      <implements>\CodeFareith\CfGoogleAuthenticator\Application\Exception\ApplicationException</implements>
+      <name>StringLengthViolation</name>
+      <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Exception\StringLengthViolation</full_name>
+      <docblock line="13">
+        <description></description>
+        <long-description></long-description>
+        <tag name="package" line="13" description="\"/>
+      </docblock>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="CodeFareith\CfGoogleAuthenticator\Application\Exception" line="15" package="global">
+        <name>limitExceeded</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Exception\StringLengthViolation::limitExceeded()</full_name>
+        <docblock line="15">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>limit</name>
+          <default></default>
+          <type>int</type>
+        </argument>
+        <argument line="0" by_reference="false">
+          <name>actual</name>
+          <default></default>
+          <type>int</type>
+        </argument>
+        <argument line="0" by_reference="false">
+          <name>previous</name>
+          <default>null</default>
+          <type>\Throwable</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="CodeFareith\CfGoogleAuthenticator\Application\Exception" line="28" package="global">
+        <name>limitUndershot</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Exception\StringLengthViolation::limitUndershot()</full_name>
+        <docblock line="28">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>limit</name>
+          <default></default>
+          <type>int</type>
+        </argument>
+        <argument line="0" by_reference="false">
+          <name>actual</name>
+          <default></default>
+          <type>int</type>
+        </argument>
+        <argument line="0" by_reference="false">
+          <name>previous</name>
+          <default>null</default>
+          <type>\Throwable</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="CodeFareith\CfGoogleAuthenticator\Application\Exception" line="41" package="global">
+        <name>requirementNotMet</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Exception\StringLengthViolation::requirementNotMet()</full_name>
+        <docblock line="41">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>required</name>
+          <default></default>
+          <type>int</type>
+        </argument>
+        <argument line="0" by_reference="false">
+          <name>actual</name>
+          <default></default>
+          <type>int</type>
+        </argument>
+        <argument line="0" by_reference="false">
+          <name>previous</name>
+          <default>null</default>
+          <type>\Throwable</type>
+        </argument>
+      </method>
+    </class>
+    <source>eJzlVE1vEzEQvftXzCGoSbRK76VA06pwAYSgcCEcnN3ZXUte24zHaRHqf2fsfDXhwKWqKuGLZ97YM+/NrPf8TeiDOp1OFUzhQifuPcFnvzQOVt5Bgw4ukTrZzimjM0EFXBbswjhGsomNd3HW4GtJcqqU0wPGoGuEK9/gW01ouF9cte+87yzOpQY6NrVmT4t5CDabkmFxfVdjyNZLpVJEeI+u4/4BmsGbnvytXlpcu21ydQ4Cm+EYWsVAwrCVdLXVMcIXFr9bp/1mvC1lAe8YXROPy4EZgsVBqEZ4wHIXV78VyAppKSGILNF6X9uawXA+iw02Y2EBowJVUGxdc9K22quBUSBcGZ8ivAKXrJ2cQUTblhrrSnmNpLNRdyiHturGu2BeJzc9QmdWMrBY1IKJwN6D9a6bwSckIcHYnMGLCHWvSZggxRnMC6Nj+KQ6yP79wCuE1qr+xjcKDwI/dt5EZrK1CTmRA4e3RfF4q7EqMx1Pqn1v5Fq+ca/+2fqv8pVS7D0/h94LD+L/o/mEP5Oh8mw+ev6Am/5v4ObpRzCkyFDL/8nI7lt57VLc/nqsCeyEPfUQ7tUfc+C4FA==</source>
+  </file>
+  <file path="Classes/Application/Exception/ValueTooSmall.php" generated-path="Classes.Application.Exception.ValueTooSmall.html" hash="09c9584b9de3e3a1bb48410d696cea85" package="global">
+    <docblock line="0">
+      <description></description>
+      <long-description></long-description>
+      <tag name="author" line="0" description=""/>
+      <tag name="package" line="0" description="\"/>
+    </docblock>
+    <namespace-alias name="\CodeFareith\CfGoogleAuthenticator\Application\Exception">\CodeFareith\CfGoogleAuthenticator\Application\Exception</namespace-alias>
+    <class final="false" abstract="false" namespace="CodeFareith\CfGoogleAuthenticator\Application\Exception" line="12" package="global">
+      <extends>\CodeFareith\CfGoogleAuthenticator\Application\Exception\InvalidArgumentValueException</extends>
+      <name>ValueTooSmall</name>
+      <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Exception\ValueTooSmall</full_name>
+      <docblock line="12">
+        <description></description>
+        <long-description></long-description>
+        <tag name="package" line="12" description="\"/>
+        <tag name="inherited_from" description="\CodeFareith\CfGoogleAuthenticator\Application\Exception\InvalidArgumentValueException" refers="\CodeFareith\CfGoogleAuthenticator\Application\Exception\InvalidArgumentValueException" link="/classes/CodeFareith.CfGoogleAuthenticator.Application.Exception.InvalidArgumentValueException.html"/>
+      </docblock>
+      <constant namespace="CodeFareith\CfGoogleAuthenticator\Application\Exception" line="14" package="global">
+        <name>MESSAGE_FORMAT</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Exception\ValueTooSmall::MESSAGE_FORMAT</full_name>
+        <value>The value must be greater than %s. Given: %s.</value>
+        <docblock line="14">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+      </constant>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="CodeFareith\CfGoogleAuthenticator\Application\Exception" line="17" package="global">
+        <name>withIntegers</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Exception\ValueTooSmall::withIntegers()</full_name>
+        <docblock line="17">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>limit</name>
+          <default></default>
+          <type>int</type>
+        </argument>
+        <argument line="0" by_reference="false">
+          <name>given</name>
+          <default></default>
+          <type>int</type>
+        </argument>
+        <argument line="0" by_reference="false">
+          <name>previous</name>
+          <default>null</default>
+          <type>\Throwable</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="CodeFareith\CfGoogleAuthenticator\Application\Exception" line="30" package="global">
+        <name>withFloats</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Exception\ValueTooSmall::withFloats()</full_name>
+        <docblock line="30">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>limit</name>
+          <default></default>
+          <type>float</type>
+        </argument>
+        <argument line="0" by_reference="false">
+          <name>given</name>
+          <default></default>
+          <type>float</type>
+        </argument>
+        <argument line="0" by_reference="false">
+          <name>previous</name>
+          <default>null</default>
+          <type>\Throwable</type>
+        </argument>
+      </method>
+    </class>
+    <source>eJztUU1P4zAQvftXzKGItIrKvbAsAbUVB7QSrfZCVysnmSSWHNvyR4qE+O87NiXdwoE/wFw88+yZee/56qfpDLuYzRjM4IYH32kLj7oUCgatoEYFt2hbOq5sROeEElgm7EYoj1YGL7Ry8xqvacgFY4r36AyvEO50jStuUfhud9estW4lFrQDlRcV99ruCmNkTGnCbvlcoYnZJWPBIWw7q/e8lHiZyiaoKt6CF/1HaHDGEpmGOivJnYPfXAbcar3puZSAzx5V7eBeDVyKurBt6IlDejRuZS8MKEwoiRFUJMknIMbDcrMp1su/q1+PD8UWfsD5tkMYYj/0wXkoEVqLnOwA33EFZ24OazGgWsT0nHj9N9t5Elwd2e/Jn3uyskXrMpIBEyl64XNIeRvH5Ec3YGIsDkIHRzxUkHK6AIeySRteRsoT+gTHW6RH7+5k42WM2LNYnCrLT148nVRp6Buxz/gbyRP8z1hND/JjWPTBKlC4TwSyd5p5+tZsmh/lUVvseP3Su5XU3Lusicfo3aH6du+V/QMkiSRc</source>
+  </file>
+  <file path="Classes/Application/Utility/ExtensionMetaData.php" generated-path="Classes.Application.Utility.ExtensionMetaData.html" hash="876e29df0cf5b5ba6123c9dbfa45c503" package="global">
+    <docblock line="0">
+      <description></description>
+      <long-description></long-description>
+      <tag name="author" line="0" description=""/>
+      <tag name="copyright" line="0" description="(c) 2018 by Robin von den Bergen"/>
+      <tag name="license" line="0" description="GNU Public License" link="http://opensource.org/licenses/gpl-license.php"/>
+      <tag name="version" line="0" description="1.0.0"/>
+      <tag name="link" line="0" description="" link="https://github.com/codeFareith/cf_google_authenticator"/>
+      <tag name="see" line="0" description="" link="https://www.fareith.de"/>
+      <tag name="see" line="0" description="" link="https://typo3.org"/>
+      <tag name="package" line="0" description="\"/>
+    </docblock>
+    <namespace-alias name="\CodeFareith\CfGoogleAuthenticator\Application\Utility">\CodeFareith\CfGoogleAuthenticator\Application\Utility</namespace-alias>
+    <class final="true" abstract="false" namespace="CodeFareith\CfGoogleAuthenticator\Application\Utility" line="23" package="global">
+      <name>ExtensionMetaData</name>
+      <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Utility\ExtensionMetaData</full_name>
+      <docblock line="23">
+        <description>Helper class to fetch basic data of the extension</description>
+        <long-description>This utility class provides the basic data of the extension.</long-description>
+        <tag name="package" line="23" description="\"/>
+      </docblock>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="CodeFareith\CfGoogleAuthenticator\Application\Utility" line="25" package="global">
+        <name>vendorName</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Utility\ExtensionMetaData::vendorName()</full_name>
+        <docblock line="25">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="CodeFareith\CfGoogleAuthenticator\Application\Utility" line="35" package="global">
+        <name>extensionName</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Utility\ExtensionMetaData::extensionName()</full_name>
+        <docblock line="35">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="true" visibility="public" namespace="CodeFareith\CfGoogleAuthenticator\Application\Utility" line="40" package="global">
+        <name>extensionKey</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Application\Utility\ExtensionMetaData::extensionKey()</full_name>
+        <docblock line="40">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+      </method>
+    </class>
+    <source>eJylU02P2jAQvedXzI0PtQl0L1VYtUsppVIXigocqmaFjDNJrAbbsh3YqNr/3kkIsOyuWlX1JfbMvPdmnp3r9zrTXtDtetCFG1a4TBn4pjZCQourGD8xg8JlLdgpCTFK+IAmpc+1qWoouKHzTbq992N8V3NwpUsj0sxBm3fgTa//FjZlQ3lJUpfngqO0CJlzOgwCpemkCsPRVyYNmqwNUp2/bg4+dQyT2QrmxYZCcHsI12w7NFaQSN/v+T2KNBLyZ81vSSClaYqNz9U2eDRfwJN1qlSa47ryAKUTnDllarxFPMH3+72fHDA08bO0K7W6qjqnTOB5km3RasYRRmetaJRMaqnhY6VoqHVeban9aOVELlw58LyCrEkKyasw4L3OiWdQR5ff51+votF0EY2UwSMkmqBEw/IzQ3O3nzHXaIDnzFpwChJ0PIMNs+RgzBwDlQC1QxqO3CS1xr1lJiwUB7YGrY3aiRhtXf8HBr82IRGS5Q1yfExN0bGPhPF+eUBLH27SOhqfn+fdoYyVmZGJ7U5IWSNkWtcfUNUy6AojG2QY2uqNVIBF5Xq786N3N6hrH7yDkBE75vCZ0lNcCMwYVr4s1lxDuxVFrVewXs+G0/FiPhyN1+vOpdrLY50M+q/J+nf/pPUFy79JXT6dMOSklo+YxaW6VXs01XYlY/rFOL24uH3CV+vY55PhTjUnZx683yV1dJg=</source>
+  </file>
+  <file path="Classes/Domain/Exception/DomainException.php" generated-path="Classes.Domain.Exception.DomainException.html" hash="21530579e83b99681a38b8e54030d69d" package="global">
+    <docblock line="0">
+      <description></description>
+      <long-description></long-description>
+      <tag name="author" line="0" description=""/>
+      <tag name="package" line="0" description="\"/>
+    </docblock>
+    <namespace-alias name="\CodeFareith\CfGoogleAuthenticator\Domain\Exception">\CodeFareith\CfGoogleAuthenticator\Domain\Exception</namespace-alias>
+    <interface namespace="CodeFareith\CfGoogleAuthenticator\Domain\Exception" line="10" package="CodeFareith\CfGoogleAuthenticator\Exception">
+      <extends>\CodeFareith\CfGoogleAuthenticator\Exception\ExtensionException</extends>
+      <name>DomainException</name>
+      <full_name>\CodeFareith\CfGoogleAuthenticator\Domain\Exception\DomainException</full_name>
+      <docblock line="10">
+        <description>Interface ExtensionException</description>
+        <long-description></long-description>
+        <tag name="package" line="10" description="\"/>
+        <tag name="inherited_from" description="\CodeFareith\CfGoogleAuthenticator\Exception\ExtensionException" refers="\CodeFareith\CfGoogleAuthenticator\Exception\ExtensionException" link="/classes/CodeFareith.CfGoogleAuthenticator.Exception.ExtensionException.html"/>
+      </docblock>
+    </interface>
+    <source>eJyNjs0OgjAMx+99ip45wANoFMWPu2cugxVYAu2yDWNifHc3TIiJF3tp82v+H9u9HSwUWQaYYanmMIjDmzSG8S6MmhiP5Pq4ti7RPNIIm4WVhgO5cQ5G2OeadtGkAGA1kbeqJaxE00U5MmGoq+4q0o90iBnEwbQqiKtPMinD9fnRkk02G4DZ/yNcFfEKxD5e3yZLsy51+CSsP8A4lCTa468UnvCCN1exZCs=</source>
+  </file>
+  <file path="Classes/Domain/Validator/SetupFormValidator.php" generated-path="Classes.Domain.Validator.SetupFormValidator.html" hash="5b1de95e64e38d5b2329618c35b5b9e8" package="global">
+    <docblock line="0">
+      <description></description>
+      <long-description></long-description>
+      <tag name="author" line="0" description=""/>
+      <tag name="package" line="0" description="\"/>
+    </docblock>
+    <namespace-alias name="\CodeFareith\CfGoogleAuthenticator\Domain\Validator">\CodeFareith\CfGoogleAuthenticator\Domain\Validator</namespace-alias>
+    <class final="false" abstract="false" namespace="CodeFareith\CfGoogleAuthenticator\Domain\Validator" line="10" package="global">
+      <extends>\TYPO3\CMS\Extbase\Validation\Validator\GenericObjectValidator</extends>
+      <name>SetupFormValidator</name>
+      <full_name>\CodeFareith\CfGoogleAuthenticator\Domain\Validator\SetupFormValidator</full_name>
+      <docblock line="10">
+        <description></description>
+        <long-description></long-description>
+        <tag name="package" line="10" description="\"/>
+      </docblock>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="CodeFareith\CfGoogleAuthenticator\Domain\Validator" line="12" package="global">
+        <name>canValidate</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Domain\Validator\SetupFormValidator::canValidate()</full_name>
+        <docblock line="12">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>object</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="CodeFareith\CfGoogleAuthenticator\Domain\Validator" line="17" package="global">
+        <name>isValid</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Domain\Validator\SetupFormValidator::isValid()</full_name>
+        <docblock line="17">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>object</name>
+          <default></default>
+          <type/>
+        </argument>
+      </method>
+    </class>
+    <source>eJx9j01LAzEURff5FW/hQmfRLtxNi1ZH25VUrAhCNpnMayeSeS/kQwrS/25mtCplMJvAzbn3kPm1a52YFoWAAhYqxZY9PHFtCN6ZoEGCW/S7fM19n05ymsN6yBaGInqbomEKkwav8shUCFIdBqc0QsUNLpVHE1tZbVfMO4s32YEUjVaRvbzjThmSL8qapg9mQqSA8Pz6uL6U1cNG3u9jrQIeiWz6heUKCb3R6/oNdfy7oa0KATYYk1uy736eAPcRqQkw3hQfAvJxqbZGwzaR7oWgFX0jeH7GQ+WihJrZDvhXqT8+Cz2By1+mWJZjvdkAH8SoyISB/19yXD+Fj8sH8QmiBZ4Y</source>
+  </file>
+  <file path="Classes/Domain/ValueObject/ExtensionConfiguration.php" generated-path="Classes.Domain.ValueObject.ExtensionConfiguration.html" hash="5bef4d37d69737e8bfefafbcf7ef8a4b" package="global">
+    <docblock line="0">
+      <description></description>
+      <long-description></long-description>
+      <tag name="author" line="0" description=""/>
+      <tag name="package" line="0" description="\"/>
+    </docblock>
+    <namespace-alias name="\CodeFareith\CfGoogleAuthenticator\Domain\ValueObject">\CodeFareith\CfGoogleAuthenticator\Domain\ValueObject</namespace-alias>
+    <class final="false" abstract="false" namespace="CodeFareith\CfGoogleAuthenticator\Domain\ValueObject" line="8" package="global">
+      <name>ExtensionConfiguration</name>
+      <full_name>\CodeFareith\CfGoogleAuthenticator\Domain\ValueObject\ExtensionConfiguration</full_name>
+      <docblock line="8">
+        <description></description>
+        <long-description></long-description>
+        <tag name="package" line="8" description="\"/>
+      </docblock>
+      <constant namespace="CodeFareith\CfGoogleAuthenticator\Domain\ValueObject" line="10" package="global">
+        <name>DEFAULT_TEMPLATE</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Domain\ValueObject\ExtensionConfiguration::DEFAULT_TEMPLATE</full_name>
+        <value>EXT:cf_google_authenticator/Resources/Private/Templates/FeLogin/FrontendLogin.html</value>
+        <docblock line="10">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+      </constant>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="CodeFareith\CfGoogleAuthenticator\Domain\ValueObject" line="32" package="global">
+        <name>__construct</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Domain\ValueObject\ExtensionConfiguration::__construct()</full_name>
+        <docblock line="32">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>beEnabled</name>
+          <default></default>
+          <type>bool</type>
+        </argument>
+        <argument line="0" by_reference="false">
+          <name>feEnabled</name>
+          <default></default>
+          <type>bool</type>
+        </argument>
+        <argument line="0" by_reference="false">
+          <name>template</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+        <argument line="0" by_reference="false">
+          <name>devlogEnabled</name>
+          <default></default>
+          <type>bool</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="CodeFareith\CfGoogleAuthenticator\Domain\ValueObject" line="50" package="global">
+        <name>isBeEnabled</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Domain\ValueObject\ExtensionConfiguration::isBeEnabled()</full_name>
+        <docblock line="50">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="CodeFareith\CfGoogleAuthenticator\Domain\ValueObject" line="55" package="global">
+        <name>setBeEnabled</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Domain\ValueObject\ExtensionConfiguration::setBeEnabled()</full_name>
+        <docblock line="55">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>beEnabled</name>
+          <default></default>
+          <type>bool</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="CodeFareith\CfGoogleAuthenticator\Domain\ValueObject" line="60" package="global">
+        <name>isFeEnabled</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Domain\ValueObject\ExtensionConfiguration::isFeEnabled()</full_name>
+        <docblock line="60">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="CodeFareith\CfGoogleAuthenticator\Domain\ValueObject" line="65" package="global">
+        <name>setFeEnabled</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Domain\ValueObject\ExtensionConfiguration::setFeEnabled()</full_name>
+        <docblock line="65">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>feEnabled</name>
+          <default></default>
+          <type>bool</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="CodeFareith\CfGoogleAuthenticator\Domain\ValueObject" line="70" package="global">
+        <name>getTemplate</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Domain\ValueObject\ExtensionConfiguration::getTemplate()</full_name>
+        <docblock line="70">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="CodeFareith\CfGoogleAuthenticator\Domain\ValueObject" line="75" package="global">
+        <name>setTemplate</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Domain\ValueObject\ExtensionConfiguration::setTemplate()</full_name>
+        <docblock line="75">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>template</name>
+          <default></default>
+          <type>string</type>
+        </argument>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="CodeFareith\CfGoogleAuthenticator\Domain\ValueObject" line="80" package="global">
+        <name>isDevlogEnabled</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Domain\ValueObject\ExtensionConfiguration::isDevlogEnabled()</full_name>
+        <docblock line="80">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+      </method>
+      <method final="false" abstract="false" static="false" visibility="public" namespace="CodeFareith\CfGoogleAuthenticator\Domain\ValueObject" line="85" package="global">
+        <name>setDevlogEnabled</name>
+        <full_name>\CodeFareith\CfGoogleAuthenticator\Domain\ValueObject\ExtensionConfiguration::setDevlogEnabled()</full_name>
+        <docblock line="85">
+          <description></description>
+          <long-description></long-description>
+        </docblock>
+        <argument line="0" by_reference="false">
+          <name>devlogEnabled</name>
+          <default></default>
+          <type>bool</type>
+        </argument>
+      </method>
+    </class>
+    <source>eJydVMFu4jAQvecrfFipgLbkTrulFJK9sNqqoqs9ICHHGQevjB3ZDlqp6r/vJAXiZNNAmwMk4zfz3vOMfTvNt3kQjkYBGZF7WritNuRJJ0KRvVYkBUUewGT4d2vK6BijGEyq2L1QDowsnNDKjlO4wyJhECi6A5tTBmSuU4ipAeG26zn/rnUmYYYcoJxg1GmzXugdFWr9i8oCfiZ/gLmbIGCSWkuivw6UxdJzrbjICkNLnuAlIPjkRjsEQ0oYcjuyiOLZ83K1WUU/HpezVUS+kavo92rC+CaraDfU5w2fwOrCMLDhoxF76iBcwS6X+GLDGJY6EyqMjUZ/Kq2+xlu3k1cormSv9qt8cM/21JBEa3kIhC15XxKIFE0kpJ/I5WdyrTNCZe9lu4OjTxCnsJc6a5LnRSIFI7xQrGwE2WyqrTcFc4O3OviURT3PX1sL/P+FNw+12nZKQ0q1Nqx+X064mg677n1MpwTVof0TkPtA7gM5ldZHHtWUwNM74qzDKWSTSXvevNSG4DK/GajJPLatsNd3FtzDUdOg9jG86QDGNZD3Ao9jPTjZ6IQtfI2DpuRDwmv3GAhbix5O6qmq+2PAFUYdybzz0FO1sRetoUKWvRZpewpa5RuzcMZB/CEH/FIHccsBv8hB95D2cmVen7G2dy2856G+G/otnMq2j2mvha7Tc6YFzQG8pA2tO6rfR7N8x83S66f/SB+5X4N/rbQxZA==</source>
+  </file>
+  <file path="Classes/Exception/ExtensionException.php" generated-path="Classes.Exception.ExtensionException.html" hash="530b7a0bb8cfd2494a69a8430201ab25" package="global">
+    <docblock line="0">
+      <description>TEST</description>
+      <long-description>TEST</long-description>
+      <tag name="author" line="0" description=""/>
+      <tag name="package" line="0" description="\"/>
+    </docblock>
+    <namespace-alias name="\CodeFareith\CfGoogleAuthenticator\Exception">\CodeFareith\CfGoogleAuthenticator\Exception</namespace-alias>
+    <interface namespace="CodeFareith\CfGoogleAuthenticator\Exception" line="16" package="CodeFareith\CfGoogleAuthenticator\Exception">
+      <name>ExtensionException</name>
+      <full_name>\CodeFareith\CfGoogleAuthenticator\Exception\ExtensionException</full_name>
+      <docblock line="16">
+        <description>Interface ExtensionException</description>
+        <long-description></long-description>
+        <tag name="package" line="16" description="CodeFareith\CfGoogleAuthenticator\Exception"/>
+      </docblock>
+    </interface>
+    <source>eJyVjjEPgkAMhff7FZ0Z4AdoFCVoXJWR5YACF7G9HIchMf53eyQ6OJg4vea17+tbb21vVRJFCiIo8ksh+jWmevI9OzhzZQjuTNAgwR5dJ7J2wY3FFbNavNSQRzdM3jCNcYMbgSRKkb7haHWNkHGDB+3Q+L7M2iNzN+BOfiB5U2vPrsznGm3Ir9S72ylA2xDPZ480yvJztbQU9FV3f9GXYuYX+KGe6gV6IGKY</source>
+  </file>
+  <package name="CodeFareith" full_name="CodeFareith">
+    <package name="CfGoogleAuthenticator" full_name="CodeFareith\CfGoogleAuthenticator">
+      <package name="Application" full_name="CodeFareith\CfGoogleAuthenticator\Application">
+        <package name="Encoder" full_name="CodeFareith\CfGoogleAuthenticator\Application\Encoder"/>
+      </package>
+      <package name="Exception" full_name="CodeFareith\CfGoogleAuthenticator\Exception"/>
+    </package>
+  </package>
+  <package name="global" full_name="global"/>
+  <namespace name="CodeFareith" full_name="CodeFareith">
+    <namespace name="CfGoogleAuthenticator" full_name="CodeFareith\CfGoogleAuthenticator">
+      <namespace name="Application" full_name="CodeFareith\CfGoogleAuthenticator\Application">
+        <namespace name="Encoder" full_name="CodeFareith\CfGoogleAuthenticator\Application\Encoder"/>
+        <namespace name="Exception" full_name="CodeFareith\CfGoogleAuthenticator\Application\Exception"/>
+        <namespace name="Utility" full_name="CodeFareith\CfGoogleAuthenticator\Application\Utility"/>
+      </namespace>
+      <namespace name="Domain" full_name="CodeFareith\CfGoogleAuthenticator\Domain">
+        <namespace name="Exception" full_name="CodeFareith\CfGoogleAuthenticator\Domain\Exception"/>
+        <namespace name="Validator" full_name="CodeFareith\CfGoogleAuthenticator\Domain\Validator"/>
+        <namespace name="ValueObject" full_name="CodeFareith\CfGoogleAuthenticator\Domain\ValueObject"/>
+      </namespace>
+      <namespace name="Exception" full_name="CodeFareith\CfGoogleAuthenticator\Exception"/>
+    </namespace>
+  </namespace>
+  <deprecated count="0"/>
+</project>

@@ -1,0 +1,19 @@
+<?php
+/**
+ * TEST
+ *
+ * TEST
+ *
+ * @author Robin von den Bergen <robin.vondenbergen@interlutions.de>
+ */
+
+namespace CodeFareith\CfGoogleAuthenticator\Exception;
+
+/**
+ * Interface ExtensionException
+ * @package CodeFareith\CfGoogleAuthenticator\Exception
+ */
+interface ExtensionException
+{
+}
+
