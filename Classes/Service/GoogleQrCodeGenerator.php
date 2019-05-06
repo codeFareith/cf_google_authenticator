@@ -1,18 +1,24 @@
 <?php
 /**
- * @author Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
- * @copyright (c) 2018 by Robin von den Bergen
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version 1.0.0
+ * Class GoogleQrImageGenerator
  *
- * @link https://github.com/codeFareith/cf_google_authenticator
- * @see https://www.fareith.de
- * @see https://typo3.org
+ * @author        Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
+ * @copyright (c) 2018-2019 by Robin von den Bergen
+ * @license       http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version       1.0.0
+ *
+ * @link          https://github.com/codeFareith/cf_google_authenticator
+ * @see           https://www.fareith.de
+ * @see           https://typo3.org
  */
 
 namespace CodeFareith\CfGoogleAuthenticator\Service;
 
 use CodeFareith\CfGoogleAuthenticator\Domain\Immutable\AuthenticationSecret;
+use function http_build_query;
+use function rawurldecode;
+use function rawurlencode;
+use function vsprintf;
 
 /**
  * QR code image generator
@@ -22,10 +28,11 @@ use CodeFareith\CfGoogleAuthenticator\Domain\Immutable\AuthenticationSecret;
  * with the phone camera to automatically set up the service
  * in the Google Authenticator app.
  *
- * Class GoogleQrImageGenerator
  * @package CodeFareith\CfGoogleAuthenticator\Service
+ * @since   1.0.0
  */
-class GoogleQrCodeGenerator implements QrCodeGeneratorInterface
+class GoogleQrCodeGenerator
+    implements QrCodeGeneratorInterface
 {
     /*─────────────────────────────────────────────────────────────────────────────*\
             Constants
@@ -42,16 +49,24 @@ class GoogleQrCodeGenerator implements QrCodeGeneratorInterface
     /*─────────────────────────────────────────────────────────────────────────────*\
             Properties
     \*─────────────────────────────────────────────────────────────────────────────*/
-    /** @var int */
+    /**
+     * @var int
+     */
     protected $width;
 
-    /** @var int */
+    /**
+     * @var int
+     */
     protected $height;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $correction;
 
-    /** @var int */
+    /**
+     * @var int
+     */
     protected $margin;
 
     /*─────────────────────────────────────────────────────────────────────────────*\
@@ -76,11 +91,11 @@ class GoogleQrCodeGenerator implements QrCodeGeneratorInterface
             'chs' => '%sx%s',
             'chld' => '%s|%s',
             'cht' => '%s',
-            'chl' => '%s'
+            'chl' => '%s',
         ];
-        $query = \http_build_query($data);
-        $queryDecoded = \rawurldecode($query);
-        $uriEncoded = \rawurlencode($secretImmutable->getUri());
+        $query = http_build_query($data);
+        $queryDecoded = rawurldecode($query);
+        $uriEncoded = rawurlencode($secretImmutable->getUri());
 
         return vsprintf(
             self::BASE_URL . 'chart?' . $queryDecoded,
@@ -90,7 +105,7 @@ class GoogleQrCodeGenerator implements QrCodeGeneratorInterface
                 $this->correction,
                 $this->margin,
                 'qr',
-                $uriEncoded
+                $uriEncoded,
             ]
         );
     }

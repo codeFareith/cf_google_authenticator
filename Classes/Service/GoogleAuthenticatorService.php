@@ -1,13 +1,15 @@
 <?php
 /**
- * @author Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
- * @copyright (c) 2018 by Robin von den Bergen
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version 1.0.0
+ * Class GoogleAuthenticatorService
  *
- * @link https://github.com/codeFareith/cf_google_authenticator
- * @see https://www.fareith.de
- * @see https://typo3.org
+ * @author        Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
+ * @copyright (c) 2018-2019 by Robin von den Bergen
+ * @license       http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version       1.0.0
+ *
+ * @link          https://github.com/codeFareith/cf_google_authenticator
+ * @see           https://www.fareith.de
+ * @see           https://typo3.org
  */
 
 namespace CodeFareith\CfGoogleAuthenticator\Service;
@@ -15,7 +17,8 @@ namespace CodeFareith\CfGoogleAuthenticator\Service;
 use CodeFareith\CfGoogleAuthenticator\Utility\ExtensionBasicDataUtility;
 use CodeFareith\CfGoogleAuthenticator\Utility\GoogleAuthenticatorUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Sv\AbstractAuthenticationService;
+use TYPO3\CMS\Sv\AuthenticationService;
+use function vsprintf;
 
 /** @noinspection LongInheritanceChainInspection */
 
@@ -30,10 +33,11 @@ use TYPO3\CMS\Sv\AbstractAuthenticationService;
  * If the user has not enabled the Google Authenticator,
  * the login request is delegated to the default authentication service.
  *
- * Class GoogleAuthenticatorService
  * @package CodeFareith\CfGoogleAuthenticator\Service
+ * @since   1.0.0
  */
-class GoogleAuthenticatorService extends AbstractAuthenticationService
+class GoogleAuthenticatorService
+    extends AuthenticationService
 {
     public const
         AUTH_FAIL_AND_STOP = -1,
@@ -44,7 +48,9 @@ class GoogleAuthenticatorService extends AbstractAuthenticationService
     /*─────────────────────────────────────────────────────────────────────────────*\
             Properties
     \*─────────────────────────────────────────────────────────────────────────────*/
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $extConf;
 
     /*─────────────────────────────────────────────────────────────────────────────*\
@@ -52,18 +58,21 @@ class GoogleAuthenticatorService extends AbstractAuthenticationService
     \*─────────────────────────────────────────────────────────────────────────────*/
     public function init(): bool
     {
+        parent::init();
+
         $this->extConf = ExtensionBasicDataUtility::getExtensionConfiguration();
-        return ((bool)$this->extConf['googleAuthenticatorEnable' . TYPO3_MODE]);
+
+        return ((bool) $this->extConf['googleAuthenticatorEnable' . TYPO3_MODE]);
     }
 
     public function authUser(array $user): int
     {
         $logArgs = [
             TYPO3_MODE,
-            $user['username']
+            $user['username'],
         ];
 
-        if ((bool)$user['tx_cfgoogleauthenticator_enabled'] === true) {
+        if ((bool) $user['tx_cfgoogleauthenticator_enabled'] === true) {
             $this->vsprintfDevLog(
                 '%s login using Google Authenticator for user: %s',
                 $logArgs
@@ -91,7 +100,7 @@ class GoogleAuthenticatorService extends AbstractAuthenticationService
 
     private function writeDevLog(string $message): void
     {
-        if ((bool)$this->extConf['devlog'] === true) {
+        if ((bool) $this->extConf['devlog'] === true) {
             GeneralUtility::devLog(
                 $message,
                 'tx_cfgoogleauthenticator_sv'

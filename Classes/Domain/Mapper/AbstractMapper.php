@@ -1,27 +1,42 @@
 <?php
 /**
- * @author Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
- * @copyright (c) 2018 by Robin von den Bergen
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version 1.0.0
+ * Class AbstractMapper
  *
- * @link https://github.com/codeFareith/cf_google_authenticator
- * @see https://www.fareith.de
- * @see https://typo3.org
+ * @author        Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
+ * @copyright (c) 2018-2019 by Robin von den Bergen
+ * @license       http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version       1.0.0
+ *
+ * @link          https://github.com/codeFareith/cf_google_authenticator
+ * @see           https://www.fareith.de
+ * @see           https://typo3.org
  */
 
 namespace CodeFareith\CfGoogleAuthenticator\Domain\Mapper;
 
 use CodeFareith\CfGoogleAuthenticator\Exception\MissingRequiredField;
 use CodeFareith\CfGoogleAuthenticator\Exception\PropertyNotInitialized;
+use function array_diff;
+use function array_keys;
+use function array_values;
+use function count;
 
-abstract class AbstractMapper implements MapperInterface
+/**
+ * AbstractMapper
+ *
+ * Provides the basic functionality of Array-to-Struct / Struct-to-Array mappers.
+ *
+ * @package CodeFareith\CfGoogleAuthenticator\Domain\Mapper
+ * @since   1.0.0
+ */
+abstract class AbstractMapper
+    implements MapperInterface
 {
     /*─────────────────────────────────────────────────────────────────────────────*\
             Properties
     \*─────────────────────────────────────────────────────────────────────────────*/
     /**
-     * Contains all the fields/keys the array should have in order to create the desired struct.
+     * Contains all the fields/keys the array must have in order to create the desired struct.
      * Should be defined in child class.
      *
      * @var string[]|null
@@ -38,7 +53,7 @@ abstract class AbstractMapper implements MapperInterface
      */
     final public static function hasRequiredFields(array $data): bool
     {
-        return empty(self::getMissingFields($data));
+        return (count(self::getMissingFields($data)) === 0);
     }
 
     /**
@@ -48,10 +63,10 @@ abstract class AbstractMapper implements MapperInterface
      */
     final public static function getMissingFields(array $data): array
     {
-        return \array_values(
-            \array_diff(
+        return array_values(
+            array_diff(
                 static::$requiredFields,
-                \array_keys($data)
+                array_keys($data)
             )
         );
     }
@@ -61,6 +76,7 @@ abstract class AbstractMapper implements MapperInterface
      * Any child class has to initialize static::requiredFields - otherwise an exception is thrown.
      *
      * @param mixed $data
+     *
      * @return mixed
      * @throws MissingRequiredField
      * @throws PropertyNotInitialized
@@ -83,6 +99,7 @@ abstract class AbstractMapper implements MapperInterface
      * Should be defined in child class.
      *
      * @param mixed $data
+     *
      * @return mixed
      */
     abstract protected static function mapArrayOnStruct(array $data);
@@ -91,6 +108,7 @@ abstract class AbstractMapper implements MapperInterface
      * Create and throw MissingRequiredField exception stack
      *
      * @param array $data
+     *
      * @throws MissingRequiredField
      */
     private static function throwMissingRequiredFieldExceptionStack(array $data): void
@@ -98,9 +116,9 @@ abstract class AbstractMapper implements MapperInterface
         $previous = null;
         $next = null;
         $missingFields = self::getMissingFields($data);
-        $length = \count($missingFields);
+        $length = count($missingFields);
 
-        for($i = $length; $i > 0; $i--) {
+        for ($i = $length; $i > 0; $i--) {
             $next = $missingFields[$length];
             $previous = new MissingRequiredField($next, $previous);
         }

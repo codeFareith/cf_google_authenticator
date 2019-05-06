@@ -1,13 +1,15 @@
 <?php
 /**
- * @author Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
- * @copyright (c) 2018 by Robin von den Bergen
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version 1.0.0
+ * Class PreProcessFieldArrayDTO
  *
- * @link https://github.com/codeFareith/cf_google_authenticator
- * @see https://www.fareith.de
- * @see https://typo3.org
+ * @author        Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
+ * @copyright (c) 2018-2019 by Robin von den Bergen
+ * @license       http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version       1.0.0
+ *
+ * @link          https://github.com/codeFareith/cf_google_authenticator
+ * @see           https://www.fareith.de
+ * @see           https://typo3.org
  */
 
 namespace CodeFareith\CfGoogleAuthenticator\Domain\DataTransferObject;
@@ -20,24 +22,35 @@ use TYPO3\CMS\Core\DataHandling\DataHandler;
  * Bundles the arguments of the processDatamap_preProcessFieldArray hook in an
  * object to pass it on to the processing service.
  *
- * @see \CodeFareith\CfGoogleAuthenticator\Handler\GoogleAuthenticatorSetupHandler
- * @see \CodeFareith\CfGoogleAuthenticator\Hook\TCEMain
+ * @see     \CodeFareith\CfGoogleAuthenticator\Handler\GoogleAuthenticatorSetupHandler
+ * @see     \CodeFareith\CfGoogleAuthenticator\Hook\TCEMain
  *
- * Class PreProcessFieldArrayDTO
  * @package CodeFareith\CfGoogleAuthenticator\Domain\DataTransferObject
+ * @since   1.0.0
  */
 class PreProcessFieldArrayDTO
 {
     /*─────────────────────────────────────────────────────────────────────────────*\
             Properties
     \*─────────────────────────────────────────────────────────────────────────────*/
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $fieldArray;
-    /** @var string */
+
+    /**
+     * @var string
+     */
     protected $table;
-    /** @var int */
+
+    /**
+     * @var int
+     */
     protected $id;
-    /** @var DataHandler */
+
+    /**
+     * @var DataHandler
+     */
     protected $dataHandler;
 
     /*─────────────────────────────────────────────────────────────────────────────*\
@@ -50,10 +63,10 @@ class PreProcessFieldArrayDTO
         DataHandler $dataHandler
     )
     {
-        $this->fieldArray = &$fieldArray;
-        $this->table = $table;
-        $this->id = $id;
-        $this->dataHandler = $dataHandler;
+        $this->setFieldArray($fieldArray);
+        $this->setTable($table);
+        $this->setId($id);
+        $this->setDataHandler($dataHandler);
     }
 
     public function getFieldArray(): array

@@ -5,14 +5,14 @@
  * This script determines how the new database table columns of the fe_users table
  * are represented and handled in the TYPO3 backend.
  *
- * @author Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
- * @copyright (c) 2018 by Robin von den Bergen
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version 1.0.0
+ * @author        Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
+ * @copyright (c) 2018-2019 by Robin von den Bergen
+ * @license       http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version       1.0.0
  *
- * @link https://github.com/codeFareith/cf_google_authenticator
- * @see https://www.fareith.de
- * @see https://typo3.org
+ * @link          https://github.com/codeFareith/cf_google_authenticator
+ * @see           https://www.fareith.de
+ * @see           https://typo3.org
  */
 
 use CodeFareith\CfGoogleAuthenticator\Hook\UserSettings;
@@ -22,7 +22,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 defined('TYPO3_MODE')
     or die('Access denied');
 
-\call_user_func(
+call_user_func(
     function () {
         ExtensionManagementUtility::addTCAcolumns(
             'fe_users',
@@ -34,8 +34,8 @@ defined('TYPO3_MODE')
                         'locallang_db.xlf'
                     ),
                     'config' => [
-                        'type' => 'check'
-                    ]
+                        'type' => 'check',
+                    ],
                 ],
                 'tx_cfgoogleauthenticator_secret' => [
                     'exclude' => false,
@@ -45,9 +45,9 @@ defined('TYPO3_MODE')
                     ),
                     'config' => [
                         'type' => 'user',
-                        'userFunc' => UserSettings::class . '->createSecretField'
-                    ]
-                ]
+                        'userFunc' => UserSettings::class . '->createSecretField',
+                    ],
+                ],
             ]
         );
 
