@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>[codeFareith] Google Authenticator</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+        <script type="text/javascript">
+        function loadExternalCodeSnippets() {
+            Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+                var src = pre.getAttribute('data-src').replace( /\\/g, '/');
+                var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+                var language = 'php';
+
+                var code = document.createElement('code');
+                code.className = 'language-' + language;
+
+                pre.textContent = '';
+
+                code.textContent = 'Loading…';
+
+                pre.appendChild(code);
+
+                var xhr = new XMLHttpRequest();
+
+                xhr.open('GET', src, true);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+
+                        if (xhr.status < 400 && xhr.responseText) {
+                            code.textContent = xhr.responseText;
+
+                            Prism.highlightElement(code);
+                        }
+                        else if (xhr.status >= 400) {
+                            code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                        }
+                        else {
+                            code.textContent = '✖ Error: File does not exist or is empty';
+                        }
+                    }
+                };
+
+                xhr.send(null);
+            });
+        }
+
+        $(document).ready(function(){
+            loadExternalCodeSnippets();
+        });
+        $('#source-view').on('shown', function () {
+            loadExternalCodeSnippets();
+        })
+    </script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">[codeFareith] Google Authenticator</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li><a href="../namespaces/CodeFareith.html">\CodeFareith</a></li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">1</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1877883930"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1877883930" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-570068701"></a>
+                                <a href="../namespaces/CodeFareith.html" style="margin-left: 30px; padding-left: 0">CodeFareith</a>
+            </div>
+            <div id="namespace-570068701" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1811630263"></a>
+                                <a href="../namespaces/CodeFareith.CfGoogleAuthenticator.html" style="margin-left: 30px; padding-left: 0">CfGoogleAuthenticator</a>
+            </div>
+            <div id="namespace-1811630263" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1375196695"></a>
+                                <a href="../namespaces/CodeFareith.CfGoogleAuthenticator.Application.html" style="margin-left: 30px; padding-left: 0">Application</a>
+            </div>
+            <div id="namespace-1375196695" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1082098710"></a>
+                                <a href="../namespaces/CodeFareith.CfGoogleAuthenticator.Application.Encoder.html" style="margin-left: 30px; padding-left: 0">Encoder</a>
+            </div>
+            <div id="namespace-1082098710" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Application.Encoder.Encoder.html">Encoder</a></li>
+                                                                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Application.Encoder.Base32.html">Base32</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-740387176"></a>
+                                <a href="../namespaces/CodeFareith.CfGoogleAuthenticator.Application.Exception.html" style="margin-left: 30px; padding-left: 0">Exception</a>
+            </div>
+            <div id="namespace-740387176" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Application.Exception.ApplicationException.html">ApplicationException</a></li>
+                                                                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Application.Exception.InvalidArgumentValueException.html">InvalidArgumentValueException</a></li>
+                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Application.Exception.StringLengthViolation.html">StringLengthViolation</a></li>
+                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Application.Exception.ValueTooSmall.html">ValueTooSmall</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2132181250"></a>
+                                <a href="../namespaces/CodeFareith.CfGoogleAuthenticator.Application.Utility.html" style="margin-left: 30px; padding-left: 0">Utility</a>
+            </div>
+            <div id="namespace-2132181250" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Application.Utility.ExtensionMetaData.html">ExtensionMetaData</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-535804647"></a>
+                                <a href="../namespaces/CodeFareith.CfGoogleAuthenticator.Controller.html" style="margin-left: 30px; padding-left: 0">Controller</a>
+            </div>
+            <div id="namespace-535804647" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-677641659"></a>
+                                <a href="../namespaces/CodeFareith.CfGoogleAuthenticator.Controller.Backend.html" style="margin-left: 30px; padding-left: 0">Backend</a>
+            </div>
+            <div id="namespace-677641659" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Controller.Backend.SetupModuleController.html">SetupModuleController</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2118588128"></a>
+                                <a href="../namespaces/CodeFareith.CfGoogleAuthenticator.Controller.Frontend.html" style="margin-left: 30px; padding-left: 0">Frontend</a>
+            </div>
+            <div id="namespace-2118588128" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Controller.Frontend.SetupController.html">SetupController</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1174456226"></a>
+                                <a href="../namespaces/CodeFareith.CfGoogleAuthenticator.Domain.html" style="margin-left: 30px; padding-left: 0">Domain</a>
+            </div>
+            <div id="namespace-1174456226" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1154376906"></a>
+                                <a href="../namespaces/CodeFareith.CfGoogleAuthenticator.Domain.DataTransferObject.html" style="margin-left: 30px; padding-left: 0">DataTransferObject</a>
+            </div>
+            <div id="namespace-1154376906" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Domain.DataTransferObject.GoogleAuthenticatorSettingsDTO.html">GoogleAuthenticatorSettingsDTO</a></li>
+                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Domain.DataTransferObject.PreProcessFieldArrayDTO.html">PreProcessFieldArrayDTO</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1362356182"></a>
+                                <a href="../namespaces/CodeFareith.CfGoogleAuthenticator.Domain.Exception.html" style="margin-left: 30px; padding-left: 0">Exception</a>
+            </div>
+            <div id="namespace-1362356182" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Domain.Exception.DomainException.html">DomainException</a></li>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-167401038"></a>
+                                <a href="../namespaces/CodeFareith.CfGoogleAuthenticator.Domain.Form.html" style="margin-left: 30px; padding-left: 0">Form</a>
+            </div>
+            <div id="namespace-167401038" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Domain.Form.FormInterface.html">FormInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Domain.Form.SetupForm.html">SetupForm</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1137548443"></a>
+                                <a href="../namespaces/CodeFareith.CfGoogleAuthenticator.Domain.Immutable.html" style="margin-left: 30px; padding-left: 0">Immutable</a>
+            </div>
+            <div id="namespace-1137548443" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Domain.Immutable.ImmutableInterface.html">ImmutableInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Domain.Immutable.AuthenticationSecret.html">AuthenticationSecret</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-527576456"></a>
+                                <a href="../namespaces/CodeFareith.CfGoogleAuthenticator.Domain.Mapper.html" style="margin-left: 30px; padding-left: 0">Mapper</a>
+            </div>
+            <div id="namespace-527576456" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Domain.Mapper.MapperInterface.html">MapperInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Domain.Mapper.AbstractMapper.html">AbstractMapper</a></li>
+                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Domain.Mapper.GoogleAuthenticatorSettingsMapper.html">GoogleAuthenticatorSettingsMapper</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-183303611"></a>
+                                <a href="../namespaces/CodeFareith.CfGoogleAuthenticator.Domain.Model.html" style="margin-left: 30px; padding-left: 0">Model</a>
+            </div>
+            <div id="namespace-183303611" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Domain.Model.BackendUser.html">BackendUser</a></li>
+                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Domain.Model.FrontendUser.html">FrontendUser</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1089025955"></a>
+                                <a href="../namespaces/CodeFareith.CfGoogleAuthenticator.Domain.Repository.html" style="margin-left: 30px; padding-left: 0">Repository</a>
+            </div>
+            <div id="namespace-1089025955" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Domain.Repository.BackendUserRepository.html">BackendUserRepository</a></li>
+                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Domain.Repository.FrontendUserRepository.html">FrontendUserRepository</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1125036040"></a>
+                                <a href="../namespaces/CodeFareith.CfGoogleAuthenticator.Domain.Struct.html" style="margin-left: 30px; padding-left: 0">Struct</a>
+            </div>
+            <div id="namespace-1125036040" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Domain.Struct.StructInterface.html">StructInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Domain.Struct.AbstractStruct.html">AbstractStruct</a></li>
+                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Domain.Struct.GoogleAuthenticatorSettings.html">GoogleAuthenticatorSettings</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1713832853"></a>
+                                <a href="../namespaces/CodeFareith.CfGoogleAuthenticator.Domain.Validator.html" style="margin-left: 30px; padding-left: 0">Validator</a>
+            </div>
+            <div id="namespace-1713832853" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Domain.Validator.SetupFormValidator.html">SetupFormValidator</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-367499237"></a>
+                                <a href="../namespaces/CodeFareith.CfGoogleAuthenticator.Domain.ValueObject.html" style="margin-left: 30px; padding-left: 0">ValueObject</a>
+            </div>
+            <div id="namespace-367499237" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Domain.ValueObject.ExtensionConfiguration.html">ExtensionConfiguration</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1478080272"></a>
+                                <a href="../namespaces/CodeFareith.CfGoogleAuthenticator.Exception.html" style="margin-left: 30px; padding-left: 0">Exception</a>
+            </div>
+            <div id="namespace-1478080272" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Exception.ExtensionException.html">ExtensionException</a></li>
+                                                                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Exception.MissingRequiredField.html">MissingRequiredField</a></li>
+                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Exception.PropertyNotFound.html">PropertyNotFound</a></li>
+                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Exception.PropertyNotInitialized.html">PropertyNotInitialized</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1467670629"></a>
+                                <a href="../namespaces/CodeFareith.CfGoogleAuthenticator.Handler.html" style="margin-left: 30px; padding-left: 0">Handler</a>
+            </div>
+            <div id="namespace-1467670629" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Handler.GoogleAuthenticatorSetupHandler.html">GoogleAuthenticatorSetupHandler</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-673045001"></a>
+                                <a href="../namespaces/CodeFareith.CfGoogleAuthenticator.Hook.html" style="margin-left: 30px; padding-left: 0">Hook</a>
+            </div>
+            <div id="namespace-673045001" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Hook.FeLogin.html">FeLogin</a></li>
+                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Hook.TCEMain.html">TCEMain</a></li>
+                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Hook.UserSettings.html">UserSettings</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2140655760"></a>
+                                <a href="../namespaces/CodeFareith.CfGoogleAuthenticator.Provider.html" style="margin-left: 30px; padding-left: 0">Provider</a>
+            </div>
+            <div id="namespace-2140655760" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-318998662"></a>
+                                <a href="../namespaces/CodeFareith.CfGoogleAuthenticator.Provider.Login.html" style="margin-left: 30px; padding-left: 0">Login</a>
+            </div>
+            <div id="namespace-318998662" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Provider.Login.GoogleAuthenticatorLoginProvider.html">GoogleAuthenticatorLoginProvider</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-257034825"></a>
+                                <a href="../namespaces/CodeFareith.CfGoogleAuthenticator.Service.html" style="margin-left: 30px; padding-left: 0">Service</a>
+            </div>
+            <div id="namespace-257034825" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Service.QrCodeGeneratorInterface.html">QrCodeGeneratorInterface</a></li>
+                                                                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Service.GoogleAuthenticatorService.html">GoogleAuthenticatorService</a></li>
+                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Service.GoogleQrCodeGenerator.html">GoogleQrCodeGenerator</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-476310248"></a>
+                                <a href="../namespaces/CodeFareith.CfGoogleAuthenticator.Traits.html" style="margin-left: 30px; padding-left: 0">Traits</a>
+            </div>
+            <div id="namespace-476310248" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                            <li class="trait"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Traits.GeneralUtilityObjectManager.html">GeneralUtilityObjectManager</a></li>
+                                                                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-730498728"></a>
+                                <a href="../namespaces/CodeFareith.CfGoogleAuthenticator.Utility.html" style="margin-left: 30px; padding-left: 0">Utility</a>
+            </div>
+            <div id="namespace-730498728" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Utility.Base32Utility.html">Base32Utility</a></li>
+                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Utility.ExtensionBasicDataUtility.html">ExtensionBasicDataUtility</a></li>
+                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Utility.GoogleAuthenticatorUtility.html">GoogleAuthenticatorUtility</a></li>
+                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Utility.PathUtility.html">PathUtility</a></li>
+                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Utility.TypoScriptUtility.html">TypoScriptUtility</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-481841474"></a>
+                                <a href="../namespaces/CodeFareith.CfGoogleAuthenticator.Validation.html" style="margin-left: 30px; padding-left: 0">Validation</a>
+            </div>
+            <div id="namespace-481841474" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-838934479"></a>
+                                <a href="../namespaces/CodeFareith.CfGoogleAuthenticator.Validation.Validator.html" style="margin-left: 30px; padding-left: 0">Validator</a>
+            </div>
+            <div id="namespace-838934479" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="../classes/CodeFareith.CfGoogleAuthenticator.Validation.Validator.SetupFormValidator.html">SetupFormValidator</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content file">
+                    <nav>
+                                                                    </nav>
+
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+                    <h1><small>Classes/Application/Encoder</small>Encoder.php</h1>
+                    <p><em></em></p>
+                    
+
+                    
+                                        <h2>Interfaces</h2>
+                    <table class="table table-hover">
+                                                    <tr>
+                                <td><a href="../classes/CodeFareith.CfGoogleAuthenticator.Application.Encoder.Encoder.html">Encoder</a></td>
+                                <td><em></em></td>
+                            </tr>
+                                            </table>
+                    
+                                    </div>
+
+                <aside class="span4 detailsbar">
+                    <dl>
+                        
+                        
+                    </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                                    <tr>
+                                <th>
+                                    author
+                                </th>
+                                <td>
+                                                                                                                    
+                                                                    </td>
+                            </tr>
+                                            </table>
+
+                </aside>
+            </div>
+
+            
+            
+        </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label"></h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/Classes/Application/Encoder/Encoder.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li><a href="../namespaces/CodeFareith.html">\CodeFareith</a></li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on May 7th, 2019 at 00:29.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

@@ -1,26 +1,33 @@
 <?php
 /**
- * @author Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
- * @copyright (c) 2018 by Robin von den Bergen
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version 1.0.0
+ * Class ExtensionBasicDataUtility
  *
- * @link https://github.com/codeFareith/cf_google_authenticator
- * @see https://www.fareith.de
- * @see https://typo3.org
+ * @author        Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
+ * @copyright (c) 2018-2019 by Robin von den Bergen
+ * @license       http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version       1.0.0
+ *
+ * @link          https://github.com/codeFareith/cf_google_authenticator
+ * @see           https://www.fareith.de
+ * @see           https://typo3.org
  */
 
 namespace CodeFareith\CfGoogleAuthenticator\Utility;
 
+use Throwable;
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use function explode;
+use function is_array;
+use function unserialize;
 
 /**
  * Helper class to fetch basic data of the extension
  *
  * This utility class provides the basic data of the extension.
  *
- * Class ExtensionBasicDataUtility
  * @package CodeFareith\CfGoogleAuthenticator\Utility
+ * @since   1.0.0
  */
 final class ExtensionBasicDataUtility
 {
@@ -29,12 +36,12 @@ final class ExtensionBasicDataUtility
     \*─────────────────────────────────────────────────────────────────────────────*/
     public static function getVendorName(): string
     {
-        return \explode('\\', __NAMESPACE__)[0];
+        return explode('\\', __NAMESPACE__)[0];
     }
 
     public static function getExtensionName(): string
     {
-        return \explode('\\', __NAMESPACE__)[1];
+        return explode('\\', __NAMESPACE__)[1];
     }
 
     public static function getExtensionKey(): string
@@ -46,17 +53,23 @@ final class ExtensionBasicDataUtility
 
     public static function getExtensionConfiguration(): array
     {
-        $extensionConfiguration = \unserialize(
-            $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][self::getExtensionKey()],
-            [
-                'allowed_classes' => false
-            ]
-        );
-
-        if (!\is_array($extensionConfiguration)) {
-            $extensionConfiguration = [];
+        try {
+            /** @var ExtensionConfiguration $extensionConfiguration */
+            $extensionConfiguration = GeneralUtility::makeInstance(ExtensionConfiguration::class);
+            $configuration = $extensionConfiguration->get(self::getExtensionKey());
+        } catch (Throwable $e) {
+            $configuration = unserialize(
+                $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][self::getExtensionKey()],
+                [
+                    'allowed_classes' => false,
+                ]
+            );
         }
 
-        return $extensionConfiguration;
+        if (!is_array($configuration)) {
+            $configuration = [];
+        }
+
+        return $configuration;
     }
 }

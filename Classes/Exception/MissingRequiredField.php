@@ -1,26 +1,43 @@
 <?php
 /**
- * @author Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
- * @copyright (c) 2018 by Robin von den Bergen
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version 1.0.0
+ * Class MissingRequiredField
  *
- * @link https://github.com/codeFareith/cf_google_authenticator
- * @see https://www.fareith.de
- * @see https://typo3.org
+ * @author        Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
+ * @copyright (c) 2018-2019 by Robin von den Bergen
+ * @license       http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version       1.0.0
+ *
+ * @link          https://github.com/codeFareith/cf_google_authenticator
+ * @see           https://www.fareith.de
+ * @see           https://typo3.org
  */
 
 namespace CodeFareith\CfGoogleAuthenticator\Exception;
 
 use Throwable;
 use TYPO3\CMS\Extbase\Exception;
+use function vsprintf;
 
-class MissingRequiredField extends Exception
+/**
+ * Exception MissingRequiredField
+ *
+ * Useful, for example, when object properties are set by an associative array,
+ * and therefore certain array indexes are expected.
+ *
+ * @see     \CodeFareith\CfGoogleAuthenticator\Domain\Mapper\AbstractMapper
+ *
+ * @package CodeFareith\CfGoogleAuthenticator\Exception
+ * @since   1.0.0
+ */
+class MissingRequiredField
+    extends Exception
 {
     /*─────────────────────────────────────────────────────────────────────────────*\
             Constants
     \*─────────────────────────────────────────────────────────────────────────────*/
-    /** @var int */
+    /**
+     * @var int
+     */
     public const CODE = 6497;
 
     /*─────────────────────────────────────────────────────────────────────────────*\
@@ -28,10 +45,10 @@ class MissingRequiredField extends Exception
     \*─────────────────────────────────────────────────────────────────────────────*/
     public function __construct(string $key, Throwable $previous = null)
     {
-        $message = \vsprintf(
+        $message = vsprintf(
             'The requested data for key "%s" is missing required field "value".',
             [
-                $key
+                $key,
             ]
         );
 

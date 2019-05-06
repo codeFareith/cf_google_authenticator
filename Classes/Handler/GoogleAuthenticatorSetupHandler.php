@@ -1,13 +1,15 @@
 <?php
 /**
- * @author Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
- * @copyright (c) 2018 by Robin von den Bergen
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version 1.0.0
+ * Class GoogleAuthenticatorSetupHandler
  *
- * @link https://github.com/codeFareith/cf_google_authenticator
- * @see https://www.fareith.de
- * @see https://typo3.org
+ * @author        Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
+ * @copyright (c) 2018-2019 by Robin von den Bergen
+ * @license       http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version       1.0.0
+ *
+ * @link          https://github.com/codeFareith/cf_google_authenticator
+ * @see           https://www.fareith.de
+ * @see           https://typo3.org
  */
 
 namespace CodeFareith\CfGoogleAuthenticator\Handler;
@@ -18,20 +20,32 @@ use CodeFareith\CfGoogleAuthenticator\Domain\Mapper\GoogleAuthenticatorSettingsM
 use CodeFareith\CfGoogleAuthenticator\Exception\MissingRequiredField;
 use CodeFareith\CfGoogleAuthenticator\Exception\PropertyNotInitialized;
 use CodeFareith\CfGoogleAuthenticator\Utility\GoogleAuthenticatorUtility;
+use ReflectionException;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+use function preg_replace;
 
+/**
+ * @package CodeFareith\CfGoogleAuthenticator\Handler
+ * @since   1.0.0
+ */
 class GoogleAuthenticatorSetupHandler
 {
     /*─────────────────────────────────────────────────────────────────────────────*\
             Properties
     \*─────────────────────────────────────────────────────────────────────────────*/
-    /** @var ObjectManagerInterface */
+    /**
+     * @var ObjectManagerInterface
+     */
     protected $objectManager;
 
-    /** @var PreProcessFieldArrayDTO */
+    /**
+     * @var PreProcessFieldArrayDTO
+     */
     private $preProcessFieldArrayDTO;
 
-    /** @var GoogleAuthenticatorSettingsDTO */
+    /**
+     * @var GoogleAuthenticatorSettingsDTO
+     */
     private $googleAuthenticatorSettingsDTO;
 
     /*─────────────────────────────────────────────────────────────────────────────*\
@@ -45,7 +59,7 @@ class GoogleAuthenticatorSetupHandler
     /**
      * @throws MissingRequiredField
      * @throws PropertyNotInitialized
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function process(PreProcessFieldArrayDTO $preProcessFieldArrayDTO): array
     {
@@ -68,6 +82,7 @@ class GoogleAuthenticatorSetupHandler
     private function isUsersTable(): bool
     {
         $table = $this->preProcessFieldArrayDTO->getTable();
+
         return ($table === 'be_users' || $table === 'fe_users');
     }
 
@@ -102,7 +117,7 @@ class GoogleAuthenticatorSetupHandler
             GoogleAuthenticatorSettingsMapper::createStructFromArray($fieldArray)
         );
         $this->googleAuthenticatorSettingsDTO->setOneTimePassword(
-            \preg_replace(
+            preg_replace(
                 '/\s+/',
                 '',
                 $fieldArray['tx_cfgoogleauthenticator_otp']

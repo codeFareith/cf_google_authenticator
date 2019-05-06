@@ -1,0 +1,43 @@
+<?php
+/**
+ * @author Robin von den Bergen <robin.vondenbergen@interlutions.de>
+ */
+
+namespace CodeFareith\CfGoogleAuthenticator\Application\Exception;
+
+use Throwable;
+use function time;
+use function vsprintf;
+
+class ValueTooSmall extends InvalidArgumentValueException
+{
+    public const
+        MESSAGE_FORMAT = 'The value must be greater than %s. Given: %s.';
+
+    public static function withIntegers(int $limit, int $given, Throwable $previous = null): self
+    {
+        $message = vsprintf(
+            self::MESSAGE_FORMAT,
+            [
+                $limit,
+                $given,
+            ]
+        );
+
+        return new self($message, time(), $previous);
+    }
+
+    public static function withFloats(float $limit, float $given, Throwable $previous = null): self
+    {
+        $message = vsprintf(
+            self::MESSAGE_FORMAT,
+            [
+                $limit,
+                $given,
+            ]
+        );
+
+        return new self($message, time(), $previous);
+    }
+}
+

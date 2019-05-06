@@ -1,189 +1,127 @@
 # Changelog
-
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-
-
 ## [Unreleased]
-
 - nothing, yet
 
-## [1.1.3] - 2019-05-04
+## [1.1.4] - 2019-05-07
+### Added
+- New translation keys for FlashMessage texts
+- Configuration file (phpdoc.xml) for PHP Documentor
+- Class `..\Domain\Repository\BackendUserRepository`
 
 ### Changed
+- Restructured CHANGELOG.md
+- Providing Google Authenticator setup tab in user settings module
+- Resolving some deprecations
+- More detailed PHPDoc blocks
+- Code cleanup
+- Cease official support for TYPO3 CMS v7
 
-- provide `TYPO3\CMS\Lang\LanguageService` via constructor injection
-in `CodeFareith\CfGoogleAuthenticator\Controller\Frontend\SetupController`
-- use `CodeFareith\CfGoogleAuthenticator\Domain\Repository\FrontendUserRepository` instead of
-`TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository` in `CodeFareith\CfGoogleAuthenticator\Controller\Frontend\SetupController`
-- remove object mapping in `setup.typoscript` and move table mapping to `ext_typoscript_setup.typoscript`
+### Deprecated
+- Trait `..\Traits\GeneralUtilityObjectManager` will be removed in `v1.2.0`
 
+### Removed
+- Trait `..\Traits\GeneralUtilityObjectManagerStatic`
+
+## [1.1.3] - 2019-05-04
 ### Added
+- Class `..\Domain\Repository\FrontendUserRepository`
+- File `ext_typoscript_setup.typoscript`
 
-#### Files
-
-- Classes/Domain/Repository/FrontendUserRepository
-- ext_typoscript_setup.typoscript
-
-
+### Changed
+- Providing `TYPO3\CMS\Lang\LanguageService` via constructor injection in `..\Controller\Frontend\SetupController`
+- Using `..\Domain\Repository\FrontendUserRepository` instead of `TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository` in `..\Controller\Frontend\SetupController`
+- Removed object mapping in `setup.typoscript`
+- Moved table mapping to `ext_typoscript_setup.typoscript`
 
 ## [1.1.2] - 2018-10-15
-
 ### Changed
-
-- constant `AUTH_FAIL_AND_PROCEED` in `GoogleAuthenticatorService` set to 100
-
-
+- Constant `AUTH_FAIL_AND_PROCEED` in `..\Service\GoogleAuthenticatorService` set to 100
 
 ## [1.1.1] - 2018-10-15
-
 ### Changed
-
-- on success, GoogleAuthenticatorService returns status code 70, instead of 200,
-so that further services can also perform their own authentication
-
-
+- On success, `..\Service\GoogleAuthenticatorService` returns status code 70, instead of 200
 
 ## [1.1.0] - 2018-10-15
-
-### Added
-
-- compatibility with TYPO3 CMS v9
-
-
+### Changed
+- Compatibility with TYPO3 CMS v9
 
 ## [1.0.6] - 2018-10-15
-
-### Changed
-
-- fix some major bugs which caused the Google Authenticator service to be ignored
-- refactoring
-
-
 ### Added
+- Class `..\Domain\Form\FormInterface`
+- Class `..\Traits\GeneralUtilityObjectManager`
+- Class `..\Utility\TypoScriptUtility`
 
-#### Files
-
-- Classes/Domain/Form/FormInterface.php
-- Classes/Traits/GeneralUtilityObjectManager.php
-- Classes/Utility/TypoScriptUtility.php 
-
-
+### Fixed
+- Fixed some major bugs which caused the Google Authenticator service to be ignored
+- Refactoring
 
 ## [1.0.5] - 2018-09-26
-
-### Changed
-
-- fix a bug that made it impossible to edit a backend user
-- fix a bug in the JavaScript that kept the 2FA QR code hidden
-- fix a bug in the user module that made it impossible to create
-new frontend users using the backend.
-
-
+### Fixed
+- Backend users could not be edited
+- QR code kept hidden
+- Frontend users could not be created
 
 ## [1.0.4] - 2018-07-23
-
 ### Added
-
-#### Features
-
-- the content element/plugin `Google Two-Factor Authentication Setup`
-is now available, which allows users to set up Google 2FA for
-their frontend accounts.
-
-
-#### Files
-
-- Classes/Controller/Frontend/SetupController.php
-- Classes/Domain/Form/SetupForm.php
-- Classes/Domain/Model/BackendUser.php
-- Classes/Domain/Model/FrontendUser.php
-- Classes/Validation/Validator/SetupFormValidator.php
-- Configuration/TCA/Overrides/tt_content.php
-- Resources/Private/Layouts/Frontend/Default.html
-- Resources/Private/Partials/Backend/Form/OneTimePassword.html
-- Resources/Private/Partials/Backend/Form/QrCode.html
-- Resources/Private/Partials/Backend/Form/Secret.html
-- Resources/Private/Partials/Frontend/Form/OneTimePassword.html
-- Resources/Private/Partials/Frontend/Form/QrCode.html
-- Resources/Private/Partials/Frontend/Form/Secret.html
-- Resources/Private/Partials/Shared/Alert.html
-- Resources/Private/Partials/Shared/FlashMessages.html
-- Resources/Private/Partials/Shared/Icon.html
-- Resources/Private/Partials/Shared/ValidationResults.html
-- Resources/Private/Templates/Backend/UserSettings.html
-- Resources/Private/Templates/Frontend/Setup/Index.html
-
+- Content element/plugin `Google Two-Factor Authentication Setup` to allow users to set up two-factor authentication for their frontend accounts.
+- Formular for setting up the two-factor authentication
+- Multiple template files
 
 ### Changed
-
 - `GoogleQrImageGenerator` renamed to `GoogleQrCodeGenerator`
 - `QrImageGeneratorInterface` renamed to `QrCodeGeneratorInterface`
-- `Classes/Hook/TCEMain::getObjectManager()` now requests the `ObjectManager`
-via `GeneralUtility::makeInstance()` only at the first call, then stores
-the reference in, and - when needed - loads it from its appropriate instance variable.
-- analogous to this behaves `getGoogleAuthenticatorSetupHandler()`.
-- `Classes/Hook/UserSettings::createSecretField()` now only does "one thing".
-Data retrieval and preparation have been delegated to other functions.
-- structure of `ext_localconf.php`, `ext_tables.php`, `be_users.php`,
-`fe_users.php` and `sys_template.php` has been improved.
+- `..\Hook\TCEMain::getObjectManager()` now requests the `TYPO3\CMS\Extbase\Object\ObjectManager`
+via `TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance()` only at the first call, then stores
+the reference in, and - when needed - loads it from its appropriate instance variable
+- Analogous to this behaves `..\Hook\TCEMain::getGoogleAuthenticatorSetupHandler()`
+- `..\Hook\UserSettings::createSecretField()` now only does "one thing";
+data retrieval and preparation have been delegated to other functions
+- Structure of `ext_localconf.php`, `ext_tables.php`, `be_users.php`,
+`fe_users.php` and `sys_template.php` has been improved
 - `constants.typoscript` and `setup.typoscript` have been enhanced
 to meet frontend requirements
 
-
-
 ## [1.0.3] - 2018-07-16
-
 ### Added
-
-#### Files
-
-- Tests/Unit/BaseTestCase.php
-- Tests/Unit/Utility/PathUtilityTest.php
-- Classes/Domain/DataTransferObject/GoogleAuthenticatorSettingsDTO.php
-- Classes/Domain/DataTransferObject/PreProcessFieldArrayDTO.php
-- Classes/Domain/Immutable/ImmutableInterface.php
-- Classes/Domain/Mapper/MapperInterface.php
-- Classes/Domain/Mapper/AbstractMapper.php
-- Classes/Domain/Mapper/GoogleAuthenticatorSettingsMapper.php
-- Classes/Domain/Struct/StructInterface.php
-- Classes/Domain/Struct/AbstractStruct.php
-- Classes/Domain/Struct/GoogleAuthenticatorSettings.php
-- Classes/Domain/Exception/MissingRequiredField.php
-- Classes/Domain/Exception/PropertyNotFound.php
-- Classes/Domain/Exception/PropertyNotInitialized.php
-- Classes/Domain/Handler/GoogleAuthenticatorSetupHandler.php
-- Classes/Domain/Utility/ExtensionBasicDataUtility.php
-- Classes/Domain/Utility/PathUtility.php
-
+- Base class for unit tests (`..\Tests\Unit\BaseTestCase`)
+- Utility to create paths (`..\Utility\PathUtility`)
+- Utility to fetch extension meta data (`..\Utility\ExtensionBasicDataUtility`)
+- Multiple exception classes
+- Multiple data transfer object classes
+- Multiple mapper classes
+- Multiple struct classes
+- Handler for Google Authenticator setup requests
 
 ### Changed
-
-- A lot of refactoring
-- Apart from the code structure, nothing has changed significantly
-
-
+- Code structure / refactoring
 
 ## [1.0.2] - 2018-07-15
-
 ### Changed
-
-- Replace wrong extension link in README.md
-- Add PHP 7.1+ as dependency in ext_emconf.php
-
-
+- Replace wrong extension link in `README.md`
+- Add PHP 7.1+ as dependency in `ext_emconf.php`
 
 ## [1.0.1] - 2018-06-17
-
-### Changed
-
+### Fixed
 - Use <img> instead of <f:image> to resolve an issue, with the QR-Code in the backend
 
-
-
 ## [1.0.0] - 2018-06-17
-
 - Initial development
+
+[Unreleased]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.1.4...HEAD
+[1.1.4]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.1.3...v1.1.4
+[1.1.3]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.1.2...v1.1.3
+[1.1.2]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.1.1...v1.1.2
+[1.1.1]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.1.0...v1.1.1
+[1.1.0]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.0.6...v1.1.0
+[1.0.6]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.0.5...v1.0.6
+[1.0.5]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.0.4...v1.0.5
+[1.0.4]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.0.3...v1.0.4
+[1.0.3]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.0.2...v1.0.3
+[1.0.2]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.0.1...v1.0.2
+[1.0.1]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.0.0...v1.0.1
+[1.0.0]: https://github.com/codeFareith/cf_google_authenticator/releases/tag/v1.0.0

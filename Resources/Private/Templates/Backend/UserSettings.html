@@ -14,8 +14,7 @@
                 <f:render
                     partial="Backend/Form/OneTimePassword"
                     arguments="{
-                        table: table,
-                        uid: uid
+                        prefix: prefix
                     }"
                 />
 
@@ -31,23 +30,20 @@
                     arguments="{
                         src: qrCodeUri,
                         secret: authenticatorSecret,
-                        table: table,
-                        uid: uid
+                        prefix: prefix
                     }"
                 />
                 <f:render
                     partial="Backend/Form/Secret"
                     arguments="{
                         secret: authenticatorSecret,
-                        table: table,
-                        uid: uid
+                        prefix: prefix
                     }"
                 />
                 <f:render
                     partial="Backend/Form/OneTimePassword"
                     arguments="{
-                        table: table,
-                        uid: uid
+                        prefix: prefix
                     }"
                 />
             </f:else>

@@ -1,13 +1,15 @@
 <?php
 /**
- * @author Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
- * @copyright (c) 2018 by Robin von den Bergen
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version 1.0.0
+ * Class GoogleAuthenticatorSettingsDTO
  *
- * @link https://github.com/codeFareith/cf_google_authenticator
- * @see https://www.fareith.de
- * @see https://typo3.org
+ * @author        Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
+ * @copyright (c) 2018-2019 by Robin von den Bergen
+ * @license       http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version       1.0.0
+ *
+ * @link          https://github.com/codeFareith/cf_google_authenticator
+ * @see           https://www.fareith.de
+ * @see           https://typo3.org
  */
 
 namespace CodeFareith\CfGoogleAuthenticator\Domain\DataTransferObject;
@@ -21,23 +23,29 @@ use CodeFareith\CfGoogleAuthenticator\Domain\Struct\GoogleAuthenticatorSettings;
  * configuration through the various software layers (e.g. for verification and
  * validation) as soon as a user updates their account settings.
  *
- * @see \CodeFareith\CfGoogleAuthenticator\Handler\GoogleAuthenticatorSetupHandler
+ * @see     \CodeFareith\CfGoogleAuthenticator\Handler\GoogleAuthenticatorSetupHandler
  *
- * Class GoogleAuthenticatorSettingsDTO
  * @package CodeFareith\CfGoogleAuthenticator\Domain\DataTransferObject
+ * @since   1.0.0
  */
 class GoogleAuthenticatorSettingsDTO
 {
     /*─────────────────────────────────────────────────────────────────────────────*\
             Properties
     \*─────────────────────────────────────────────────────────────────────────────*/
-    /** @var GoogleAuthenticatorSettings */
+    /**
+     * @var GoogleAuthenticatorSettings
+     */
     protected $oldSettings;
 
-    /** @var GoogleAuthenticatorSettings */
+    /**
+     * @var GoogleAuthenticatorSettings
+     */
     protected $newSettings;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $oneTimePassword;
 
     /*─────────────────────────────────────────────────────────────────────────────*\

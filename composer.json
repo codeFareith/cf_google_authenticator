@@ -4,7 +4,7 @@
   "description": "Enable Google 2FA (two factor authentication) for both, frontend- and backend accounts.",
   "homepage": "https://www.fareith.de",
   "license": [
-    "GPL-2.0+"
+    "GPL-3.0-or-later"
   ],
   "keywords": [
     "TYPO3",
@@ -12,7 +12,8 @@
     "Google",
     "authenticator",
     "2FA",
-    "two-factor-authentication"
+    "two-factor-authentication",
+    "TOTP"
   ],
   "support": {
     "issues": "https://github.com/codeFareith/cf_google_authenticator/issues"
@@ -21,16 +22,19 @@
     {
       "name": "Robin von den Bergen",
       "role": "developer",
+      "email": "rvdb@fareith.de",
       "homepage": "https://www.fareith.de"
     }
   ],
 
   "require": {
     "typo3/cms-core": "^7.6.0 || ^8.7.0 || ^9.5.0",
-    "typo3/cms-felogin": "^7.6.0 || ^8.7.0 || ^9.5.0"
+    "typo3/cms-felogin": "^7.6.0 || ^8.7.0 || ^9.5.0",
+    "ext-json": "*",
+    "typo3/cms-reports": "^7.6.0 || ^8.7.0 || ^9.5.0",
+    "typo3/cms-setup": "^7.6.0 || ^8.7.0 || ^9.5.0"
   },
   "require-dev": {
-    "roave/security-advisories": "dev-master",
     "typo3/testing-framework": "^2",
     "phpunit/php-code-coverage": "5.3",
     "codeception/codeception": "^2.4"
@@ -48,7 +52,7 @@
   },
 
   "replace": {
-    "cf_google_authenticator": "self.version",
+    "codefareith/cf_google_authenticator": "self.version",
     "typo3-ter/cf-google-authenticator": "self.version"
   },
 
