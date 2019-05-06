@@ -1,0 +1,14 @@
+<?php
+/**
+ * @author Robin von den Bergen <robin.vondenbergen@interlutions.de>
+ */
+
+namespace CodeFareith\CfGoogleAuthenticator\Application\Encoder;
+
+interface Encoder
+{
+    public function decode(string $data): string;
+
+    public function encode(string $data): string;
+}
+

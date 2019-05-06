@@ -1,0 +1,22 @@
+<?php
+/**
+ * @author Robin von den Bergen <robin.vondenbergen@interlutions.de>
+ */
+
+namespace CodeFareith\CfGoogleAuthenticator\Domain\Validator;
+
+use TYPO3\CMS\Extbase\Validation\Validator\GenericObjectValidator;
+
+class SetupFormValidator extends GenericObjectValidator
+{
+    public function canValidate($object): bool
+    {
+        return parent::canValidate($object);
+    }
+
+    public function isValid($object): bool
+    {
+        parent::isValid($object);
+    }
+}
+
