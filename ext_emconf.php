@@ -23,11 +23,11 @@ $EM_CONF[$_EXTKEY] = [
     'category' => 'misc',
 
     'author' => 'Robin "codeFareith" von den Bergen',
-    'author_email' => 'rvdb@fareith.de',
+    'author_email' => 'robin@vondenbergen.de',
     'author_company' => '',
 
     'state' => 'stable',
-    'version' => '1.1.3',
+    'version' => '1.1.4',
 
     'uploadFolders' => false,
     'createDirs' => '',
@@ -36,20 +36,23 @@ $EM_CONF[$_EXTKEY] = [
     'constraints' => [
         'depends' => [
             'php' => '7.1-',
-            'typo3' => '7.6.0-9.9.99',
-            'felogin' => '7.6.0-9.9.99'
+            'typo3' => '8.7.0-9.5.99',
         ],
         'conflicts' => [
-
         ],
         'suggests' => [
-
-        ]
+            'felogin' => '8.7.0-9.5.99',
+        ],
     ],
 
     'autoload' => [
         'psr-4' => [
-            'CodeFareith\\CfGoogleAuthenticator\\' => 'Classes'
-        ]
-    ]
+            'CodeFareith\\CfGoogleAuthenticator\\' => 'Classes',
+        ],
+    ],
+    'autoload-dev' => [
+        'psr-4' => [
+            'CodeFareith\\CfGoogleAuthenticator\\Tests\\' => 'Tests',
+        ],
+    ],
 ];
