@@ -1,25 +1,10 @@
 <phpunit
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/6.3/phpunit.xsd"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/6.5/phpunit.xsd"
 
-    backupGlobals="false"
-    backupStaticAttributes="false"
     bootstrap="../../.Build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTestsBootstrap.php"
     cacheTokens="false"
-    colors="true"
-    convertErrorsToExceptions="true"
-    convertNoticesToExceptions="true"
-    convertWarningsToExceptions="true"
-    mapTestClassNameToCoveredClassName="false"
-    forceCoversAnnotation="false"
-    processIsolation="false"
-    stopOnError="false"
-    stopOnFailure="false"
-    stopOnIncomplete="false"
-    stopOnSkipped="false"
-    stopOnRisky="false"
-    strict="false"
-    verbose="false">
+    colors="true">
 
     <testsuites>
         <testsuite name="EXT:cf_google_authenticator tests">
@@ -27,9 +12,15 @@
         </testsuite>
     </testsuites>
 
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">../../Classes</directory>
+        </whitelist>
+    </filter>
+
     <logging>
-        <log type="coverage-clover" target="../Reports/logs/clover.xml"/>
-        <log type="coverage-html" target="../Reports/coverage" charset="UTF-8" yui="true" highlight="true" lowUpperBound="35" highLowerBound="70" />
-        <log type="testdox-text" target="../Reports/testdox/executed.txt"/>
+        <log type="coverage-html" target="../Reports/coverage"/>
+        <log type="coverage-clover" target="../Reports/coverage.xml"/>
+        <log type="coverage-text" target="php://stdout"/>
     </logging>
 </phpunit>

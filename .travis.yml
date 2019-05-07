@@ -3,9 +3,9 @@ language: php
 matrix:
   fast_finish: true
   include:
-    - php: 7.1
+    - php: '7.1'
       env: TYPO3_VERSION=^8
-    - php: 7.2
+    - php: '7.2'
       env: TYPO3_VERSION=^9
 
 sudo: false
@@ -24,10 +24,8 @@ before_install:
   - composer --version
 
 before_script:
-  - phpenv config-rm xdebug.ini
   - composer require typo3/minimal=$TYPO3_VERSION
   - composer require typo3/cms-recordlist=$TYPO3_VERSION
-  # Restore composer.json
   - git checkout composer.json
   - export TYPO3_PATH_WEB=$PWD/.Build/Web
 
@@ -35,8 +33,11 @@ script:
   - >
     echo;
     echo "Running unit tests";
-    .Build/bin/phpunit --colors -c Tests/Build/UnitTests.xml Tests/Unit/
+    .Build/bin/phpunit -c $PWD/Tests/Build/UnitTests.xml
   - >
     echo;
     echo "Running php lint";
     find . -name \*.php ! -path "./.Build/*" | parallel --gnu php -d display_errors=stderr -l {} > /dev/null \;
+
+after_success:
+    - bash <(curl -s https://codecov.io/bash) -f $PWD/Tests/Reports/coverage.xml

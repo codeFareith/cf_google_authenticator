@@ -28,16 +28,19 @@
   ],
 
   "require": {
-    "typo3/cms-core": "^7.6.0 || ^8.7.0 || ^9.5.0",
-    "typo3/cms-felogin": "^7.6.0 || ^8.7.0 || ^9.5.0",
-    "ext-json": "*",
-    "typo3/cms-reports": "^7.6.0 || ^8.7.0 || ^9.5.0",
-    "typo3/cms-setup": "^7.6.0 || ^8.7.0 || ^9.5.0"
+    "php": "^7.1",
+    "typo3/cms-core": "^8.7 || ^9.5",
+    "typo3/cms-reports": "^8.7 || ^9.5",
+    "typo3/cms-setup": "^8.7 || ^9.5",
+    "ext-json": "*"
   },
   "require-dev": {
     "typo3/testing-framework": "^2",
-    "phpunit/php-code-coverage": "5.3",
+    "phpunit/php-code-coverage": "^5.3",
     "codeception/codeception": "^2.4"
+  },
+  "suggest": {
+    "typo3/cms-felogin": "^8.7.0 || ^9.5.0"
   },
 
   "autoload": {
@@ -57,6 +60,9 @@
   },
 
   "config": {
+    "platform": {
+      "php": "7.1.22"
+    },
     "vendor-dir": ".Build/vendor",
     "bin-dir": ".Build/bin"
   },

@@ -1,15 +1,19 @@
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/fareith/19.99)
-[![Build Status](https://travis-ci.org/codeFareith/cf_google_authenticator.svg?branch=master)](https://travis-ci.org/codeFareith/cf_google_authenticator)
-[![Latest Stable Version](https://poser.pugx.org/codefareith/cf-google-authenticator/v/stable)](https://packagist.org/packages/codefareith/cf-google-authenticator)
-[![Total Downloads](https://poser.pugx.org/codefareith/cf-google-authenticator/downloads)](https://packagist.org/packages/codefareith/cf-google-authenticator)
-[![Latest Unstable Version](https://poser.pugx.org/codefareith/cf-google-authenticator/v/unstable)](https://packagist.org/packages/codefareith/cf-google-authenticator)
-[![License](https://poser.pugx.org/codefareith/cf-google-authenticator/license)](https://packagist.org/packages/codefareith/cf-google-authenticator)
-
-
 # Google Authenticator
+
+![GitHub license](https://img.shields.io/github/license/codeFareith/cf_google_authenticator.svg?style=flat-square&label=License)
+![GitHub release](https://img.shields.io/github/release/codeFareith/cf_google_authenticator.svg?style=flat-square&stable)
+![GitHub pre-release)](https://img.shields.io/github/tag-pre/codeFareith/cf_google_authenticator.svg?style=flat-square&label=develop)
+![Travis build](https://img.shields.io/travis/codeFareith/cf_google_authenticator.svg?style=flat-square)
+![Codecov coverage](https://img.shields.io/codecov/c/github/codefareith/cf_google_authenticator.svg?style=flat-square)
+![Scrutinizer code quality](https://img.shields.io/scrutinizer/quality/g/codeFareith/cf_google_authenticator.svg?style=flat-square)
+![Requires.io requirements](https://img.shields.io/requires/github/codeFareith/cf_google_authenticator.svg?style=flat-square)
+<!-- ![Libraries.io dependencies](https://img.shields.io/librariesio/github/codeFareith/cf_google_authenticator.svg?style=flat-square) -->
 
 > TYPO3 CMS extension to enable Google 2FA (two factor authentication) for both, frontend- and backend accounts.
 
+<br>
+
+[![Donate via PayPal](https://img.shields.io/badge/Donate-%230070ba.svg?style=for-the-badge&logo=paypal&labelColor=eeeeee)](https://www.paypal.me/fareith)
 
 
 ## Getting Started
@@ -79,3 +83,32 @@ See [CHANGELOG.md](CHANGELOG.md)
 ## License
 
 [GNU Public License](http://opensource.org/licenses/gpl-license.php)
+
+----
+
+<!-- GITHUB SOCIAL -->
+![GitHub followers](https://img.shields.io/github/followers/codeFareith.svg?style=social)
+![GitHub forks](https://img.shields.io/github/forks/codeFareith/cf_google_authenticator.svg?style=social)
+![GitHub stars](https://img.shields.io/github/stars/codeFareith/cf_google_authenticator.svg?style=social)
+![GitHub watchers](https://img.shields.io/github/watchers/codeFareith/cf_google_authenticator.svg?style=social)
+
+![Twitter Follow](https://img.shields.io/twitter/follow/codeFareith.svg?label=%40codeFareith&style=social)
+
+----
+
+![GitHub issues](https://img.shields.io/github/issues-raw/codeFareith/cf_google_authenticator.svg?style=flat-square&logo=github)
+![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/codeFareith/cf_google_authenticator.svg?style=flat-square&logo=github)
+![GitHub pull requests](https://img.shields.io/github/issues-pr-raw/codeFareith/cf_google_authenticator.svg?style=flat-square&logo=github)
+![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed-raw/codeFareith/cf_google_authenticator.svg?style=flat-square&logo=github)
+![GitHub downloads](https://img.shields.io/github/downloads/codeFareith/cf_google_authenticator/total.svg?style=flat-square&logo=github)
+![GitHub contributors](https://img.shields.io/github/contributors/codeFareith/cf_google_authenticator.svg?style=flat-square&logo=github)
+
+<!-- GITHUB INSIGHTS -->
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/codeFareith/cf_google_authenticator.svg?style=flat-square&logo=github)
+![GitHub last commit](https://img.shields.io/github/last-commit/codeFareith/cf_google_authenticator.svg?style=flat-square&logo=github)
+![GitHub release date](https://img.shields.io/github/release-date/codeFareith/cf_google_authenticator.svg?style=flat-square&logo=github)
+![GitHub release date pre](https://img.shields.io/github/release-date-pre/codeFareith/cf_google_authenticator.svg?style=flat-square&logo=github)
+
+<!-- METADATA -->
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/codeFareith/cf_google_authenticator.svg?style=flat-square)
+![GitHub repo size](https://img.shields.io/github/repo-size/codeFareith/cf_google_authenticator.svg?style=flat-square)
