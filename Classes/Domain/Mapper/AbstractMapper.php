@@ -41,7 +41,7 @@ abstract class AbstractMapper
      *
      * @var string[]|null
      */
-    protected static $requiredFields;
+    protected static $requiredFields = [];
 
     /*─────────────────────────────────────────────────────────────────────────────*\
             Methods
@@ -114,7 +114,6 @@ abstract class AbstractMapper
     private static function throwMissingRequiredFieldExceptionStack(array $data): void
     {
         $previous = null;
-        $next = null;
         $missingFields = self::getMissingFields($data);
         $length = count($missingFields);
 
