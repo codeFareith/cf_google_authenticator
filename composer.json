@@ -54,7 +54,7 @@
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
-    "typo3/testing-framework": "^2",
+    "typo3/testing-framework": "^3",
     "phpunit/php-code-coverage": "5.3.2",
     "codeception/codeception": "^2.4"
   },
