@@ -35,7 +35,7 @@
     "typo3/cms-setup": "^7.6.0 || ^8.7.0 || ^9.5.0"
   },
   "require-dev": {
-    "typo3/testing-framework": "^2",
+    "typo3/testing-framework": "^3",
     "phpunit/php-code-coverage": "5.3",
     "codeception/codeception": "^2.4"
   },
