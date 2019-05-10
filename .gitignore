@@ -81,6 +81,7 @@ nbproject
 .node_repl_history
 .yarn-integrity
 phpdoc-cache-*
+.git
 
 
 ##
