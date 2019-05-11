@@ -1,11 +1,19 @@
 language: php
 
+branches:
+  only:
+    - master
+    - develop
+    - /^v\d+\.\d+(\.\d+)?(-\S*)?$/
+
 matrix:
   fast_finish: true
   include:
-    - php: '7.1'
+    - name: 'PHP 7.1 | TYPO3 CMS v8'
+      php: '7.1'
       env: TYPO3_VERSION=^8
-    - php: '7.2'
+    - name: 'PHP 7.2 | TYPO3 CMS v9'
+      php: '7.2'
       env: TYPO3_VERSION=^9
 
 sudo: false
