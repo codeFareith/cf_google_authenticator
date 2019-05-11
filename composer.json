@@ -83,7 +83,7 @@
       "CodeFareith\\CfGoogleAuthenticator\\Tests\\": "Tests/"
     }
   },
-  "minimum-stability": "stable",
+  "minimum-stability": "dev",
   "prefer-stable": true,
   "repositories": {},
   "config": {
