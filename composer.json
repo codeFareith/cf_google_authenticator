@@ -46,7 +46,7 @@
     "rss": "https://github.com/codeFareith/cf_google_authenticator/commits/master.atom"
   },
   "require": {
-    "php": "^7.1",
+    "php": "^7.1.0",
     "typo3/cms-core": "^8.7 || ^9.5",
     "typo3/cms-reports": "^8.7 || ^9.5",
     "typo3/cms-setup": "^8.7 || ^9.5",
@@ -54,7 +54,7 @@
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
-    "typo3/testing-framework": "^3",
+    "typo3/testing-framework": "^2.0.1",
     "phpunit/php-code-coverage": "5.3.2",
     "codeception/codeception": "^2.4"
   },
@@ -96,8 +96,12 @@
       "mkdir -p .Build/Web/typo3conf/ext/",
       "[ -L .Build/Web/typo3conf/ext/cf_google_authenticator ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/cf_google_authenticator"
     ],
-    "git-archive": "git archive -o \"${PWD##*/}_$(@git-version)\" HEAD",
+    "git-archive": "git archive -o \"${PWD##*/}_$(@git-version).zip\" HEAD",
     "git-version": "fn () { git tag -l --sort=-v:refname | grep -m 1 -o \"[0-9.]\\+${1:+-$1}$\"; }; fn"
+  },
+  "scripts-descriptions": {
+    "git-archive": "Creates a TER compilant zip archive of the extension based on the most recent tag.",
+    "git-version": "Returns the most recent version/tag number. You could also call e.g. 'docker git-version -- dev' to get the latest dev version (e.g. v1.2.x-dev)."
   },
   "extra": {
     "branch-alias": {
