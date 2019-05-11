@@ -15,30 +15,36 @@
  * @see           https://www.fareith.de
  * @see           https://typo3.org
  */
+/** @noinspection PhpFullyQualifiedNameUsageInspection */
 
 use CodeFareith\CfGoogleAuthenticator\Hook\FeLogin;
 use CodeFareith\CfGoogleAuthenticator\Hook\TCEMain;
 use CodeFareith\CfGoogleAuthenticator\Provider\Login\GoogleAuthenticatorLoginProvider;
-use CodeFareith\CfGoogleAuthenticator\Service\GoogleAuthenticatorService;
+use CodeFareith\CfGoogleAuthenticator\Service\AuthenticationService;
+use CodeFareith\CfGoogleAuthenticator\Service\GoogleAuthenticationServiceAdapterFactory;
 use CodeFareith\CfGoogleAuthenticator\Utility\ExtensionBasicDataUtility;
 use CodeFareith\CfGoogleAuthenticator\Utility\PathUtility;
 use CodeFareith\CfGoogleAuthenticator\Utility\TypoScriptUtility;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
 defined('TYPO3_MODE')
     or die('Access denied.');
 
 call_user_func(
-    function ($_EXTKEY) {
+    static function ($_EXTKEY) {
         $globalsReference = &$GLOBALS;
 
         $extConf = ExtensionBasicDataUtility::getExtensionConfiguration();
 
-        ExtensionManagementUtility::addService(
+        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+            \TYPO3\CMS\Extbase\Object\ObjectManager::class
+        );
+        $adapterFactory = $objectManager->get(GoogleAuthenticationServiceAdapterFactory::class);
+        $adapter = $adapterFactory->create();
+
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService(
             $_EXTKEY,
             'auth',
-            GoogleAuthenticatorService::class,
+            AuthenticationService::class,
             [
                 'title' => 'Google Authenticator',
                 'description' => 'Enable Google 2FA for both, frontend- and backend login',
@@ -48,11 +54,11 @@ call_user_func(
                 'quality' => 80,
                 'os' => '',
                 'exec' => '',
-                'className' => GoogleAuthenticatorService::class,
+                'className' => get_class($adapter),
             ]
         );
 
-        ExtensionManagementUtility::addUserTSConfig(
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addUserTSConfig(
             TypoScriptUtility::getIncludeTypoScriptFileTag(
                 PathUtility::makeExtensionPath(
                     'Configuration/TypoScript/setup.typoscript'
@@ -60,7 +66,7 @@ call_user_func(
             )
         );
 
-        ExtensionUtility::configurePlugin(
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
             ExtensionBasicDataUtility::getVendorName() . '.' . ExtensionBasicDataUtility::getExtensionKey(),
             'Setup',
             [
@@ -69,11 +75,11 @@ call_user_func(
             [
                 'Frontend\Setup' => 'form,update',
             ],
-            ExtensionUtility::PLUGIN_TYPE_PLUGIN
+            \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_PLUGIN
         );
 
         if ((bool) $extConf['googleAuthenticatorEnableFE'] === true) {
-            ExtensionManagementUtility::addTypoScriptConstants(
+            \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptConstants(
                 'styles.content.loginform.templateFile = ' . $extConf['feLoginTemplate']
             );
         }

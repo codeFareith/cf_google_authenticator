@@ -21,7 +21,7 @@ defined('TYPO3_MODE')
     or die('Access denied');
 
 call_user_func(
-    function () {
+    static function () {
         ExtensionManagementUtility::addStaticFile(
             'cf_google_authenticator',
             'Configuration/TypoScript',
