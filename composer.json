@@ -46,7 +46,6 @@
     "rss": "https://github.com/codeFareith/cf_google_authenticator/commits/master.atom"
   },
   "require": {
-    "php": "^7.1.0",
     "typo3/cms-core": "^8.7 || ^9.5",
     "typo3/cms-reports": "^8.7 || ^9.5",
     "typo3/cms-setup": "^8.7 || ^9.5",
@@ -84,7 +83,7 @@
       "CodeFareith\\CfGoogleAuthenticator\\Tests\\": "Tests/"
     }
   },
-  "minimum-stability": "dev",
+  "minimum-stability": "stable",
   "prefer-stable": true,
   "repositories": {},
   "config": {
