@@ -4,32 +4,43 @@ about: Create a report to help us improve
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+# Bug report
 
-**To Reproduce**
-Steps to reproduce the behavior:
+## Prerequisites
+Please answer the following questions for yourself before submitting an issue. **YOU MAY DELETE THE PREREQUISITES SECTION.**
+
+- [ ] I am running the latest version
+- [ ] I checked the documentation and found no answer
+- [ ] I checked to make sure that this issue has not already been filed
+
+## Description:
+< a clear and concise description of what the bug is >
+
+## Steps to reproduce:
+< steps to reproduce the behavior: >
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
 4. See error
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+## Expected results:
+< a clear and concise description of what you expected to happen. >
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+## Actual results:
+< if applicable, add screenshots to help explain your problem. >
 
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+## Environment
 
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
+ | | |
+ ---- | ----
+**Platform** | < _(e.g. iPhoneX)_ >
+**Operating System** | < _(e.g. iOS 12.3 Beta 6)_ >
+**Browser** | < _(e.g. Google Chrome 74.0.3729.131)_ >
+**Additional Context** | < _(e.g. version, other extensions, ...)_ >
 
-**Additional context**
-Add any other context about the problem here.
+## Notes:
+< some further infos, hints, etc. >
+
+## Screenshot(s)
+
+< add screenshots here >

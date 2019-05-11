@@ -17,10 +17,7 @@ namespace CodeFareith\CfGoogleAuthenticator\Service;
 use CodeFareith\CfGoogleAuthenticator\Utility\ExtensionBasicDataUtility;
 use CodeFareith\CfGoogleAuthenticator\Utility\GoogleAuthenticatorUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Sv\AuthenticationService;
 use function vsprintf;
-
-/** @noinspection LongInheritanceChainInspection */
 
 /**
  * Google Authenticator Service
@@ -37,7 +34,7 @@ use function vsprintf;
  * @since   1.0.0
  */
 class GoogleAuthenticatorService
-    extends AuthenticationService
+    implements AuthenticationService
 {
     public const
         AUTH_FAIL_AND_STOP = -1,
@@ -58,8 +55,6 @@ class GoogleAuthenticatorService
     \*─────────────────────────────────────────────────────────────────────────────*/
     public function init(): bool
     {
-        parent::init();
-
         $this->extConf = ExtensionBasicDataUtility::getExtensionConfiguration();
 
         return ((bool) $this->extConf['googleAuthenticatorEnable' . TYPO3_MODE]);

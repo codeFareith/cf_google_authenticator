@@ -18,16 +18,16 @@
  * @see           https://www.fareith.de
  * @see           https://typo3.org
  */
+/** @noinspection PhpFullyQualifiedNameUsageInspection */
 
 use CodeFareith\CfGoogleAuthenticator\Hook\UserSettings;
 use CodeFareith\CfGoogleAuthenticator\Utility\PathUtility;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 defined('TYPO3_MODE')
     or die('Access denied.');
 
 call_user_func(
-    function (/*$_EXTKEY*/) {
+    static function (/*$_EXTKEY*/) {
         $globalsReference = &$GLOBALS;
 
         $globalsReference['TBE_STYLES']
@@ -57,7 +57,7 @@ call_user_func(
             ]
         );
 
-        ExtensionManagementUtility::addFieldsToUserSettings(
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToUserSettings(
             '--div--;'
             . PathUtility::makeLocalLangLinkPath(
                 'tx_cfgoogleauthenticator',

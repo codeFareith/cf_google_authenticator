@@ -63,7 +63,7 @@ class FeLogin
             ];
         }
 
-        $content = $this->getMarkerBasedTemplateService()->substituteMarkerArrayCached($params['content'], $marker);
+        $content = $this->getMarkerBasedTemplateService()->substituteMarkerAndSubpartArrayRecursive($params['content'], $marker);
 
         return $content;
     }
