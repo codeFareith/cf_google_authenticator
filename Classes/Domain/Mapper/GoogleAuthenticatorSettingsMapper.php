@@ -31,14 +31,6 @@ class GoogleAuthenticatorSettingsMapper
     extends AbstractMapper
 {
     /*─────────────────────────────────────────────────────────────────────────────*\
-            Properties
-    \*─────────────────────────────────────────────────────────────────────────────*/
-    /**
-     * @var string[]
-     */
-    protected static $requiredFields = [];
-
-    /*─────────────────────────────────────────────────────────────────────────────*\
             Methods
     \*─────────────────────────────────────────────────────────────────────────────*/
     protected static function mapArrayOnStruct(array $data): GoogleAuthenticatorSettings

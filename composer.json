@@ -1,81 +1,119 @@
 {
   "name": "codefareith/cf-google-authenticator",
-  "type": "typo3-cms-extension",
   "description": "Enable Google 2FA (two factor authentication) for both, frontend- and backend accounts.",
-  "homepage": "https://www.fareith.de",
+  "type": "typo3-cms-extension",
+  "keywords": [
+    "typo3",
+    "typo3-cms",
+    "typo3-cms-extension",
+    "typo3-extension",
+    "extension",
+    "php",
+    "google",
+    "google-2fa",
+    "google-tfa",
+    "google-authenticator",
+    "authenticator",
+    "totp",
+    "totp-tfa",
+    "totp-2fa",
+    "tfa",
+    "2fa",
+    "two-factor-authentication",
+    "timed-one-time-password",
+    "security"
+  ],
+  "homepage": "https://github.com/codeFareith/cf_google_authenticator",
+  "readme": "README.md",
+  "time": "",
   "license": [
     "GPL-3.0-or-later"
   ],
-  "keywords": [
-    "TYPO3",
-    "extension",
-    "Google",
-    "authenticator",
-    "2FA",
-    "two-factor-authentication",
-    "TOTP"
-  ],
-  "support": {
-    "issues": "https://github.com/codeFareith/cf_google_authenticator/issues"
-  },
   "authors": [
     {
       "name": "Robin von den Bergen",
-      "role": "developer",
       "email": "rvdb@fareith.de",
-      "homepage": "https://www.fareith.de"
+      "homepage": "https://www.fareith.de",
+      "role": "developer"
     }
   ],
-
+  "support": {
+    "email": "support@fareith.de",
+    "issues": "https://github.com/codeFareith/cf_google_authenticator/issues",
+    "wiki": "https://github.com/codeFareith/cf_google_authenticator/wiki",
+    "source": "https://github.com/codeFareith/cf_google_authenticator/releases",
+    "docs": "https://github.com/codeFareith/cf_google_authenticator/tree/master/Documentation",
+    "rss": "https://github.com/codeFareith/cf_google_authenticator/commits/master.atom"
+  },
   "require": {
-    "typo3/cms-core": "^7.6.0 || ^8.7.0 || ^9.5.0",
-    "typo3/cms-felogin": "^7.6.0 || ^8.7.0 || ^9.5.0",
-    "ext-json": "*",
-    "typo3/cms-reports": "^7.6.0 || ^8.7.0 || ^9.5.0",
-    "typo3/cms-setup": "^7.6.0 || ^8.7.0 || ^9.5.0"
+    "typo3/cms-core": "^8.7 || ^9.5",
+    "typo3/cms-reports": "^8.7 || ^9.5",
+    "typo3/cms-setup": "^8.7 || ^9.5",
+    "ext-json": "*"
   },
   "require-dev": {
-    "typo3/testing-framework": "^2",
-    "phpunit/php-code-coverage": "5.3",
+    "roave/security-advisories": "dev-master",
+    "typo3/testing-framework": "^2.0.1",
+    "phpunit/php-code-coverage": "5.3.2",
     "codeception/codeception": "^2.4"
+  },
+  "conflict": {},
+  "replace": {
+    "codefareith/cf_google_authenticator": "self.version",
+    "typo3-ter/cf-google-authenticator": "self.version"
+  },
+  "provide": {},
+  "suggest": {
+    "typo3/cms-felogin": "Needed to support 2FA for frontend accounts."
   },
 
   "autoload": {
+    "psr-0": {},
     "psr-4": {
       "CodeFareith\\CfGoogleAuthenticator\\": "Classes/"
-    }
+    },
+    "classmap": [],
+    "files": [],
+    "exclude-from-classmap": [
+      "Tests/"
+    ]
   },
   "autoload-dev": {
     "psr-4": {
       "CodeFareith\\CfGoogleAuthenticator\\Tests\\": "Tests/"
     }
   },
-
-  "replace": {
-    "codefareith/cf_google_authenticator": "self.version",
-    "typo3-ter/cf-google-authenticator": "self.version"
-  },
-
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "repositories": {},
   "config": {
     "vendor-dir": ".Build/vendor",
     "bin-dir": ".Build/bin"
   },
-
   "scripts": {
     "post-autoload-dump": [
       "mkdir -p .Build/Web/typo3conf/ext/",
       "[ -L .Build/Web/typo3conf/ext/cf_google_authenticator ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/cf_google_authenticator"
-    ]
+    ],
+    "git-archive": "git archive -o \"${PWD##*/}_$(@git-version).zip\" HEAD",
+    "git-version": "fn () { git tag -l --sort=-v:refname | grep -m 1 -o \"[0-9.]\\+${1:+-$1}$\"; }; fn"
   },
-
+  "scripts-descriptions": {
+    "git-archive": "Creates a TER compilant zip archive of the extension based on the most recent tag.",
+    "git-version": "Returns the most recent version/tag number. You could also call e.g. 'docker git-version -- dev' to get the latest dev version (e.g. v1.2.x-dev)."
+  },
   "extra": {
     "branch-alias": {
-      "dev-master": "1.0.x-dev"
+      "dev-master": "1.1.x-dev"
     },
     "typo3/cms": {
       "extension-key": "cf_google_authenticator",
       "cms-package-dir": "{$vendor-dir}/typo3/cms",
       "web-dir": ".Build/Web"
     }
-  }
+  },
+  "bin": [],
+  "archive": {},
+  "abandoned": false,
+  "non-feature-branches": []
 }

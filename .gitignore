@@ -81,13 +81,13 @@ nbproject
 .node_repl_history
 .yarn-integrity
 phpdoc-cache-*
+.git
 
 
 ##
 #   Miscelaneous
 ########################################
 composer.phar
-composer.lock
 .Build/
 build/
 node_modules/

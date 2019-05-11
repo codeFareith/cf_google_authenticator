@@ -106,9 +106,11 @@ class GoogleAuthenticatorSetupHandler
                 '*'
             );
 
-            $this->googleAuthenticatorSettingsDTO->setOldSettings(
-                GoogleAuthenticatorSettingsMapper::createStructFromArray($recordInfo)
-            );
+            if ($recordInfo !== null) {
+                $this->googleAuthenticatorSettingsDTO->setOldSettings(
+                    GoogleAuthenticatorSettingsMapper::createStructFromArray($recordInfo)
+                );
+            }
         }
 
         $fieldArray = $this->preProcessFieldArrayDTO->getFieldArray();
@@ -148,7 +150,7 @@ class GoogleAuthenticatorSetupHandler
         $hasEnabled = $this->googleAuthenticatorSettingsDTO->getNewSettings()->isEnabled();
 
         if ($this->isNewUser() === false) {
-            $hasEnabled &= $this->googleAuthenticatorSettingsDTO->getOldSettings()->isEnabled() === false;
+            $hasEnabled &= ($this->googleAuthenticatorSettingsDTO->getOldSettings()->isEnabled() === false);
         }
 
         return $hasEnabled;
