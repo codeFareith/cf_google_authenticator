@@ -1,6 +1,15 @@
 <?php
 /**
- * @author Robin von den Bergen <robinvonberg@gmx.de>
+ * Class GoogleAuthenticationServiceAdapterFactory
+ *
+ * @author        Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
+ * @copyright (c) 2018-2019 by Robin von den Bergen
+ * @license       http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version       1.0.0
+ *
+ * @link          https://github.com/codeFareith/cf_google_authenticator
+ * @see           https://www.fareith.de
+ * @see           https://typo3.org
  */
 
 namespace CodeFareith\CfGoogleAuthenticator\Service;
@@ -9,6 +18,10 @@ use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use function version_compare;
 
+/**
+ * @package CodeFareith\CfGoogleAuthenticator\Service
+ * @since   1.1.5
+ */
 class GoogleAuthenticationServiceAdapterFactory
     implements AuthenticationServiceAdapterFactory
 {
