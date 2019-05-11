@@ -7,6 +7,35 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 - nothing, yet
 
+## [1.1.5] - 2019-05-11
+### Added
+- Interface `..\Classes\Service\AuthenticationService`
+- Interface `..\Classes\Service\AuthenticationServiceAdapterFactory`
+- Class `..\Classes\Service\CoreAuthenticationServiceAdapter`
+- Class `..\Classes\Service\GoogleAuthenticationServiceAdapterFactory`
+- Class `..\Classes\Service\LegacyAuthenticationServiceAdapter`
+- File `composer.lock`
+- File `.scrutinizer.yml`
+
+### Changed
+- Set `minimum_stability` in `composer.json` to `dev`
+- Define safelisted branches for Travis-CI
+- Eliminate deprecated function usage
+- Make anonymous function calls static
+- Update issue templates
+- Update versions and script descriptions in `composer.json`
+- Add `.git` to `.gitignore`
+- Update phpunit/php-code-coverage requirement
+- Update README.md
+- Update composer.json
+- Clean up code of SetupController & Mapper
+- Update CI files
+
+### Fixed
+
+- Remove "use" statement for core classes in ext_* files
+- Avoid TypeError when record info is null 
+
 ## [1.1.4] - 2019-05-07
 ### Added
 - New translation keys for FlashMessage texts
@@ -112,7 +141,8 @@ to meet frontend requirements
 ## [1.0.0] - 2018-06-17
 - Initial development
 
-[Unreleased]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.1.4...HEAD
+[Unreleased]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.1.5...HEAD
+[1.1.4]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.1.4...v1.1.5
 [1.1.4]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.1.3...v1.1.4
 [1.1.3]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.1.2...v1.1.3
 [1.1.2]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.1.1...v1.1.2
