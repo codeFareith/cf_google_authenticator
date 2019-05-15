@@ -1304,7 +1304,7 @@
                 },
                 {
                     "name": "Gert de Pagter",
-                    "email": "backendtea@gmail.com"
+                    "email": "BackEndTea@gmail.com"
                 }
             ],
             "description": "Symfony polyfill for ctype functions",
@@ -2259,21 +2259,21 @@
         },
         {
             "name": "typo3/cms-reports",
-            "version": "v8.7.25",
+            "version": "v8.7.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TYPO3-CMS/reports.git",
-                "reference": "b8e99b70d4fad0481df1412b9411369199b68954"
+                "reference": "0d789f5cbf3f1becc3c62a946a0bff382cf1969a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TYPO3-CMS/reports/zipball/b8e99b70d4fad0481df1412b9411369199b68954",
-                "reference": "b8e99b70d4fad0481df1412b9411369199b68954",
+                "url": "https://api.github.com/repos/TYPO3-CMS/reports/zipball/0d789f5cbf3f1becc3c62a946a0bff382cf1969a",
+                "reference": "0d789f5cbf3f1becc3c62a946a0bff382cf1969a",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.0 <7.4",
-                "typo3/cms-core": "8.7.25"
+                "typo3/cms-core": "8.7.*@dev"
             },
             "conflict": {
                 "typo3/cms": "*"
@@ -2311,7 +2311,7 @@
             ],
             "description": "The reports module groups several system reports.",
             "homepage": "https://typo3.org",
-            "time": "2019-05-07T10:05:55+00:00"
+            "time": "2019-05-08T07:42:52+00:00"
         },
         {
             "name": "typo3/cms-saltedpasswords",
