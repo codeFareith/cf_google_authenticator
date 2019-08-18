@@ -1800,21 +1800,21 @@
         },
         {
             "name": "typo3/cms-extbase",
-            "version": "v8.7.25",
+            "version": "v8.7.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TYPO3-CMS/extbase.git",
-                "reference": "3cb4ebc4cbc1b92f5218e4dfba200c491ea36159"
+                "reference": "fc93374afb0976205421b36b6b15906ee71b279f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TYPO3-CMS/extbase/zipball/3cb4ebc4cbc1b92f5218e4dfba200c491ea36159",
-                "reference": "3cb4ebc4cbc1b92f5218e4dfba200c491ea36159",
+                "url": "https://api.github.com/repos/TYPO3-CMS/extbase/zipball/fc93374afb0976205421b36b6b15906ee71b279f",
+                "reference": "fc93374afb0976205421b36b6b15906ee71b279f",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.0 <7.4",
-                "typo3/cms-core": "8.7.25"
+                "typo3/cms-core": "8.7.*@dev"
             },
             "conflict": {
                 "typo3/cms": "*"
@@ -1860,7 +1860,7 @@
             ],
             "description": "A framework to build extensions for TYPO3 CMS.",
             "homepage": "https://typo3.org",
-            "time": "2019-05-07T10:05:55+00:00"
+            "time": "2019-05-08T07:42:52+00:00"
         },
         {
             "name": "typo3/cms-extensionmanager",
@@ -1974,22 +1974,22 @@
         },
         {
             "name": "typo3/cms-fluid",
-            "version": "v8.7.25",
+            "version": "v8.7.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TYPO3-CMS/fluid.git",
-                "reference": "fac2ce0fc2e2f3f29776022f8b6022e2dcaaa8f7"
+                "reference": "e35a02827296d21b92fc9029d16c60d1a0426610"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TYPO3-CMS/fluid/zipball/fac2ce0fc2e2f3f29776022f8b6022e2dcaaa8f7",
-                "reference": "fac2ce0fc2e2f3f29776022f8b6022e2dcaaa8f7",
+                "url": "https://api.github.com/repos/TYPO3-CMS/fluid/zipball/e35a02827296d21b92fc9029d16c60d1a0426610",
+                "reference": "e35a02827296d21b92fc9029d16c60d1a0426610",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.0 <7.4",
-                "typo3/cms-core": "8.7.25",
-                "typo3/cms-extbase": "8.7.25",
+                "typo3/cms-core": "8.7.*@dev",
+                "typo3/cms-extbase": "8.7.*@dev",
                 "typo3fluid/fluid": "^2.5.5"
             },
             "conflict": {
@@ -2032,7 +2032,7 @@
             ],
             "description": "Fluid is a next-generation templating engine which makes the life of extension authors a lot easier!",
             "homepage": "https://typo3.org",
-            "time": "2019-05-07T10:05:55+00:00"
+            "time": "2019-05-08T07:42:52+00:00"
         },
         {
             "name": "typo3/cms-frontend",
@@ -2091,23 +2091,23 @@
         },
         {
             "name": "typo3/cms-install",
-            "version": "v8.7.25",
+            "version": "v8.7.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TYPO3-CMS/install.git",
-                "reference": "9116c123cd630e6f76bccc6fc6d30cbb9103c6e8"
+                "reference": "539351f9ad265924e6dfa6b282378c8e95a833d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TYPO3-CMS/install/zipball/9116c123cd630e6f76bccc6fc6d30cbb9103c6e8",
-                "reference": "9116c123cd630e6f76bccc6fc6d30cbb9103c6e8",
+                "url": "https://api.github.com/repos/TYPO3-CMS/install/zipball/539351f9ad265924e6dfa6b282378c8e95a833d7",
+                "reference": "539351f9ad265924e6dfa6b282378c8e95a833d7",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.0 <7.4",
-                "typo3/cms-core": "8.7.25",
-                "typo3/cms-extbase": "8.7.25",
-                "typo3/cms-fluid": "8.7.25"
+                "typo3/cms-core": "8.7.*@dev",
+                "typo3/cms-extbase": "8.7.*@dev",
+                "typo3/cms-fluid": "8.7.*@dev"
             },
             "conflict": {
                 "typo3/cms": "*"
@@ -2144,7 +2144,7 @@
             ],
             "description": "The Install Tool mounted as the module Tools>Install in TYPO3.",
             "homepage": "https://typo3.org",
-            "time": "2019-05-07T10:05:55+00:00"
+            "time": "2019-05-08T07:42:52+00:00"
         },
         {
             "name": "typo3/cms-lang",
