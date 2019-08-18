@@ -2204,21 +2204,21 @@
         },
         {
             "name": "typo3/cms-recordlist",
-            "version": "v8.7.25",
+            "version": "v8.7.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TYPO3-CMS/recordlist.git",
-                "reference": "874933322bcbc6c36e368996a5281f4ddd169ba0"
+                "reference": "8215b1c80ebf11a46f129ec351bf37746826a89d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TYPO3-CMS/recordlist/zipball/874933322bcbc6c36e368996a5281f4ddd169ba0",
-                "reference": "874933322bcbc6c36e368996a5281f4ddd169ba0",
+                "url": "https://api.github.com/repos/TYPO3-CMS/recordlist/zipball/8215b1c80ebf11a46f129ec351bf37746826a89d",
+                "reference": "8215b1c80ebf11a46f129ec351bf37746826a89d",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.0 <7.4",
-                "typo3/cms-core": "8.7.25"
+                "typo3/cms-core": "8.7.*@dev"
             },
             "conflict": {
                 "typo3/cms": "*"
@@ -2255,7 +2255,7 @@
             ],
             "description": "List of database-records",
             "homepage": "https://typo3.org",
-            "time": "2019-05-07T10:05:55+00:00"
+            "time": "2019-05-08T07:42:52+00:00"
         },
         {
             "name": "typo3/cms-reports",
