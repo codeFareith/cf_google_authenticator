@@ -36,8 +36,6 @@ trait GeneralUtilityObjectManager
 
     protected function objectManager(): ObjectManager
     {
-        trigger_error(__TRAIT__ . ' will be removed in v1.2.0.', E_USER_DEPRECATED);
-
         if ($this->objectManager === null) {
             $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
         }
