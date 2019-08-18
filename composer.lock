@@ -2373,21 +2373,21 @@
         },
         {
             "name": "typo3/cms-setup",
-            "version": "v8.7.25",
+            "version": "v8.7.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TYPO3-CMS/setup.git",
-                "reference": "14e32864a4939049dd8fdfc3c2c2c9773dbff2e6"
+                "reference": "496c65f99a8ad8593dd8ae52d83b65f7dff06eb2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TYPO3-CMS/setup/zipball/14e32864a4939049dd8fdfc3c2c2c9773dbff2e6",
-                "reference": "14e32864a4939049dd8fdfc3c2c2c9773dbff2e6",
+                "url": "https://api.github.com/repos/TYPO3-CMS/setup/zipball/496c65f99a8ad8593dd8ae52d83b65f7dff06eb2",
+                "reference": "496c65f99a8ad8593dd8ae52d83b65f7dff06eb2",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.0 <7.4",
-                "typo3/cms-core": "8.7.25"
+                "typo3/cms-core": "8.7.*@dev"
             },
             "conflict": {
                 "typo3/cms": "*"
@@ -2422,7 +2422,7 @@
             ],
             "description": "Allows users to edit a limited set of options for their user profile, eg. preferred language and their name and email address.",
             "homepage": "https://typo3.org",
-            "time": "2019-05-07T10:05:55+00:00"
+            "time": "2019-05-08T07:42:52+00:00"
         },
         {
             "name": "typo3/cms-sv",
