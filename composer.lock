@@ -2036,21 +2036,21 @@
         },
         {
             "name": "typo3/cms-frontend",
-            "version": "v8.7.25",
+            "version": "v8.7.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TYPO3-CMS/frontend.git",
-                "reference": "95d6aae8a236f219bf03b7f19aab0cae34c4439a"
+                "reference": "397910ad9a324d1a26a66d940dbf2925e3c0d9be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TYPO3-CMS/frontend/zipball/95d6aae8a236f219bf03b7f19aab0cae34c4439a",
-                "reference": "95d6aae8a236f219bf03b7f19aab0cae34c4439a",
+                "url": "https://api.github.com/repos/TYPO3-CMS/frontend/zipball/397910ad9a324d1a26a66d940dbf2925e3c0d9be",
+                "reference": "397910ad9a324d1a26a66d940dbf2925e3c0d9be",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.0 <7.4",
-                "typo3/cms-core": "8.7.25"
+                "typo3/cms-core": "8.7.*@dev"
             },
             "conflict": {
                 "typo3/cms": "*"
@@ -2087,7 +2087,7 @@
             ],
             "description": "Classes for the frontend of TYPO3.",
             "homepage": "https://typo3.org",
-            "time": "2019-05-07T10:05:55+00:00"
+            "time": "2019-05-08T07:42:52+00:00"
         },
         {
             "name": "typo3/cms-install",
