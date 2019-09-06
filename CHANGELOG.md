@@ -154,8 +154,9 @@ to meet frontend requirements
 ## [1.0.0] - 2018-06-17
 - Initial development
 
-[Unreleased]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.1.5...HEAD
-[1.1.4]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.1.4...v1.1.5
+[Unreleased]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.1.6...HEAD
+[1.1.6]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.1.5...v1.1.6
+[1.1.5]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.1.4...v1.1.5
 [1.1.4]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.1.3...v1.1.4
 [1.1.3]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.1.2...v1.1.3
 [1.1.2]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.1.1...v1.1.2
