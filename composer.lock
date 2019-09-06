@@ -2368,21 +2368,21 @@
         },
         {
             "name": "typo3/cms-reports",
-            "version": "v8.7.26",
+            "version": "v8.7.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TYPO3-CMS/reports.git",
-                "reference": "0d789f5cbf3f1becc3c62a946a0bff382cf1969a"
+                "reference": "8e7d255a83077e995628cd141f6526c99236bd01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TYPO3-CMS/reports/zipball/0d789f5cbf3f1becc3c62a946a0bff382cf1969a",
-                "reference": "0d789f5cbf3f1becc3c62a946a0bff382cf1969a",
+                "url": "https://api.github.com/repos/TYPO3-CMS/reports/zipball/8e7d255a83077e995628cd141f6526c99236bd01",
+                "reference": "8e7d255a83077e995628cd141f6526c99236bd01",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.0 <7.4",
-                "typo3/cms-core": "8.7.*@dev"
+                "typo3/cms-core": "8.7.27"
             },
             "conflict": {
                 "typo3/cms": "*"
@@ -2420,7 +2420,7 @@
             ],
             "description": "The reports module groups several system reports.",
             "homepage": "https://typo3.org",
-            "time": "2019-05-08T07:42:52+00:00"
+            "time": "2019-06-25T08:24:21+00:00"
         },
         {
             "name": "typo3/cms-saltedpasswords",
