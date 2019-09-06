@@ -1,53 +1,58 @@
-<f:layout name="Backend/Default" />
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 
-<f:section name="main">
+    <f:layout name="Backend/Default" />
 
-    <f:be.pageRenderer
-        includeRequireJsModules="{
-            0:'TYPO3/CMS/CfGoogleAuthenticator/Backend/UserSettings'
-        }"
-    />
+    <f:section name="main">
 
-    <div class="form-control-wrap" style="max-width: 360px">
-        <f:if condition="{isEnabled}">
-            <f:then>
-                <f:render
-                    partial="Backend/Form/OneTimePassword"
-                    arguments="{
-                        prefix: prefix
-                    }"
-                />
+        <f:be.pageRenderer
+            includeRequireJsModules="{
+                0:'TYPO3/CMS/CfGoogleAuthenticator/Backend/UserSettings'
+            }"
+        />
 
-                <div>
-                    <span>
-                        <f:translate key="LLL:EXT:cf_google_authenticator/Resources/Private/Language/locallang_be.xlf:disableAuthenticator" />
-                    </span>
-                </div>
-            </f:then>
-            <f:else>
-                <f:render
-                    partial="Backend/Form/QrCode"
-                    arguments="{
-                        src: qrCodeUri,
-                        secret: authenticatorSecret,
-                        prefix: prefix
-                    }"
-                />
-                <f:render
-                    partial="Backend/Form/Secret"
-                    arguments="{
-                        secret: authenticatorSecret,
-                        prefix: prefix
-                    }"
-                />
-                <f:render
-                    partial="Backend/Form/OneTimePassword"
-                    arguments="{
-                        prefix: prefix
-                    }"
-                />
-            </f:else>
-        </f:if>
-    </div>
+        <div class="form-control-wrap" style="max-width: 360px">
+            <f:if condition="{isEnabled}">
+                <f:then>
+                    <f:render
+                        partial="Backend/Form/OneTimePassword"
+                        arguments="{
+                            prefix: prefix
+                        }"
+                    />
 
-</f:section>
+                    <div>
+                        <span>
+                            <f:translate key="LLL:EXT:cf_google_authenticator/Resources/Private/Language/locallang_be.xlf:disableAuthenticator" />
+                        </span>
+                    </div>
+                </f:then>
+                <f:else>
+                    <f:render
+                        partial="Backend/Form/QrCode"
+                        arguments="{
+                            src: qrCodeUri,
+                            secret: authenticatorSecret,
+                            prefix: prefix
+                        }"
+                    />
+                    <f:render
+                        partial="Backend/Form/Secret"
+                        arguments="{
+                            secret: authenticatorSecret,
+                            prefix: prefix
+                        }"
+                    />
+                    <f:render
+                        partial="Backend/Form/OneTimePassword"
+                        arguments="{
+                            prefix: prefix
+                        }"
+                    />
+                </f:else>
+            </f:if>
+        </div>
+
+    </f:section>
+
+</root>

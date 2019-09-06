@@ -1,107 +1,112 @@
-<f:comment>
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 
-    FlashMessages template
-    ======================
+    <f:comment>
 
-    The FlashMessages template is used to render TYPO3 flash messages
-    as alerts in the frontend. It also resolves the alert box type
-    (primary, success, warning, danger) based on flash message severity.
+        FlashMessages template
+        ======================
 
-    It needs a parameter - ```flashMessages``` - which is
-    automatically assigned to the view by TYPO3,
-    so no parameter needs to be passed when rendering:
+        The FlashMessages template is used to render TYPO3 flash messages
+        as alerts in the frontend. It also resolves the alert box type
+        (primary, success, warning, danger) based on flash message severity.
 
-    ```
-    <f:render
-        partial="Shared/FlashMessages"
-    />
-    ```
+        It needs a parameter - ```flashMessages``` - which is
+        automatically assigned to the view by TYPO3,
+        so no parameter needs to be passed when rendering:
 
-
-    The following parameters are optionally available:
-        * ```class```           -> the class attribute of the surrounding
-                                   alert box(es) is extended by this value.
-        * ```hasCloseButton```  -> shows a close button on every alert box
-
-    ```
-    <f:render
-        partial="Shared/FlashMessages"
-        arguments="{
-            class: 'my-custom-class-1 my-custom-class-2',
-            hasCloseButton: '1'
-        }"
-    />
-    ```
-
-</f:comment>
+        ```
+        <f:render
+            partial="Shared/FlashMessages"
+        />
+        ```
 
 
-<f:flashMessages as="flashMessages">
+        The following parameters are optionally available:
+            * ```class```           -> the class attribute of the surrounding
+                                       alert box(es) is extended by this value.
+            * ```hasCloseButton```  -> shows a close button on every alert box
 
-    <f:for each="{flashMessages}" as="flashMessage">
+        ```
+        <f:render
+            partial="Shared/FlashMessages"
+            arguments="{
+                class: 'my-custom-class-1 my-custom-class-2',
+                hasCloseButton: '1'
+            }"
+        />
+        ```
 
-        <f:switch expression="{flashMessage.severity}">
-            <f:case value="-2">
-                <f:render
-                    partial="Shared/Alert"
-                    arguments="{
-                        type: 'primary',
-                        message: '{flashMessage.message}',
-                        class: '{class}',
-                        hasCloseButton: '{hasCloseButton}'
-                    }"
-                />
-            </f:case>
+    </f:comment>
 
-            <f:case value="-1">
-                <f:render
-                    partial="Shared/Alert"
-                    arguments="{
-                        type: 'primary',
-                        message: '{flashMessage.message}',
-                        class: '{class}',
-                        hasCloseButton: '{hasCloseButton}'
-                    }"
-                />
-            </f:case>
 
-            <f:case value="0">
-                <f:render
-                    partial="Shared/Alert"
-                    arguments="{
-                        type: 'success',
-                        message: '{flashMessage.message}',
-                        class: '{class}',
-                        hasCloseButton: '{hasCloseButton}'
-                    }"
-                />
-            </f:case>
+    <f:flashMessages as="flashMessages">
 
-            <f:case value="1">
-                <f:render
-                    partial="Shared/Alert"
-                    arguments="{
-                        type: 'warning',
-                        message: '{flashMessage.message}',
-                        class: '{class}',
-                        hasCloseButton: '{hasCloseButton}'
-                    }"
-                />
-            </f:case>
+        <f:for each="{flashMessages}" as="flashMessage">
 
-            <f:case value="2">
-                <f:render
-                    partial="Shared/Alert"
-                    arguments="{
-                        type: 'danger',
-                        message: '{flashMessage.message}',
-                        class: '{class}',
-                        hasCloseButton: '{hasCloseButton}'
-                    }"
-                />
-            </f:case>
-        </f:switch>
+            <f:switch expression="{flashMessage.severity}">
+                <f:case value="-2">
+                    <f:render
+                        partial="Shared/Alert"
+                        arguments="{
+                            type: 'primary',
+                            message: '{flashMessage.message}',
+                            class: '{class}',
+                            hasCloseButton: '{hasCloseButton}'
+                        }"
+                    />
+                </f:case>
 
-    </f:for>
+                <f:case value="-1">
+                    <f:render
+                        partial="Shared/Alert"
+                        arguments="{
+                            type: 'primary',
+                            message: '{flashMessage.message}',
+                            class: '{class}',
+                            hasCloseButton: '{hasCloseButton}'
+                        }"
+                    />
+                </f:case>
 
-</f:flashMessages>
+                <f:case value="0">
+                    <f:render
+                        partial="Shared/Alert"
+                        arguments="{
+                            type: 'success',
+                            message: '{flashMessage.message}',
+                            class: '{class}',
+                            hasCloseButton: '{hasCloseButton}'
+                        }"
+                    />
+                </f:case>
+
+                <f:case value="1">
+                    <f:render
+                        partial="Shared/Alert"
+                        arguments="{
+                            type: 'warning',
+                            message: '{flashMessage.message}',
+                            class: '{class}',
+                            hasCloseButton: '{hasCloseButton}'
+                        }"
+                    />
+                </f:case>
+
+                <f:case value="2">
+                    <f:render
+                        partial="Shared/Alert"
+                        arguments="{
+                            type: 'danger',
+                            message: '{flashMessage.message}',
+                            class: '{class}',
+                            hasCloseButton: '{hasCloseButton}'
+                        }"
+                    />
+                </f:case>
+            </f:switch>
+
+        </f:for>
+
+    </f:flashMessages>
+
+</root>
