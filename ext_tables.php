@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Configuration file for TYPO3 CMS Extension 'cf_google_authenticator'
  *

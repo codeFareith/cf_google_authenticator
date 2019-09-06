@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
  * @copyright (c) 2018 by Robin von den Bergen

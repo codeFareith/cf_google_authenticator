@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 - nothing, yet
 
+## [1.1.7] - 2019-09-06
+### Changed
+- Add `declare(strict_type=1);` to all PHP files
+- Add fluid namespace to templates
+- bump symfony/yaml from 4.3.3 to 4.3.4
+- bump symfony/event-dispatcher from 4.3.3 to 4.3.4
+- bump symfony/dom-crawler from 4.3.3 to 4.3.4
+- bump typo3/cms-reports from 8.7.26 to 8.7.27
+- bump symfony/css-selector from 4.3.3 to 4.3.4
+- bump typo3/cms-setup from 8.7.26 to 8.7.27
+- bump symfony/process from 4.3.3 to 4.3.4
+- bump symfony/browser-kit from 4.3.3 to 4.3.4
+- bump symfony/finder from 4.3.3 to 4.3.4
+
+
 ## [1.1.6] - 2019-09-06
 ### Changed
 - bump codeception/phpunit-wrapper from 6.6.1 to 6.7.0
@@ -45,7 +60,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Update CI files
 
 ### Fixed
-
 - Remove "use" statement for core classes in ext_* files
 - Avoid TypeError when record info is null 
 

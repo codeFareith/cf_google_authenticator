@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**@author Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
  * @copyright (c) 2018 by Robin von den Bergen
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -12,6 +12,7 @@ namespace CodeFareith\CfGoogleAuthenticator\Tests\Unit\Domain\Immutable;
 
 use CodeFareith\CfGoogleAuthenticator\Domain\Immutable\AuthenticationSecret;
 use CodeFareith\CfGoogleAuthenticator\Tests\Unit\BaseTestCase;
+use InvalidArgumentException;
 
 class AuthenticationSecretTest extends BaseTestCase
 {
@@ -23,7 +24,7 @@ class AuthenticationSecretTest extends BaseTestCase
      */
     public function testCannotBeCreatedFromInvalidIssuer(string $issuer, string $accountName, string $secretKey): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         AuthenticationSecret::create($issuer, $accountName, $secretKey);
     }
@@ -36,7 +37,7 @@ class AuthenticationSecretTest extends BaseTestCase
      */
     public function testCannotBeCreatedFromInvalidAccountName(string $issuer, string $accountName, string $secretKey): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         AuthenticationSecret::create($issuer, $accountName, $secretKey);
     }
@@ -49,7 +50,8 @@ class AuthenticationSecretTest extends BaseTestCase
      */
     public function testCanBeCreatedFromValidData(string $issuer, string $accountName, string $secretKey): void
     {
-        $this->assertInstanceOf(
+        /** @noinspection UnnecessaryAssertionInspection */
+        static::assertInstanceOf(
             AuthenticationSecret::class,
             AuthenticationSecret::create($issuer, $accountName, $secretKey)
         );
@@ -65,7 +67,7 @@ class AuthenticationSecretTest extends BaseTestCase
     {
         $class = AuthenticationSecret::create($issuer, $accountName, $secretKey);
 
-        $this->assertSame(
+        static::assertSame(
             $issuer,
             $class->getIssuer()
         );
@@ -81,7 +83,7 @@ class AuthenticationSecretTest extends BaseTestCase
     {
         $class = AuthenticationSecret::create($issuer, $accountName, $secretKey);
 
-        $this->assertSame(
+        static::assertSame(
             $accountName,
             $class->getAccountName()
         );
@@ -97,7 +99,7 @@ class AuthenticationSecretTest extends BaseTestCase
     {
         $class = AuthenticationSecret::create($issuer, $accountName, $secretKey);
 
-        $this->assertSame(
+        static::assertSame(
             $secretKey,
             $class->getSecretKey()
         );
@@ -114,31 +116,31 @@ class AuthenticationSecretTest extends BaseTestCase
         $class = AuthenticationSecret::create($issuer, $accountName, $secretKey);
         $uri = $class->getUri();
 
-        $this->assertStringStartsWith(
+        static::assertStringStartsWith(
             AuthenticationSecret::BASE_URL,
             $uri
         );
-        $this->assertStringEndsWith(
+        static::assertStringEndsWith(
             $issuer,
             $uri
         );
-        $this->assertContains(
+        static::assertContains(
             'issuer',
             $uri
         );
-        $this->assertContains(
+        static::assertContains(
             $issuer,
             $uri
         );
-        $this->assertContains(
+        static::assertContains(
             'secret',
             $uri
         );
-        $this->assertContains(
+        static::assertContains(
             $secretKey,
             $uri
         );
-        $this->assertStringMatchesFormat(
+        static::assertStringMatchesFormat(
             '%s?%s',
             $uri
         );
@@ -155,15 +157,15 @@ class AuthenticationSecretTest extends BaseTestCase
         $class = AuthenticationSecret::create($issuer, $accountName, $secretKey);
         $label = $class->getLabel();
 
-        $this->assertStringStartsWith(
+        static::assertStringStartsWith(
             $issuer,
             $label
         );
-        $this->assertStringEndsWith(
+        static::assertStringEndsWith(
             $accountName,
             $label
         );
-        $this->assertStringMatchesFormat(
+        static::assertStringMatchesFormat(
             '%s:%s',
             $label
         );

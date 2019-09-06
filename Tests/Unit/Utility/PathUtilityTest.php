@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**@author Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
  * @copyright (c) 2018 by Robin von den Bergen
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -29,9 +29,9 @@ class PathUtilityTest extends BaseTestCase
     {
         $actualPath = PathUtility::makePath($firstSegment, $secondSegment, $thirdSegment);
 
-        $this->assertStringStartsWith($firstSegment, $actualPath);
-        $this->assertContains($secondSegment, $actualPath);
-        $this->assertStringEndsWith($thirdSegment, $actualPath);
+        static::assertStringStartsWith($firstSegment, $actualPath);
+        static::assertContains($secondSegment, $actualPath);
+        static::assertStringEndsWith($thirdSegment, $actualPath);
     }
 
     /**
@@ -48,9 +48,9 @@ class PathUtilityTest extends BaseTestCase
     {
         $actualPath = PathUtility::makePath($firstSegment, $secondSegment, $thirdSegment);
 
-        $this->assertStringStartsNotWith('/', $actualPath);
-        $this->assertContains($secondSegment, $actualPath);
-        $this->assertStringEndsNotWith('/', $actualPath);
+        static::assertStringStartsNotWith('/', $actualPath);
+        static::assertContains($secondSegment, $actualPath);
+        static::assertStringEndsNotWith('/', $actualPath);
     }
 
     /**
@@ -61,7 +61,7 @@ class PathUtilityTest extends BaseTestCase
     {
         $stripped = PathUtility::stripLeadingSlash($string);
 
-        $this->assertStringStartsNotWith('/', $stripped);
+        static::assertStringStartsNotWith('/', $stripped);
     }
 
     /**
@@ -72,7 +72,7 @@ class PathUtilityTest extends BaseTestCase
     {
         $stripped = PathUtility::stripTrailingSlash($string);
 
-        $this->assertStringEndsNotWith('/', $stripped);
+        static::assertStringEndsNotWith('/', $stripped);
     }
 
     /**
@@ -83,8 +83,8 @@ class PathUtilityTest extends BaseTestCase
     {
         $stripped = PathUtility::stripLeadingAndTrailingSlash($string);
 
-        $this->assertStringStartsNotWith('/', $stripped);
-        $this->assertStringEndsNotWith('/', $stripped);
+        static::assertStringStartsNotWith('/', $stripped);
+        static::assertStringEndsNotWith('/', $stripped);
     }
 
     /**
@@ -95,11 +95,11 @@ class PathUtilityTest extends BaseTestCase
     {
         $actualPath = PathUtility::makeExtensionPath($relativePath);
 
-        $this->assertStringStartsWith(
+        static::assertStringStartsWith(
             'EXT:',
             $actualPath
         );
-        $this->assertStringEndsWith(
+        static::assertStringEndsWith(
             $relativePath,
             $actualPath
         );
@@ -114,15 +114,15 @@ class PathUtilityTest extends BaseTestCase
     {
         $actualPath = PathUtility::makeLocalLangLinkPath($id, $file);
 
-        $this->assertStringStartsWith(
+        static::assertStringStartsWith(
             'LLL:EXT:',
             $actualPath
         );
-        $this->assertContains(
+        static::assertContains(
             PathUtility::$languageDirectoryPath,
             $actualPath
         );
-        $this->assertStringEndsWith(
+        static::assertStringEndsWith(
             $file . ':' . $id,
             $actualPath
         );

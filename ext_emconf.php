@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Declaration file for TYPO3 CMS Extension 'cf_google_authenticator'
  *
@@ -27,7 +27,7 @@ $EM_CONF[$_EXTKEY] = [
     'author_company' => '',
 
     'state' => 'stable',
-    'version' => '1.1.6',
+    'version' => '1.1.7',
 
     'uploadFolders' => false,
     'createDirs' => '',

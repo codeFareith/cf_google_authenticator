@@ -1,104 +1,109 @@
-<f:comment>
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 
-    Icon template
-    =============
+    <f:comment>
 
-    Use this partial to easily display icons in the frontend.
+        Icon template
+        =============
 
-    The icon component requires at least the parameter ```icon```:
+        Use this partial to easily display icons in the frontend.
 
-    ```
-    <f:render
-        partial="Shared/Icon"
-        arguments="{
-            icon: 'heart'
-        }"
-    />
-    ```
+        The icon component requires at least the parameter ```icon```:
 
-
-    Use the ```ratio``` parameter to scale the icon up or down:
-
-    ```
-    <f:render
-        partial="Shared/Icon"
-        arguments="{
-            icon: 'heart',
-            ratio: '2'
-        }"
-    />
-    ```
+        ```
+        <f:render
+            partial="Shared/Icon"
+            arguments="{
+                icon: 'heart'
+            }"
+        />
+        ```
 
 
-    It is also possible to append your own CSS class(es),
-    by providing the ```class``` parameter:
+        Use the ```ratio``` parameter to scale the icon up or down:
 
-    ```
-    <f:render
-        partial="Shared/Icon"
-        arguments="{
-            icon: 'heart',
-            class: 'uk-icon-button'
-        }"
-    />
-    ```
-
-
-    In certain situations it may be necessary to use inline css
-    instead of classes. In this case, make use of the ```style``` parameter:
-
-    ```
-    <f:render
-        partial="Shared/Icon"
-        arguments="{
-            icon: 'false',
-            ratio: '2',
-            class: 'uk-icon-image',
-            style: 'background-image: url(images/dark.jpg);'
-        }"
-    />
-    ```
-
-    You may have noticed it already, but the above example is also a special case:
-    by adding the class ```uk-icon-image```, in combination with
-    the style declaration ```background-image: url(...);```,
-    the given background image will be scaled to the size of an icon.
-    To avoid that the background image is overlayed by a "real" icon,
-    I set the ```icon``` parameter to ```false```.
+        ```
+        <f:render
+            partial="Shared/Icon"
+            arguments="{
+                icon: 'heart',
+                ratio: '2'
+            }"
+        />
+        ```
 
 
-    With the icon component, it is also possible to create an icon anchor,
-    just by providing the ```href``` parameter:
+        It is also possible to append your own CSS class(es),
+        by providing the ```class``` parameter:
 
-    ```
-    <f:render
-        partial="Shared/Icon"
-        arguments="{
-            icon: 'file-edit',
-            ratio: '1.5',
-            class: 'uk-margin-small-right',
-            href: '/edit'
-        }"
-    />
-    ```
-
-</f:comment>
+        ```
+        <f:render
+            partial="Shared/Icon"
+            arguments="{
+                icon: 'heart',
+                class: 'uk-icon-button'
+            }"
+        />
+        ```
 
 
+        In certain situations it may be necessary to use inline css
+        instead of classes. In this case, make use of the ```style``` parameter:
 
-<f:if condition="{href}">
-    <f:then>
-        <a href="{href}"
-           class="uk-icon-link{f:if(condition: '{class}', then: ' {class}')}"
-           style="{style}"
-           uk-icon="icon: {icon}; ratio: {f:if(condition: '{ratio}', then: '{ratio}', else: '1')}">
-        </a>
-    </f:then>
+        ```
+        <f:render
+            partial="Shared/Icon"
+            arguments="{
+                icon: 'false',
+                ratio: '2',
+                class: 'uk-icon-image',
+                style: 'background-image: url(images/dark.jpg);'
+            }"
+        />
+        ```
 
-    <f:else>
-        <span class="uk-icon{f:if(condition: '{class}', then: ' {class}')}"
-              style="{style}"
-              uk-icon="icon: {icon}; ratio: {f:if(condition: '{ratio}', then: '{ratio}', else: '1')}">
-        </span>
-    </f:else>
-</f:if>
+        You may have noticed it already, but the above example is also a special case:
+        by adding the class ```uk-icon-image```, in combination with
+        the style declaration ```background-image: url(...);```,
+        the given background image will be scaled to the size of an icon.
+        To avoid that the background image is overlayed by a "real" icon,
+        I set the ```icon``` parameter to ```false```.
+
+
+        With the icon component, it is also possible to create an icon anchor,
+        just by providing the ```href``` parameter:
+
+        ```
+        <f:render
+            partial="Shared/Icon"
+            arguments="{
+                icon: 'file-edit',
+                ratio: '1.5',
+                class: 'uk-margin-small-right',
+                href: '/edit'
+            }"
+        />
+        ```
+
+    </f:comment>
+
+
+
+    <f:if condition="{href}">
+        <f:then>
+            <a href="{href}"
+               class="uk-icon-link{f:if(condition: '{class}', then: ' {class}')}"
+               style="{style}"
+               uk-icon="icon: {icon}; ratio: {f:if(condition: '{ratio}', then: '{ratio}', else: '1')}">
+            </a>
+        </f:then>
+
+        <f:else>
+            <span class="uk-icon{f:if(condition: '{class}', then: ' {class}')}"
+                  style="{style}"
+                  uk-icon="icon: {icon}; ratio: {f:if(condition: '{ratio}', then: '{ratio}', else: '1')}">
+            </span>
+        </f:else>
+    </f:if>
+
+</root>

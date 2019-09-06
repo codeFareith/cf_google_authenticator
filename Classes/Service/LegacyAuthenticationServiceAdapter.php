@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Class LegacyAuthenticationServiceAdapter
  *
@@ -15,6 +15,8 @@
 namespace CodeFareith\CfGoogleAuthenticator\Service;
 
 use TYPO3\CMS\Sv\AuthenticationService as SvAuthenticationService;
+
+/** @noinspection LongInheritanceChainInspection */
 
 /**
  * @package CodeFareith\CfGoogleAuthenticator\Service
