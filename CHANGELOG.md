@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 - nothing, yet
 
+## [1.1.6] - 2019-09-06
+### Changed
+- bump codeception/phpunit-wrapper from 6.6.1 to 6.7.0
+- bump codeception/codeception from 3.0.3 to 3.1.0
+- bump typo3/cms-core from 8.7.25 to 8.7.27
+- bump doctrine/lexer from 1.0.1 to 1.1.0
+- bump mikey179/vfsstream from 1.6.6 to 1.6.7
+- bump theseer/tokenizer from 1.1.2 to 1.1.3
+- bump doctrine/annotations from 1.6.1 to 1.7.0
+- bump doctrine/collections from 1.6.1 to 1.6.2
+- bump webmozart/assert from 1.4.0 to 1.5.0
+- bump symfony/console from 4.3.3 to 4.3.4
+
 ## [1.1.5] - 2019-05-11
 ### Added
 - Interface `..\Classes\Service\AuthenticationService`
