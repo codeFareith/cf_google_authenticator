@@ -1,226 +1,231 @@
-<f:comment>
+<?xml version="1.0" encoding="utf-8"?>
+<root xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 
-    Alert template
-    ==============
+    <f:comment>
 
-    This template provides an easy way to display alerts in the frontend.
+        Alert template
+        ==============
 
-    The alert component needs at least the parameter ```message```:
+        This template provides an easy way to display alerts in the frontend.
 
-    ```
-    <f:render
-        partial="Shared/Alert"
-        arguments="{
-            message: 'Your alert text'
-        }"
-    />
-    ```
+        The alert component needs at least the parameter ```message```:
 
-
-    The parameter ```type``` is used to visually separate different alert types
-    from each other. The following types are supported:
-        * primary (blue)
-        * success (green)
-        * warning (orange)
-        * danger (red)
-
-    If no, or an invalid, type is set, the alert-box remains gray (default).
-
-    ```
-    <f:render
-        partial="Shared/Alert"
-        arguments="{
-            type: 'danger',
-            message: 'Your alert text'
-        }"
-    />
-    ```
+        ```
+        <f:render
+            partial="Shared/Alert"
+            arguments="{
+                message: 'Your alert text'
+            }"
+        />
+        ```
 
 
-    Additionally, each of these four alert types has its own icon,
-    which is displayed in the middle of the alert box.
-    This behavior can be influenced in three ways using the ```icon``` parameter:
+        The parameter ```type``` is used to visually separate different alert types
+        from each other. The following types are supported:
+            * primary (blue)
+            * success (green)
+            * warning (orange)
+            * danger (red)
 
-    1) in the case of the default alert box, the ```icon``` parameter
-       can be used to give it an icon:
-    ```
-    <f:render
-        partial="Shared/Alert"
-        arguments="{
-            message: 'Your alert text',
-            icon: 'home'
-        }"
-    />
-    ```
+        If no, or an invalid, type is set, the alert-box remains gray (default).
 
-    2) if the ```icon``` parameter is set together with one of the alert types,
-       the default icon is replaced by the given icon:
-    ```
-    <f:render
-        partial="Shared/Alert"
-        arguments="{
-            type: 'success',
-            message: 'Your alert text',
-            icon: 'bell'
-        }"
-    />
-    ```
-
-    3) if the ```icon``` parameter is set to ```false```, no icon is displayed:
-    ```
-    <f:render
-        partial="Shared/Alert"
-        arguments="{
-            type: 'success',
-            message: 'Your alert text',
-            icon: 'false'
-        }"
-    />
-    ```
-
-    A full icon reference can be found [here](https://getuikit.com/docs/icon).
+        ```
+        <f:render
+            partial="Shared/Alert"
+            arguments="{
+                type: 'danger',
+                message: 'Your alert text'
+            }"
+        />
+        ```
 
 
-    Further, it is possible to set a title for the alert box by using the
-    ```title``` parameter:
+        Additionally, each of these four alert types has its own icon,
+        which is displayed in the middle of the alert box.
+        This behavior can be influenced in three ways using the ```icon``` parameter:
 
-    ```
-    <f:render
-        partial="Shared/Alert"
-        arguments="{
-            type: 'danger',
-            title: 'Your title',
-            message: 'Your content'
-        }"
-    />
-    ```
+        1) in the case of the default alert box, the ```icon``` parameter
+           can be used to give it an icon:
+        ```
+        <f:render
+            partial="Shared/Alert"
+            arguments="{
+                message: 'Your alert text',
+                icon: 'home'
+            }"
+        />
+        ```
 
+        2) if the ```icon``` parameter is set together with one of the alert types,
+           the default icon is replaced by the given icon:
+        ```
+        <f:render
+            partial="Shared/Alert"
+            arguments="{
+                type: 'success',
+                message: 'Your alert text',
+                icon: 'bell'
+            }"
+        />
+        ```
 
-    The class attribute of the outer container can be extended by own classes using the ```class``` parameter:
+        3) if the ```icon``` parameter is set to ```false```, no icon is displayed:
+        ```
+        <f:render
+            partial="Shared/Alert"
+            arguments="{
+                type: 'success',
+                message: 'Your alert text',
+                icon: 'false'
+            }"
+        />
+        ```
 
-    ```
-    <f:render
-        partial="Shared/Alert"
-        arguments="{
-            type: 'danger',
-            title: 'Your title',
-            message: 'Your content',
-            class: 'your-class-1 your-class-2'
-        }"
-    />
-    ```
-
-
-    Set the parameter ```hasCloseButton```, to enable a close button for the alert box:
-
-    ```
-    <f:render
-        partial="Shared/Alert"
-        arguments="{
-            type: 'danger',
-            title: 'Your title',
-            message: 'Your content',
-            class: 'your-class-1 your-class-2',
-            hasCloseButton: 1
-        }"
-    />
-    ```
-
-</f:comment>
+        A full icon reference can be found [here](https://getuikit.com/docs/icon).
 
 
+        Further, it is possible to set a title for the alert box by using the
+        ```title``` parameter:
 
-<div class="uk-alert{f:if(condition: '{type}', then: ' uk-alert-{type}')}{f:if(condition: '{class}', then: ' {class}')}" uk-alert>
-    <f:if condition="{hasCloseButton}">
-        <a class="uk-alert-close" uk-close></a>
-    </f:if>
+        ```
+        <f:render
+            partial="Shared/Alert"
+            arguments="{
+                type: 'danger',
+                title: 'Your title',
+                message: 'Your content'
+            }"
+        />
+        ```
 
-    <f:if condition="{title}">
-        <h3>{title}</h3>
-    </f:if>
 
-    <p class="uk-margin-remove-bottom">{message}</p>
+        The class attribute of the outer container can be extended by own classes using the ```class``` parameter:
 
-    <f:render
-        section="backgroundIcon"
-        arguments="{
-            type: type,
-            icon: icon
-        }"
-    />
-</div>
+        ```
+        <f:render
+            partial="Shared/Alert"
+            arguments="{
+                type: 'danger',
+                title: 'Your title',
+                message: 'Your content',
+                class: 'your-class-1 your-class-2'
+            }"
+        />
+        ```
+
+
+        Set the parameter ```hasCloseButton```, to enable a close button for the alert box:
+
+        ```
+        <f:render
+            partial="Shared/Alert"
+            arguments="{
+                type: 'danger',
+                title: 'Your title',
+                message: 'Your content',
+                class: 'your-class-1 your-class-2',
+                hasCloseButton: 1
+            }"
+        />
+        ```
+
+    </f:comment>
 
 
 
-<f:section name="backgroundIcon">
-    <f:if condition="{icon} != 'false'">
-        <f:if condition="{icon}">
-            <f:then>
-
-                <f:render
-                    partial="Shared/Icon"
-                    arguments="{
-                        icon: icon,
-                        ratio: '3',
-                        class: 'uk-position-center',
-                        style: 'opacity: .3'
-                    }"
-                />
-
-            </f:then>
-            <f:else>
-
-                <f:switch expression="{type}">
-                    <f:case value="primary">
-                        <f:render
-                            partial="Shared/Icon"
-                            arguments="{
-                                icon: 'info',
-                                ratio: '3',
-                                class: 'uk-position-center',
-                                style: 'opacity: .3'
-                            }"
-                        />
-                    </f:case>
-
-                    <f:case value="success">
-                        <f:render
-                            partial="Shared/Icon"
-                            arguments="{
-                                icon: 'check',
-                                ratio: '3',
-                                class: 'uk-position-center',
-                                style: 'opacity: .3'
-                            }"
-                        />
-                    </f:case>
-
-                    <f:case value="warning">
-                        <f:render
-                            partial="Shared/Icon"
-                            arguments="{
-                                icon: 'warning',
-                                ratio: '3',
-                                class: 'uk-position-center',
-                                style: 'opacity: .3'
-                            }"
-                        />
-                    </f:case>
-
-                    <f:case value="danger">
-                        <f:render
-                            partial="Shared/Icon"
-                            arguments="{
-                                icon: 'ban',
-                                ratio: '3',
-                                class: 'uk-position-center',
-                                style: 'opacity: .3'
-                            }"
-                        />
-                    </f:case>
-                </f:switch>
-
-            </f:else>
+    <div class="uk-alert{f:if(condition: '{type}', then: ' uk-alert-{type}')}{f:if(condition: '{class}', then: ' {class}')}" uk-alert>
+        <f:if condition="{hasCloseButton}">
+            <a class="uk-alert-close" uk-close></a>
         </f:if>
-    </f:if>
-</f:section>
+
+        <f:if condition="{title}">
+            <h3>{title}</h3>
+        </f:if>
+
+        <p class="uk-margin-remove-bottom">{message}</p>
+
+        <f:render
+            section="backgroundIcon"
+            arguments="{
+                type: type,
+                icon: icon
+            }"
+        />
+    </div>
+
+
+
+    <f:section name="backgroundIcon">
+        <f:if condition="{icon} != 'false'">
+            <f:if condition="{icon}">
+                <f:then>
+
+                    <f:render
+                        partial="Shared/Icon"
+                        arguments="{
+                            icon: icon,
+                            ratio: '3',
+                            class: 'uk-position-center',
+                            style: 'opacity: .3'
+                        }"
+                    />
+
+                </f:then>
+                <f:else>
+
+                    <f:switch expression="{type}">
+                        <f:case value="primary">
+                            <f:render
+                                partial="Shared/Icon"
+                                arguments="{
+                                    icon: 'info',
+                                    ratio: '3',
+                                    class: 'uk-position-center',
+                                    style: 'opacity: .3'
+                                }"
+                            />
+                        </f:case>
+
+                        <f:case value="success">
+                            <f:render
+                                partial="Shared/Icon"
+                                arguments="{
+                                    icon: 'check',
+                                    ratio: '3',
+                                    class: 'uk-position-center',
+                                    style: 'opacity: .3'
+                                }"
+                            />
+                        </f:case>
+
+                        <f:case value="warning">
+                            <f:render
+                                partial="Shared/Icon"
+                                arguments="{
+                                    icon: 'warning',
+                                    ratio: '3',
+                                    class: 'uk-position-center',
+                                    style: 'opacity: .3'
+                                }"
+                            />
+                        </f:case>
+
+                        <f:case value="danger">
+                            <f:render
+                                partial="Shared/Icon"
+                                arguments="{
+                                    icon: 'ban',
+                                    ratio: '3',
+                                    class: 'uk-position-center',
+                                    style: 'opacity: .3'
+                                }"
+                            />
+                        </f:case>
+                    </f:switch>
+
+                </f:else>
+            </f:if>
+        </f:if>
+    </f:section>
+
+</root>

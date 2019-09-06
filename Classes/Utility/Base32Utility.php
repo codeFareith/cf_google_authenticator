@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Class Base32Utility
  *
@@ -173,7 +173,7 @@ final class Base32Utility
         return $charset[$index];
     }
 
-    private static function convertBinaryToDecimal(string $binary, int $length): string
+    private static function convertBinaryToDecimal(string $binary, int $length): int
     {
         $bin = str_pad(
             $binary,
