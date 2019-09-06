@@ -55,7 +55,7 @@
     "roave/security-advisories": "dev-master",
     "typo3/testing-framework": "^2.0.1",
     "phpunit/php-code-coverage": "5.3.2",
-    "codeception/codeception": "^2.4"
+    "codeception/codeception": "^3.0"
   },
   "conflict": {},
   "replace": {
@@ -95,7 +95,7 @@
       "mkdir -p .Build/Web/typo3conf/ext/",
       "[ -L .Build/Web/typo3conf/ext/cf_google_authenticator ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/cf_google_authenticator"
     ],
-    "git-archive": "git archive -o \"${PWD##*/}_$(@git-version).zip\" HEAD",
+    "git-archive": "git archive -o \"${PWD##*/}_$(composer git-version).zip\" HEAD",
     "git-version": "fn () { git tag -l --sort=-v:refname | grep -m 1 -o \"[0-9.]\\+${1:+-$1}$\"; }; fn"
   },
   "scripts-descriptions": {
