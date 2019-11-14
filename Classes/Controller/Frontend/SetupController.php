@@ -34,6 +34,7 @@ use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 use function get_class;
 use TYPO3\CMS\Lang\LanguageService;
 use function vsprintf;
+use TYPO3\CMS\Core\Context\Context;
 
 /**
  * Two-factor authentication setup controller
@@ -296,7 +297,7 @@ class SetupController
         return $user;
     }
 
-    private function getFrontendUserId(): int
+    private function getFrontendUserId()
     {
         return $GLOBALS['TSFE']->fe_user->user['uid'];
     }
