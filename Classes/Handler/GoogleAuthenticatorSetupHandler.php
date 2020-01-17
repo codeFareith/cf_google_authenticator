@@ -145,7 +145,7 @@ class GoogleAuthenticatorSetupHandler
         return ($this->preProcessFieldArrayDTO->getId() === 0);
     }
 
-    private function hasUserEnabledAuthenticator(): bool
+    private function hasUserEnabledAuthenticator()
     {
         $hasEnabled = $this->googleAuthenticatorSettingsDTO->getNewSettings()->isEnabled();
 

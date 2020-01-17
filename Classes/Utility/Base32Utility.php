@@ -178,7 +178,7 @@ final class Base32Utility
         $bin = str_pad(
             $binary,
             $length,
-            0
+            '0'
         );
 
         return bindec($bin);
