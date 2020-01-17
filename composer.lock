@@ -837,25 +837,25 @@
         },
         {
             "name": "helhum/typo3-composer-setup",
-            "version": "v0.5.4",
+            "version": "v0.5.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helhum/typo3-composer-setup.git",
-                "reference": "d8a7db5fc160bd652aae2837b324b26f7b5ed6d4"
+                "reference": "623a1c4ad5183621489838bad094df270a1ff2c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helhum/typo3-composer-setup/zipball/d8a7db5fc160bd652aae2837b324b26f7b5ed6d4",
-                "reference": "d8a7db5fc160bd652aae2837b324b26f7b5ed6d4",
+                "url": "https://api.github.com/repos/helhum/typo3-composer-setup/zipball/623a1c4ad5183621489838bad094df270a1ff2c2",
+                "reference": "623a1c4ad5183621489838bad094df270a1ff2c2",
                 "shasum": ""
             },
             "require": {
                 "typo3/cms-composer-installers": "^1.4 || ^2.0",
-                "typo3/minimal": "^7 || ^8 || ^9"
+                "typo3/minimal": "^7 || ^8 || ^9 || ^10"
             },
             "require-dev": {
                 "typo3-console/php-server-command": "^0.1.0",
-                "typo3/cms-core": "^8.7.10 || ^9.5.2"
+                "typo3/cms-core": "^8.7.10 || ^9.5.2 || ^10.2.0"
             },
             "suggest": {
                 "helhum/typo3-console": "TYPO3 Console is highly recommended for any TYPO3 composer setup.",
@@ -888,7 +888,7 @@
                 }
             ],
             "description": "Set up required entry points for TYPO3 web directory",
-            "time": "2018-12-16T11:45:46+00:00"
+            "time": "2019-12-11T13:21:23+00:00"
         },
         {
             "name": "psr/http-message",
@@ -1583,21 +1583,21 @@
         },
         {
             "name": "typo3/cms-composer-installers",
-            "version": "v1.5.4",
+            "version": "v1.5.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TYPO3/CmsComposerInstallers.git",
-                "reference": "85bb09767d2c39050383f64117373e55ea800611"
+                "reference": "5ae500078d7374c5b3dd26c794c4da2d5ff29b4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TYPO3/CmsComposerInstallers/zipball/85bb09767d2c39050383f64117373e55ea800611",
-                "reference": "85bb09767d2c39050383f64117373e55ea800611",
+                "url": "https://api.github.com/repos/TYPO3/CmsComposerInstallers/zipball/5ae500078d7374c5b3dd26c794c4da2d5ff29b4c",
+                "reference": "5ae500078d7374c5b3dd26c794c4da2d5ff29b4c",
                 "shasum": ""
             },
             "require": {
                 "composer-plugin-api": "^1.0.0",
-                "php": ">=7.0.0 <7.4"
+                "php": ">=7.0.0 <7.5"
             },
             "conflict": {
                 "composer/installers": "<1.0.24 || >1.0.24"
@@ -1631,12 +1631,12 @@
                     "email": "christian.opitz@netresearch.de"
                 },
                 {
-                    "name": "Lars Peipmann",
-                    "email": "lars@peipmann.de"
-                },
-                {
                     "name": "Helmut Hummel",
                     "email": "info@helhum.io"
+                },
+                {
+                    "name": "Lars Peipmann",
+                    "email": "lars@peipmann.de"
                 }
             ],
             "description": "TYPO3 CMS Installers",
@@ -1648,7 +1648,7 @@
                 "installer",
                 "typo3"
             ],
-            "time": "2019-03-04T12:25:01+00:00"
+            "time": "2020-01-08T12:20:19+00:00"
         },
         {
             "name": "typo3/cms-core",
