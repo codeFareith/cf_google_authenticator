@@ -92,7 +92,7 @@ final class GoogleAuthenticatorUtility
         $modulo = 10 ** self::OTP_LENGTH;
 
         return str_pad(
-            $value % $modulo,
+            (string)($value % $modulo),
             self::OTP_LENGTH,
             '0',
             STR_PAD_LEFT
