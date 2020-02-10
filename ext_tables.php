@@ -33,7 +33,7 @@ call_user_func(
         $globalsReference['TBE_STYLES']
             ['stylesheet2'] = PathUtility::makeExtensionPath('Resources/Public/Css/cf_google_authenticator.css');
 
-        if (!empty($globalsReference['TYPO3_USER_SETTINGS'])) {
+        if (TYPO3_version >= '9.0.0') {
             $globalsReference['TYPO3_USER_SETTINGS']['columns'] = array_merge(
                 $globalsReference['TYPO3_USER_SETTINGS']['columns'],
                 [

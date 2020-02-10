@@ -84,8 +84,8 @@ class UserSettings
         if ($data['table'] !== null) {
             $prefix .= sprintf('[%s]', $data['table']);
         }
-        if ($data['uid'] !== null) {
-            $prefix .= sprintf('[%s]', $data['uid']);
+        if ($data['row']['uid'] !== null) {
+            $prefix .= sprintf('[%s]', (string)$data['row']['uid']);
         }
 
         $templateView->assignMultiple(
