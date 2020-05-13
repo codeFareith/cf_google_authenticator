@@ -9,8 +9,8 @@ branches:
 matrix:
   fast_finish: true
   include:
-    - name: 'PHP 7.0 | TYPO3 CMS v8'
-      php: '7.0'
+    - name: 'PHP 7.1 | TYPO3 CMS v8'
+      php: '7.1'
       env: TYPO3_VERSION=^8
     - name: 'PHP 7.2 | TYPO3 CMS v9'
       php: '7.2'
