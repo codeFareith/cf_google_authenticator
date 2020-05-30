@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /**
  * Configuration file for TYPO3 CMS Extension 'cf_google_authenticator'
  *
@@ -33,30 +33,31 @@ call_user_func(
         $globalsReference['TBE_STYLES']
             ['stylesheet2'] = PathUtility::makeExtensionPath('Resources/Public/Css/cf_google_authenticator.css');
 
-        $globalsReference['TYPO3_USER_SETTINGS']['columns'] = array_merge(
-            $globalsReference['TYPO3_USER_SETTINGS']['columns'],
-            [
-                'tx_cfgoogleauthenticator_enabled' => [
-                    'label' => PathUtility::makeLocalLangLinkPath(
-                        'be_users.tx_cfgoogleauthenticator_enabled',
-                        'locallang_db.xlf'
-                    ),
-                    'type' => 'check',
-                    'table' => 'be_users',
-                ],
+        if (TYPO3_version >= '9.0.0') {
+            $globalsReference['TYPO3_USER_SETTINGS']['columns'] = array_merge(
+                $globalsReference['TYPO3_USER_SETTINGS']['columns'],
+                [
+                    'tx_cfgoogleauthenticator_enabled' => [
+                        'label' => PathUtility::makeLocalLangLinkPath(
+                            'be_users.tx_cfgoogleauthenticator_enabled',
+                            'locallang_db.xlf'
+                        ),
+                        'type' => 'check',
+                        'table' => 'be_users',
+                    ],
 
-                'tx_cfgoogleauthenticator_secret' => [
-                    'label' => PathUtility::makeLocalLangLinkPath(
-                        'be_users.tx_cfgoogleauthenticator_secret',
-                        'locallang_db.xlf'
-                    ),
-                    'type' => 'user',
-                    'userFunc' => UserSettings::class . '->createSecretField',
-                    'table' => 'be_users',
-                ],
-            ]
-        );
-
+                    'tx_cfgoogleauthenticator_secret' => [
+                        'label' => PathUtility::makeLocalLangLinkPath(
+                            'be_users.tx_cfgoogleauthenticator_secret',
+                            'locallang_db.xlf'
+                        ),
+                        'type' => 'user',
+                        'userFunc' => UserSettings::class . '->createSecretField',
+                        'table' => 'be_users',
+                    ],
+                ]
+            );
+        }
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToUserSettings(
             '--div--;'
             . PathUtility::makeLocalLangLinkPath(
