@@ -22,6 +22,8 @@ use CodeFareith\CfGoogleAuthenticator\Exception\PropertyNotInitialized;
 use CodeFareith\CfGoogleAuthenticator\Utility\GoogleAuthenticatorUtility;
 use ReflectionException;
 use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
+use function in_array;
 use function preg_replace;
 
 /**
@@ -39,6 +41,11 @@ class GoogleAuthenticatorSetupHandler
     protected $objectManager;
 
     /**
+     * @var Dispatcher
+     */
+    protected $dispatcher;
+
+    /**
      * @var PreProcessFieldArrayDTO
      */
     private $preProcessFieldArrayDTO;
@@ -51,9 +58,10 @@ class GoogleAuthenticatorSetupHandler
     /*─────────────────────────────────────────────────────────────────────────────*\
             Methods
     \*─────────────────────────────────────────────────────────────────────────────*/
-    public function __construct(ObjectManagerInterface $objectManager)
+    public function __construct(ObjectManagerInterface $objectManager, Dispatcher $dispatcher)
     {
         $this->objectManager = $objectManager;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -83,7 +91,20 @@ class GoogleAuthenticatorSetupHandler
     {
         $table = $this->preProcessFieldArrayDTO->getTable();
 
-        return ($table === 'be_users' || $table === 'fe_users');
+        $signalArguments = [
+            'tables' => [
+                'be_users',
+                'fe_users'
+            ],
+            'caller' => $this,
+        ];
+        $signalArguments = $this->dispatcher->dispatch(
+            __CLASS__,
+            'collectAllowedTables',
+            $signalArguments
+        );
+
+        return in_array($table, $signalArguments, true);
     }
 
     private function setPreProcessFieldArrayDTO(PreProcessFieldArrayDTO $preProcessFieldArrayDTO): void

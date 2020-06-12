@@ -23,6 +23,7 @@ use CodeFareith\CfGoogleAuthenticator\Utility\Base32Utility;
 use CodeFareith\CfGoogleAuthenticator\Utility\PathUtility;
 use CodeFareith\CfGoogleAuthenticator\Validation\Validator\SetupFormValidator;
 use Exception;
+use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
@@ -34,7 +35,6 @@ use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 use function get_class;
 use TYPO3\CMS\Lang\LanguageService;
 use function vsprintf;
-use TYPO3\CMS\Core\Context\Context;
 
 /**
  * Two-factor authentication setup controller

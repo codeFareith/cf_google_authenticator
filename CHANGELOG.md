@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 - nothing, yet
 
+## [1.2.0] - 2020-06-12
+### Changed
+- Add Signal/Slot-Dispatcher in Google Authenticator Setup Handler
+- Add Context to SetupController
+
 ## [1.1.7] - 2019-09-06
 ### Changed
 - Add `declare(strict_type=1);` to all PHP files
@@ -168,7 +173,9 @@ to meet frontend requirements
 ## [1.0.0] - 2018-06-17
 - Initial development
 
-[Unreleased]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.1.6...HEAD
+[Unreleased]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.1.7...v1.2.0
+[1.1.7]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.1.6...v1.1.7
 [1.1.6]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.1.5...v1.1.6
 [1.1.5]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.1.4...v1.1.5
 [1.1.4]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.1.3...v1.1.4
