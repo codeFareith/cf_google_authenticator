@@ -153,7 +153,7 @@ class GoogleAuthenticatorSetupHandler
             $hasEnabled &= ($this->googleAuthenticatorSettingsDTO->getOldSettings()->isEnabled() === false);
         }
 
-        return $hasEnabled;
+        return (bool)$hasEnabled;
     }
 
     private function hasUserDisabledAuthenticator(): bool
