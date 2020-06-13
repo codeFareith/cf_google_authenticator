@@ -104,7 +104,7 @@ class GoogleAuthenticatorSetupHandler
             $signalArguments
         );
 
-        return in_array($table, $signalArguments, true);
+        return in_array($table, $signalArguments['tables'], true);
     }
 
     private function setPreProcessFieldArrayDTO(PreProcessFieldArrayDTO $preProcessFieldArrayDTO): void

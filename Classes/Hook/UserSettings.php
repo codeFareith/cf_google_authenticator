@@ -21,8 +21,8 @@ use CodeFareith\CfGoogleAuthenticator\Traits\GeneralUtilityObjectManager;
 use CodeFareith\CfGoogleAuthenticator\Utility\Base32Utility;
 use CodeFareith\CfGoogleAuthenticator\Utility\PathUtility;
 use Exception;
-use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use function sprintf;
 use function vsprintf;
@@ -152,7 +152,19 @@ class UserSettings
             $layer = 'Backend';
         }
 
-        return $layer;
+        $dispatcher = GeneralUtility::makeInstance(Dispatcher::class);
+        $signalArguments = [
+            'table' => $this->data['table'],
+            'layer' => $layer,
+            'caller' => $this,
+        ];
+        $signalArguments = $dispatcher->dispatch(
+            __CLASS__,
+            'defineIssuerLayer',
+            $signalArguments
+        );
+
+        return $signalArguments['layer'];
     }
 
     private function getUsername(): string
@@ -183,7 +195,7 @@ class UserSettings
     private function getSecretKey(): string
     {
         if ($this->isGoogleAuthenticatorEnabled()) {
-            $secretKey = (string) $this->getBackendUser()->user['tx_cfgoogleauthenticator_secret'];
+            $secretKey = (string) $this->data['row']['tx_cfgoogleauthenticator_secret'];
         } else {
             $secretKey = Base32Utility::generateRandomString(16);
         }
@@ -193,7 +205,7 @@ class UserSettings
 
     private function isGoogleAuthenticatorEnabled(): bool
     {
-        return (bool) $this->getBackendUser()->user['tx_cfgoogleauthenticator_enabled'];
+        return (bool) $this->data['row']['tx_cfgoogleauthenticator_enabled'];
     }
 
     private function getQrCodeGenerator(): QrCodeGeneratorInterface
@@ -203,10 +215,5 @@ class UserSettings
         }
 
         return $this->qrCodeGenerator;
-    }
-
-    private function getBackendUser(): BackendUserAuthentication
-    {
-        return $GLOBALS['BE_USER'];
     }
 }
