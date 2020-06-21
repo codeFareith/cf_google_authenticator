@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /**
  * Table configuration for 'sys_template'
  *
@@ -15,14 +15,12 @@
  * @see           https://typo3.org
  */
 
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-
 defined('TYPO3_MODE')
     or die('Access denied');
 
 call_user_func(
     static function () {
-        ExtensionManagementUtility::addStaticFile(
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
             'cf_google_authenticator',
             'Configuration/TypoScript',
             '[CodeFareith] Google Authenticator'

@@ -17,15 +17,6 @@
  */
 /** @noinspection PhpFullyQualifiedNameUsageInspection */
 
-use CodeFareith\CfGoogleAuthenticator\Hook\FeLogin;
-use CodeFareith\CfGoogleAuthenticator\Hook\TCEMain;
-use CodeFareith\CfGoogleAuthenticator\Provider\Login\GoogleAuthenticatorLoginProvider;
-use CodeFareith\CfGoogleAuthenticator\Service\AuthenticationService;
-use CodeFareith\CfGoogleAuthenticator\Service\GoogleAuthenticationServiceAdapterFactory;
-use CodeFareith\CfGoogleAuthenticator\Utility\ExtensionBasicDataUtility;
-use CodeFareith\CfGoogleAuthenticator\Utility\PathUtility;
-use CodeFareith\CfGoogleAuthenticator\Utility\TypoScriptUtility;
-
 defined('TYPO3_MODE')
     or die('Access denied.');
 
@@ -33,18 +24,18 @@ call_user_func(
     static function ($_EXTKEY) {
         $globalsReference = &$GLOBALS;
 
-        $extConf = ExtensionBasicDataUtility::getExtensionConfiguration();
+        $extConf = \CodeFareith\CfGoogleAuthenticator\Utility\ExtensionBasicDataUtility::getExtensionConfiguration();
 
         $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
             \TYPO3\CMS\Extbase\Object\ObjectManager::class
         );
-        $adapterFactory = $objectManager->get(GoogleAuthenticationServiceAdapterFactory::class);
+        $adapterFactory = $objectManager->get(\CodeFareith\CfGoogleAuthenticator\Service\GoogleAuthenticationServiceAdapterFactory::class);
         $adapter = $adapterFactory->create();
 
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService(
             $_EXTKEY,
             'auth',
-            AuthenticationService::class,
+            \CodeFareith\CfGoogleAuthenticator\Service\AuthenticationService::class,
             [
                 'title' => 'Google Authenticator',
                 'description' => 'Enable Google 2FA for both, frontend- and backend login',
@@ -59,15 +50,15 @@ call_user_func(
         );
 
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addUserTSConfig(
-            TypoScriptUtility::getIncludeTypoScriptFileTag(
-                PathUtility::makeExtensionPath(
+            \CodeFareith\CfGoogleAuthenticator\Utility\TypoScriptUtility::getIncludeTypoScriptFileTag(
+                \CodeFareith\CfGoogleAuthenticator\Utility\PathUtility::makeExtensionPath(
                     'Configuration/TypoScript/setup.typoscript'
                 )
             )
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            ExtensionBasicDataUtility::getVendorName() . '.' . ExtensionBasicDataUtility::getExtensionKey(),
+            \CodeFareith\CfGoogleAuthenticator\Utility\ExtensionBasicDataUtility::getVendorName() . '.' . \CodeFareith\CfGoogleAuthenticator\Utility\ExtensionBasicDataUtility::getExtensionKey(),
             'Setup',
             [
                 'Frontend\Setup' => 'index,form,update',
@@ -90,20 +81,20 @@ call_user_func(
                     ['backend']
                         ['loginProviders']
                             [1433416747]
-                                ['provider'] = GoogleAuthenticatorLoginProvider::class;
+                                ['provider'] = \CodeFareith\CfGoogleAuthenticator\Provider\Login\GoogleAuthenticatorLoginProvider::class;
         }
 
         $globalsReference['TYPO3_CONF_VARS']
             ['SC_OPTIONS']
                 ['t3lib/class.t3lib_tcemain.php']
                     ['processDatamapClass']
-                        [$_EXTKEY] = TCEMain::class;
+                        [$_EXTKEY] = \CodeFareith\CfGoogleAuthenticator\Hook\TCEMain::class;
 
         $globalsReference['TYPO3_CONF_VARS']
             ['EXTCONF']
                 ['felogin']
                     ['postProcContent']
-                        [$_EXTKEY] = FeLogin::class . '->createOneTimePasswordField';
+                        [$_EXTKEY] = \CodeFareith\CfGoogleAuthenticator\Hook\FeLogin::class . '->createOneTimePasswordField';
     },
     /** @var string $_EXTKEY */
     $_EXTKEY
