@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /**
  * Table configuration for 'tt_content'
  *
@@ -14,19 +14,15 @@
  * @see           https://typo3.org
  */
 
-use CodeFareith\CfGoogleAuthenticator\Utility\ExtensionBasicDataUtility;
-use CodeFareith\CfGoogleAuthenticator\Utility\PathUtility;
-use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
-
 defined('TYPO3_MODE')
     or die('Access denied');
 
 call_user_func(
     static function () {
-        ExtensionUtility::registerPlugin(
-            ExtensionBasicDataUtility::getExtensionKey(),
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
+            \CodeFareith\CfGoogleAuthenticator\Utility\ExtensionBasicDataUtility::getExtensionKey(),
             'Setup',
-            PathUtility::makeLocalLangLinkPath('plugin.setup')
+            \CodeFareith\CfGoogleAuthenticator\Utility\PathUtility::makeLocalLangLinkPath('plugin.setup')
         );
     }
 );
