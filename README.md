@@ -3,7 +3,7 @@
 ![GitHub license](https://img.shields.io/github/license/codeFareith/cf_google_authenticator.svg?style=flat-square&label=License)
 ![GitHub release](https://img.shields.io/github/release/codeFareith/cf_google_authenticator.svg?style=flat-square&stable)
 ![GitHub pre-release)](https://img.shields.io/github/tag-pre/codeFareith/cf_google_authenticator.svg?style=flat-square&label=develop)
-![Travis build](https://img.shields.io/travis/codeFareith/cf_google_authenticator.svg?style=flat-square)
+[![Build Status](https://travis-ci.org/codeFareith/cf_google_authenticator.svg?branch=master)](https://travis-ci.org/codeFareith/cf_google_authenticator)
 ![Codecov coverage](https://img.shields.io/codecov/c/github/codefareith/cf_google_authenticator.svg?style=flat-square)
 ![Scrutinizer code quality](https://img.shields.io/scrutinizer/quality/g/codeFareith/cf_google_authenticator.svg?style=flat-square)
 ![Requires.io requirements](https://img.shields.io/requires/github/codeFareith/cf_google_authenticator.svg?style=flat-square)
