@@ -205,6 +205,9 @@ class UserSettings
 
     private function isGoogleAuthenticatorEnabled(): bool
     {
+        if ($this->data['type'] === 'user' && !is_array($this->data['row'])) {
+            $this->data['row'] = $GLOBALS['BE_USER']->user;
+        }
         return (bool) $this->data['row']['tx_cfgoogleauthenticator_enabled'];
     }
 
