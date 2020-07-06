@@ -15,6 +15,9 @@
             <trans-unit id="basic.googleAuthenticatorEnableFE">
                 <target>FE aktiviert: Aktiviert Google Authenticator für den Frontend Login.</target>
             </trans-unit>
+            <trans-unit id="basic.feLoginTemplate">
+                <source>FE-Login Template Datei: wenn googleAuthenticatorEnableFE gesetzt ist und Sie EXT:felogin für den Frontend Login ihrer Seite verwenden, muss das originale "FrontendLogin.html"-Template durch eines ersetzt werden, welches das Einmal-Passwort-Feld bereitstellt.</source>
+            </trans-unit>
             <trans-unit id="basic.devlog">
                 <target>Devlog: Schreibe Debug-Informationen in Devlog.</target>
             </trans-unit>

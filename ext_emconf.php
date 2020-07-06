@@ -27,7 +27,7 @@ $EM_CONF[$_EXTKEY] = [
     'author_company' => '',
 
     'state' => 'experimental',
-    'version' => '1.2.2',
+    'version' => '1.2.3',
 
     'uploadFolders' => false,
     'createDirs' => '',
