@@ -26,8 +26,8 @@ $EM_CONF[$_EXTKEY] = [
     'author_email' => 'robin@vondenbergen.de',
     'author_company' => '',
 
-    'state' => 'stable',
-    'version' => '1.2.1',
+    'state' => 'experimental',
+    'version' => '1.2.2',
 
     'uploadFolders' => false,
     'createDirs' => '',

@@ -24,6 +24,7 @@ use CodeFareith\CfGoogleAuthenticator\Utility\PathUtility;
 use CodeFareith\CfGoogleAuthenticator\Validation\Validator\SetupFormValidator;
 use Exception;
 use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
@@ -32,8 +33,8 @@ use TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException;
 use TYPO3\CMS\Extbase\Object\Exception as ObjectException;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
-use function get_class;
 use TYPO3\CMS\Lang\LanguageService;
+use function get_class;
 use function vsprintf;
 
 /**
@@ -150,7 +151,7 @@ class SetupController
             $user = $this->getFrontendUser();
 
             if ($user !== null) {
-                $formData = (array) $this->request->getArgument(SetupForm::FORM_NAME);
+                $formData = (array)$this->request->getArgument(SetupForm::FORM_NAME);
 
                 if ($this->request->hasArgument('enable')) {
                     $user->enableGoogleAuthenticator($formData['secret']);
@@ -174,7 +175,10 @@ class SetupController
      */
     private function isUserLoggedin(): bool
     {
-        return $this->context->getPropertyFromAspect('frontend.user', 'isLoggedIn');
+        return (bool)$this->context->getPropertyFromAspect(
+            'frontend.user',
+            'isLoggedIn'
+        );
     }
 
     /**
@@ -241,7 +245,7 @@ class SetupController
 
     private function isGoogleAuthenticatorEnabled(): bool
     {
-        return (bool) $GLOBALS['TSFE']->fe_user->user['tx_cfgoogleauthenticator_enabled'];
+        return (bool)$GLOBALS['TSFE']->fe_user->user['tx_cfgoogleauthenticator_enabled'];
     }
 
     /**
@@ -275,7 +279,7 @@ class SetupController
      */
     private function getFormObject(): SetupForm
     {
-        $formData = (array) $this->request->getArgument(SetupForm::FORM_NAME);
+        $formData = (array)$this->request->getArgument(SetupForm::FORM_NAME);
 
         /** @var SetupForm $formObject */
         $formObject = $this->objectManager->get(

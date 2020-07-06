@@ -87,9 +87,10 @@ phpdoc-cache-*
 ##
 #   Miscelaneous
 ########################################
+composer
 composer.phar
 .Build/
-build/
+Build/
 node_modules/
 jspm_packages/
 .env
