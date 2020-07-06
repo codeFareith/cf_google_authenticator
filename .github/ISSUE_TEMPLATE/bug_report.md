@@ -7,7 +7,7 @@ about: Create a report to help us improve
 # Bug report
 
 ## Prerequisites
-Please answer the following questions for yourself before submitting an issue. **YOU MAY DELETE THE PREREQUISITES SECTION.**
+Please answer the following questions for yourself before submitting an issue.
 
 - [ ] I am running the latest version
 - [ ] I checked the documentation and found no answer
@@ -35,8 +35,8 @@ Please answer the following questions for yourself before submitting an issue. *
  ---- | ----
 **Platform** | < _(e.g. iPhoneX)_ >
 **Operating System** | < _(e.g. iOS 12.3 Beta 6)_ >
-**Browser** | < _(e.g. Google Chrome 74.0.3729.131)_ >
-**Additional Context** | < _(e.g. version, other extensions, ...)_ >
+**Webserver** | < _(e.g. nginx 1.18.0)_ >
+**TYPO3 CMS** | < _(e.g. 8.7.37)_ >
 
 ## Notes:
 < some further infos, hints, etc. >

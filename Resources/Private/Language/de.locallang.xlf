@@ -14,7 +14,40 @@
             </trans-unit>
 
             <trans-unit id="plugin.setup">
-                <target>Google Two-Factor-Authentication Setup</target>
+                <target>Google Zwei-Faktor Authentifizierung einrichten</target>
+            </trans-unit>
+
+            <trans-unit id="otp">
+                <target>Einmal-Passwort</target>
+            </trans-unit>
+            <trans-unit id="disableAuthenticator">
+                <target>Um den Google Authenticator zu deaktivieren, geben Sie ein gültiges Einmal-Passwort und klicken Sie auf den DEAKTIVIEREN-Button.</target>
+            </trans-unit>
+
+            <trans-unit id="setup.index.step1.title">
+                <target>QR Code einscannen</target>
+            </trans-unit>
+            <trans-unit id="setup.index.step1.body">
+                <target>Scannen sie den unten stehenden QR Code mit ihrer Authenticator App ein.</target>
+            </trans-unit>
+            <trans-unit id="setup.index.step2.title">
+                <target>Bewahren Sie das Secret an einem sicheren Ort auf</target>
+            </trans-unit>
+            <trans-unit id="setup.index.step2.body">
+                <target>Sie benötigen dieses Secret, um ihren Authenticator wieder herzustellen.</target>
+            </trans-unit>
+            <trans-unit id="setup.index.step3.title">
+                <target>Geben Sie den Verifizierungscode ein</target>
+            </trans-unit>
+            <trans-unit id="setup.index.step3.body">
+                <target>Nachdem Sie den QR-Code eingescannt haben, geben Sie den 6 Ziffern Verifizierungscode ein, den Ihre Authenticator App generiert hat.</target>
+            </trans-unit>
+
+            <trans-unit id="setup.update.success.title">
+                <target>Erfolgreich!</target>
+            </trans-unit>
+            <trans-unit id="setup.update.success.body">
+                <target>Ihre Änderungen wurden erfolgreich gespeichert.</target>
             </trans-unit>
         </body>
     </file>
