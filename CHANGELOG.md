@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 - nothing, yet
 
+## [1.2.2] - 2020-07-06
+### Fixed
+- use `TYPO3\CMS\Core\Authentication\BackendUserAuthentication` in `..\Classes\Hook\UserSettings` to detect authenticator enabled state
+
+### Changed
+- Complete `de.locallang.xlf`
+
 ## [1.2.1] - 2020-06-12
 ### Fixed
 - Various bugs caused by `use`- and `declare(strict_type=1);`-Statements in extension's bootstrap files (`ext_localconf.php`, `ext_tables.php`, `be_users.php`, `fe_users.php`, `sys_template.php` & `tt_content.php`)
@@ -177,7 +184,8 @@ to meet frontend requirements
 ## [1.0.0] - 2018-06-17
 - Initial development
 
-[Unreleased]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.2.1...HEAD
+[Unreleased]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.2.2...HEAD
+[1.2.2]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.1.7...v1.2.0
 [1.1.7]: https://github.com/codeFareith/cf_google_authenticator/compare/v1.1.6...v1.1.7
