@@ -21,7 +21,6 @@ use CodeFareith\CfGoogleAuthenticator\Traits\GeneralUtilityObjectManager;
 use CodeFareith\CfGoogleAuthenticator\Utility\Base32Utility;
 use CodeFareith\CfGoogleAuthenticator\Utility\PathUtility;
 use Exception;
-use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Fluid\View\StandaloneView;
@@ -207,8 +206,7 @@ class UserSettings
     private function isGoogleAuthenticatorEnabled(): bool
     {
         if ($this->data['type'] === 'user' && !is_array($this->data['row'])) {
-            $backendUserAuthentication = $this->objectManager()->get(BackendUserAuthentication::class);
-            $this->data['row'] = $backendUserAuthentication->user;
+            $this->data['row'] = $GLOBALS['BE_USER']->user;
         }
         return (bool) $this->data['row']['tx_cfgoogleauthenticator_enabled'];
     }
