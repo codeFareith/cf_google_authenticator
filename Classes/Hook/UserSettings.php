@@ -26,6 +26,7 @@ use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use function sprintf;
 use function vsprintf;
+use TYPO3\CMS\Backend\Form\Element\AbstractFormElement;
 
 /**
  * Hook for the user settings
@@ -37,7 +38,7 @@ use function vsprintf;
  * @package CodeFareith\CfGoogleAuthenticator\Hook
  * @since   1.0.0
  */
-class UserSettings
+class UserSettings extends AbstractFormElement
 {
     /*─────────────────────────────────────────────────────────────────────────────*\
             Traits
@@ -71,21 +72,20 @@ class UserSettings
      * @return string
      * @throws Exception
      */
-    public function createSecretField(array $data): string
+    public function render(): array
     {
-        $this->data = $data;
-
+        $result = $this->initializeResultArray();
         $authenticationSecret = $this->getAuthenticationSecret();
         $templateView = $this->initializeTemplateView();
         $isEnabled = $this->isGoogleAuthenticatorEnabled();
         $qrCodeUri = $this->getQrCodeGenerator()->generateUri($authenticationSecret);
 
         $prefix = '';
-        if ($data['table'] !== null) {
-            $prefix .= sprintf('[%s]', $data['table']);
+        if ($this->data['tableName'] !== null) {
+            $prefix .= sprintf('[%s]', $this->data['tableName']);
         }
-        if ($data['row']['uid'] !== null) {
-            $prefix .= sprintf('[%s]', (string)$data['row']['uid']);
+        if ($data['databaseRow']['uid'] !== null) {
+            $prefix .= sprintf('[%s]', (string)$this->data['databaseRow']['uid']);
         }
 
         $templateView->assignMultiple(
@@ -97,7 +97,9 @@ class UserSettings
             ]
         );
 
-        return $templateView->render();
+        $result['html'] = $templateView->render();
+
+        return $result;
     }
 
     private function initializeTemplateView(): StandaloneView
@@ -146,15 +148,15 @@ class UserSettings
     {
         $layer = '';
 
-        if ($this->data['table'] === 'fe_users') {
+        if ($this->data['tableName'] === 'fe_users') {
             $layer = 'Frontend';
-        } elseif ($this->data['table'] === 'be_users') {
+        } elseif ($this->data['tableName'] === 'be_users') {
             $layer = 'Backend';
         }
 
         $dispatcher = GeneralUtility::makeInstance(Dispatcher::class);
         $signalArguments = [
-            'table' => $this->data['table'],
+            'table' => $this->data['tableName'],
             'layer' => $layer,
             'caller' => $this,
         ];
@@ -169,7 +171,7 @@ class UserSettings
 
     private function getUsername(): string
     {
-        return $this->data['row']['username'] ?? '';
+        return $this->data['databaseRow']['username'] ?? '';
     }
 
     /**
@@ -195,7 +197,7 @@ class UserSettings
     private function getSecretKey(): string
     {
         if ($this->isGoogleAuthenticatorEnabled()) {
-            $secretKey = (string) $this->data['row']['tx_cfgoogleauthenticator_secret'];
+            $secretKey = (string) $this->data['databaseRow']['tx_cfgoogleauthenticator_secret'];
         } else {
             $secretKey = Base32Utility::generateRandomString(16);
         }
@@ -205,10 +207,10 @@ class UserSettings
 
     private function isGoogleAuthenticatorEnabled(): bool
     {
-        if ($this->data['type'] === 'user' && !is_array($this->data['row'])) {
-            $this->data['row'] = $GLOBALS['BE_USER']->user;
+        if ($this->data['parameterArray']['fieldConf']['config']['type'] === 'user' && !is_array($this->data['databaseRow'])) {
+            $this->data['databaseRow'] = $GLOBALS['BE_USER']->user;
         }
-        return (bool) $this->data['row']['tx_cfgoogleauthenticator_enabled'];
+        return (bool) $this->data['databaseRow']['tx_cfgoogleauthenticator_enabled'];
     }
 
     private function getQrCodeGenerator(): QrCodeGeneratorInterface

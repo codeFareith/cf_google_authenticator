@@ -54,7 +54,7 @@ class TCEMain
     /**
      * @noinspection MoreThanThreeArgumentsInspection
      *
-     * @param mixed      $fieldArray
+     * @param mixed $fieldArray
      * @param string|int $id
      *
      * @throws MissingRequiredField
@@ -75,7 +75,14 @@ class TCEMain
             $otpInFieldArray = $otpInPostData;
         }
 
-        $preProcessFieldArrayDTO = $this->getPreProcessFieldArrayDTO($fieldArray, $table, (int) $id, $dataHandler);
+        $otpInFieldArray2 = &$fieldArray['tx_cfgoogleauthenticator_secret'];
+        $otpInPostData2 = $_POST['data']['be_users']['tx_cfgoogleauthenticator_secret'];
+
+        if ($otpInFieldArray2 === null && $otpInPostData2 !== null) {
+            $otpInFieldArray2 = $otpInPostData2;
+        }
+
+        $preProcessFieldArrayDTO = $this->getPreProcessFieldArrayDTO($fieldArray, $table, (int)$id, $dataHandler);
         $result = $this->getGoogleAuthenticatorSetupHandler()->process($preProcessFieldArrayDTO);
 
         $fieldArray = array_merge($fieldArray, $result);
