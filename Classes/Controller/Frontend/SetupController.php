@@ -33,7 +33,7 @@ use TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException;
 use TYPO3\CMS\Extbase\Object\Exception as ObjectException;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
-use TYPO3\CMS\Lang\LanguageService;
+use TYPO3\CMS\Core\Localization\LanguageService;
 use function get_class;
 use function vsprintf;
 
@@ -93,7 +93,7 @@ class SetupController
         Context $context
     )
     {
-        parent::__construct();
+        //parent::__construct();
 
         $this->frontendUserRepository = $frontendUserRepository;
         $this->qrCodeGenerator = $qrCodeGenerator;

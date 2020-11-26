@@ -41,7 +41,7 @@ call_user_func(
                     ),
                     'config' => [
                         'type' => 'user',
-                        'userFunc' => \CodeFareith\CfGoogleAuthenticator\Hook\UserSettings::class . '->createSecretField',
+                        'renderType' => 'TwoFactorAuth',
                     ],
                 ],
             ]
