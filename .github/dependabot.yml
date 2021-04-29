@@ -1,0 +1,150 @@
+version: 2
+updates:
+- package-ecosystem: composer
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "00:00"
+    timezone: Europe/Berlin
+  open-pull-requests-limit: 99
+  reviewers:
+  - codeFareith
+  assignees:
+  - codeFareith
+  labels:
+  - "Priority: Minor"
+  - "Status: On Hold"
+  - "Type: Maintenance"
+  allow:
+  - dependency-type: direct
+  - dependency-type: indirect
+  ignore:
+  - dependency-name: doctrine/dbal
+    versions:
+    - 2.12.1
+    - 2.13.0
+  - dependency-name: codeception/codeception
+    versions:
+    - 4.1.16
+    - 4.1.17
+    - 4.1.18
+    - 4.1.19
+  - dependency-name: guzzlehttp/psr7
+    versions:
+    - 1.7.0
+    - 1.8.0
+    - 1.8.1
+  - dependency-name: typo3/cms-recordlist
+    versions:
+    - 9.5.24
+    - 9.5.25
+  - dependency-name: typo3/cms-frontend
+    versions:
+    - 9.5.24
+    - 9.5.25
+  - dependency-name: typo3/cms-setup
+    versions:
+    - 9.5.24
+    - 9.5.25
+  - dependency-name: typo3/cms-reports
+    versions:
+    - 9.5.24
+    - 9.5.25
+  - dependency-name: typo3/cms-fluid
+    versions:
+    - 9.5.24
+    - 9.5.25
+  - dependency-name: typo3/cms-backend
+    versions:
+    - 9.5.24
+    - 9.5.25
+  - dependency-name: typo3/cms-extbase
+    versions:
+    - 9.5.24
+    - 9.5.25
+  - dependency-name: psr/container
+    versions:
+    - 1.1.0
+  - dependency-name: symfony/cache
+    versions:
+    - 5.2.2
+    - 5.2.3
+    - 5.2.4
+  - dependency-name: symfony/yaml
+    versions:
+    - 4.4.19
+    - 4.4.20
+  - dependency-name: symfony/console
+    versions:
+    - 4.4.19
+    - 4.4.20
+  - dependency-name: typo3/cms-composer-installers
+    versions:
+    - 3.1.0
+  - dependency-name: symfony/css-selector
+    versions:
+    - 5.2.2
+    - 5.2.3
+  - dependency-name: symfony/var-exporter
+    versions:
+    - 5.2.2
+    - 5.2.3
+  - dependency-name: behat/gherkin
+    versions:
+    - 4.7.1
+    - 4.7.2
+  - dependency-name: symfony/http-foundation
+    versions:
+    - 5.2.2
+    - 5.2.3
+  - dependency-name: symfony/event-dispatcher
+    versions:
+    - 4.4.19
+  - dependency-name: symfony/expression-language
+    versions:
+    - 4.4.19
+  - dependency-name: symfony/finder
+    versions:
+    - 4.4.19
+  - dependency-name: symfony/routing
+    versions:
+    - 4.4.19
+  - dependency-name: symfony/polyfill-php80
+    versions:
+    - 1.22.0
+  - dependency-name: symfony/polyfill-php72
+    versions:
+    - 1.22.0
+  - dependency-name: symfony/polyfill-intl-normalizer
+    versions:
+    - 1.22.0
+  - dependency-name: symfony/polyfill-ctype
+    versions:
+    - 1.22.0
+  - dependency-name: symfony/polyfill-mbstring
+    versions:
+    - 1.22.0
+  - dependency-name: symfony/polyfill-intl-icu
+    versions:
+    - 1.22.0
+  - dependency-name: symfony/polyfill-intl-idn
+    versions:
+    - 1.22.0
+  - dependency-name: symfony/polyfill-php73
+    versions:
+    - 1.22.0
+  - dependency-name: doctrine/annotations
+    versions:
+    - 1.11.1
+  - dependency-name: guzzlehttp/promises
+    versions:
+    - 1.4.0
+  - dependency-name: symfony/cache-contracts
+    versions:
+    - 2.2.0
+  - dependency-name: symfony/deprecation-contracts
+    versions:
+    - 2.2.0
+  - dependency-name: symfony/service-contracts
+    versions:
+    - 2.2.0
