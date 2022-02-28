@@ -97,6 +97,5 @@ call_user_func(
             'class' => \CodeFareith\CfGoogleAuthenticator\Hook\UserSettings::class,
         ];
     },
-    /** @var string $_EXTKEY */
     'cf_google_authenticator'
 );
