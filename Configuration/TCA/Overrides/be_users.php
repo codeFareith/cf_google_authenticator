@@ -31,6 +31,13 @@ call_user_func(
                     ),
                     'config' => [
                         'type' => 'check',
+                        'renderType' => 'checkboxToggle',
+                        'items' => [
+                            [
+                                0 => '',
+                                1 => '',
+                            ]
+                        ],
                     ],
                 ],
                 'tx_cfgoogleauthenticator_secret' => [
