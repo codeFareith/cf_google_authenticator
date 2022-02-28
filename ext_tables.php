@@ -39,7 +39,6 @@ call_user_func(
                         'locallang_db.xlf'
                     ),
                     'type' => 'check',
-                    'table' => 'be_users',
                 ],
 
                 'tx_cfgoogleauthenticator_secret' => [
@@ -49,7 +48,6 @@ call_user_func(
                     ),
                     'type' => 'user',
                     'userFunc' => \CodeFareith\CfGoogleAuthenticator\Hook\UserSettings::class . '->createSecretField',
-                    'table' => 'be_users',
                 ],
             ]
         );

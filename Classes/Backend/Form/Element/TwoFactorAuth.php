@@ -32,7 +32,7 @@ use function vsprintf;
 use TYPO3\CMS\Backend\Form\Element\AbstractFormElement;
 
 /**
- * Hook for the user settings
+ * Custom field for the OTP setup in TCA
  *
  * This class hooks into the backend user settings,
  * to extend the view by creating a secret key and an image of
