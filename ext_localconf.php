@@ -94,7 +94,7 @@ call_user_func(
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1606376982] = [
             'nodeName' => 'TwoFactorAuth',
             'priority' => 40,
-            'class' => \CodeFareith\CfGoogleAuthenticator\Hook\UserSettings::class,
+            'class' => \CodeFareith\CfGoogleAuthenticator\Backend\Form\Element\TwoFactorAuth::class,
         ];
     },
     'cf_google_authenticator'

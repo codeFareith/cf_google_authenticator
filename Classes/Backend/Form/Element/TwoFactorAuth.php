@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /**
  * Class UserSettings
  *
@@ -12,7 +15,7 @@
  * @see           https://typo3.org
  */
 
-namespace CodeFareith\CfGoogleAuthenticator\Hook;
+namespace CodeFareith\CfGoogleAuthenticator\Backend\Form\Element;
 
 use CodeFareith\CfGoogleAuthenticator\Domain\Immutable\AuthenticationSecret;
 use CodeFareith\CfGoogleAuthenticator\Service\GoogleQrCodeGenerator;
@@ -38,7 +41,7 @@ use TYPO3\CMS\Backend\Form\Element\AbstractFormElement;
  * @package CodeFareith\CfGoogleAuthenticator\Hook
  * @since   1.0.0
  */
-class UserSettings extends AbstractFormElement
+class TwoFactorAuth extends AbstractFormElement
 {
     /*─────────────────────────────────────────────────────────────────────────────*\
             Traits
@@ -67,9 +70,7 @@ class UserSettings extends AbstractFormElement
             Methods
     \*─────────────────────────────────────────────────────────────────────────────*/
     /**
-     * @param mixed[] $data
-     *
-     * @return string
+     * @return array
      * @throws Exception
      */
     public function render(): array
