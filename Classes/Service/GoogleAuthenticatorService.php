@@ -73,7 +73,8 @@ class GoogleAuthenticatorService
                 $logArgs
             );
 
-            $otp = GeneralUtility::_GP('google-authenticator-otp');
+            // TODO: Bypass OTP check in case we try to access the Install Tool? Or add support for OTP in prompt?
+            $otp = GeneralUtility::_GP('google-authenticator-otp') ?? '';
             $secret = $user['tx_cfgoogleauthenticator_secret'];
 
             if (GoogleAuthenticatorUtility::verifyOneTimePassword($secret, $otp) === true) {
