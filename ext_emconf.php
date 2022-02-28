@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Declaration file for TYPO3 CMS Extension 'cf_google_authenticator'
  *
@@ -18,41 +20,40 @@
 /** @var string $_EXTKEY */
 
 $EM_CONF[$_EXTKEY] = [
-    'title' => '[codeFareith] Google Authenticator',
-    'description' => 'Enable Google 2FA (two factor authentication) for both, frontend- and backend accounts.',
-    'category' => 'misc',
+  'title' => '[codeFareith] Google Authenticator',
+  'description' => 'Enable Google 2FA (two factor authentication) for both, frontend- and backend accounts.',
+  'category' => 'misc',
 
-    'author' => 'Robin "codeFareith" von den Bergen',
-    'author_email' => 'robin@vondenbergen.de',
-    'author_company' => '',
+  'author' => 'Robin "codeFareith" von den Bergen',
+  'author_email' => 'robin@vondenbergen.de',
+  'author_company' => '',
 
-    'state' => 'stable',
-    'version' => '1.2.4',
+  'state' => 'stable',
+  'version' => '1.2.0',
 
-    'uploadFolders' => false,
-    'createDirs' => '',
-    'clearCacheOnLoad' => true,
+  'uploadFolders' => false,
+  'createDirs' => '',
+  'clearCacheOnLoad' => true,
 
-    'constraints' => [
-        'depends' => [
-            'php' => '7.1-',
-            'typo3' => '8.7.0-9.5.99',
-        ],
-        'conflicts' => [
-        ],
-        'suggests' => [
-            'felogin' => '8.7.0-9.5.99',
-        ],
+  'constraints' => [
+    'depends' => [
+      'php' => '7.4-',
+      'typo3' => '8.7.0-10.4.99',
     ],
+    'conflicts' => [],
+    'suggests' => [
+      'felogin' => '8.7.0-10.4.99',
+    ],
+  ],
 
-    'autoload' => [
-        'psr-4' => [
-            'CodeFareith\\CfGoogleAuthenticator\\' => 'Classes',
-        ],
+  'autoload' => [
+    'psr-4' => [
+      'CodeFareith\\CfGoogleAuthenticator\\' => 'Classes',
     ],
-    'autoload-dev' => [
-        'psr-4' => [
-            'CodeFareith\\CfGoogleAuthenticator\\Tests\\' => 'Tests',
-        ],
+  ],
+  'autoload-dev' => [
+    'psr-4' => [
+      'CodeFareith\\CfGoogleAuthenticator\\Tests\\' => 'Tests',
     ],
+  ],
 ];

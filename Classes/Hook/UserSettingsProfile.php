@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 /**
  * Class UserSettings
  *
@@ -21,12 +23,12 @@ use CodeFareith\CfGoogleAuthenticator\Traits\GeneralUtilityObjectManager;
 use CodeFareith\CfGoogleAuthenticator\Utility\Base32Utility;
 use CodeFareith\CfGoogleAuthenticator\Utility\PathUtility;
 use Exception;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
+use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use function sprintf;
 use function vsprintf;
-use TYPO3\CMS\Backend\Form\Element\AbstractFormElement;
 
 /**
  * Hook for the user settings
@@ -38,7 +40,7 @@ use TYPO3\CMS\Backend\Form\Element\AbstractFormElement;
  * @package CodeFareith\CfGoogleAuthenticator\Hook
  * @since   1.0.0
  */
-class UserSettings extends AbstractFormElement
+class UserSettingsProfile
 {
     /*─────────────────────────────────────────────────────────────────────────────*\
             Traits
@@ -72,9 +74,10 @@ class UserSettings extends AbstractFormElement
      * @return string
      * @throws Exception
      */
-    public function render(): array
+    public function createSecretField(array $data): string
     {
-		$result = $this->initializeResultArray();
+        $result = $this->data;
+        $data = $result;
         $authenticationSecret = $this->getAuthenticationSecret();
         $templateView = $this->initializeTemplateView();
         $isEnabled = $this->isGoogleAuthenticatorEnabled();
@@ -97,9 +100,9 @@ class UserSettings extends AbstractFormElement
             ]
         );
 
-		$result['html'] = $templateView->render();
+        $result = $templateView->render();
 
-		return $result;
+        return $result;
     }
 
     private function initializeTemplateView(): StandaloneView

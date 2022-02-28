@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Configuration file for TYPO3 CMS Extension 'cf_google_authenticator'
  *
@@ -26,12 +27,6 @@ call_user_func(
 
         $extConf = \CodeFareith\CfGoogleAuthenticator\Utility\ExtensionBasicDataUtility::getExtensionConfiguration();
 
-        $objectManager = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-            \TYPO3\CMS\Extbase\Object\ObjectManager::class
-        );
-        $adapterFactory = $objectManager->get(\CodeFareith\CfGoogleAuthenticator\Service\GoogleAuthenticationServiceAdapterFactory::class);
-        $adapter = $adapterFactory->create();
-
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService(
             $_EXTKEY,
             'auth',
@@ -45,7 +40,7 @@ call_user_func(
                 'quality' => 80,
                 'os' => '',
                 'exec' => '',
-                'className' => get_class($adapter),
+                'className' => \CodeFareith\CfGoogleAuthenticator\Service\CoreAuthenticationServiceAdapter::class,
             ]
         );
 
@@ -76,26 +71,20 @@ call_user_func(
         }
 
         if ((bool) $extConf['googleAuthenticatorEnableBE'] === true) {
-            $globalsReference['TYPO3_CONF_VARS']
-                ['EXTCONF']
-                    ['backend']
-                        ['loginProviders']
-                            [1433416747]
-                                ['provider'] = \CodeFareith\CfGoogleAuthenticator\Provider\Login\GoogleAuthenticatorLoginProvider::class;
+            $globalsReference['TYPO3_CONF_VARS']['EXTCONF']['backend']['loginProviders'][1433416747]['provider'] = \CodeFareith\CfGoogleAuthenticator\Provider\Login\GoogleAuthenticatorLoginProvider::class;
         }
 
-        $globalsReference['TYPO3_CONF_VARS']
-            ['SC_OPTIONS']
-                ['t3lib/class.t3lib_tcemain.php']
-                    ['processDatamapClass']
-                        [$_EXTKEY] = \CodeFareith\CfGoogleAuthenticator\Hook\TCEMain::class;
+        $globalsReference['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][$_EXTKEY] = \CodeFareith\CfGoogleAuthenticator\Hook\TCEMain::class;
 
-        $globalsReference['TYPO3_CONF_VARS']
-            ['EXTCONF']
-                ['felogin']
-                    ['postProcContent']
-                        [$_EXTKEY] = \CodeFareith\CfGoogleAuthenticator\Hook\FeLogin::class . '->createOneTimePasswordField';
+        $globalsReference['TYPO3_CONF_VARS']['EXTCONF']['felogin']['postProcContent'][$_EXTKEY] = \CodeFareith\CfGoogleAuthenticator\Hook\FeLogin::class . '->createOneTimePasswordField';
+
+        // Register a node in ext_localconf.php
+        $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1606376982] = [
+            'nodeName' => 'TwoFactorAuth',
+            'priority' => 40,
+            'class' => \CodeFareith\CfGoogleAuthenticator\Hook\UserSettings::class,
+        ];
     },
     /** @var string $_EXTKEY */
-    $_EXTKEY
+    'cf_google_authenticator'
 );
