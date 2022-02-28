@@ -39,6 +39,7 @@ call_user_func(
                         'locallang_db.xlf'
                     ),
                     'type' => 'check',
+                    'table' => 'be_users',
                 ],
 
                 'tx_cfgoogleauthenticator_secret' => [
