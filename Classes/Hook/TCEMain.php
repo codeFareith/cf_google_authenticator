@@ -69,7 +69,7 @@ class TCEMain
     ): void
     {
         $otpInFieldArray = &$fieldArray['tx_cfgoogleauthenticator_otp'];
-        $otpInPostData = $_POST['data']['be_users']['tx_cfgoogleauthenticator_otp'];
+        $otpInPostData = $_POST['data'][$table]['tx_cfgoogleauthenticator_otp'];
 
         if ($otpInFieldArray === null && $otpInPostData !== null) {
             $otpInFieldArray = $otpInPostData;
