@@ -75,11 +75,11 @@ class TCEMain
             $otpInFieldArray = $otpInPostData;
         }
 
-        $otpInFieldArray2 = &$fieldArray['tx_cfgoogleauthenticator_secret'];
-        $otpInPostData2 = $_POST['data'][$table]['tx_cfgoogleauthenticator_secret'];
+        $secretInFieldArray = &$fieldArray['tx_cfgoogleauthenticator_secret'];
+        $secretInPostData = $_POST['data'][$table]['tx_cfgoogleauthenticator_secret'];
 
-        if ($otpInFieldArray2 === null && $otpInPostData2 !== null) {
-            $otpInFieldArray2 = $otpInPostData2;
+        if ($secretInFieldArray === null && $secretInPostData !== null) {
+            $secretInFieldArray = $secretInPostData;
         }
 
         $preProcessFieldArrayDTO = $this->getPreProcessFieldArrayDTO($fieldArray, $table, (int)$id, $dataHandler);
