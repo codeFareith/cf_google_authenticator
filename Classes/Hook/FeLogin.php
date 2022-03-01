@@ -3,7 +3,7 @@
  * Class FeLogin
  *
  * @author        Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
- * @copyright (c) 2018-2019 by Robin von den Bergen
+ * @copyright (c) 2018-2022 by Robin von den Bergen
  * @license       http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version       1.0.0
  *
@@ -18,7 +18,7 @@ use CodeFareith\CfGoogleAuthenticator\Traits\GeneralUtilityObjectManager;
 use CodeFareith\CfGoogleAuthenticator\Utility\ExtensionBasicDataUtility;
 use CodeFareith\CfGoogleAuthenticator\Utility\PathUtility;
 use TYPO3\CMS\Core\Service\MarkerBasedTemplateService;
-use TYPO3\CMS\Lang\LanguageService;
+use TYPO3\CMS\Core\Localization\LanguageService;
 
 /**
  * Hook for the TYPO3 CMS extension 'felogin'

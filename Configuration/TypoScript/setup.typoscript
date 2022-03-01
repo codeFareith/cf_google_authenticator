@@ -14,5 +14,17 @@ plugin {
                 1 = {$plugin.tx_cfgoogleauthenticator_setup.view.templateRootPath}
             }
         }
+
+        # Persistence mapping is required for TYPO3 v9
+        # (in TYPO3 v10, this has moved to EXT:cf_google_authenticator/Configuration/Extbase/Persistence/Classes.php)
+        persistence {
+            classes {
+                CodeFareith\CfGoogleAuthenticator\Domain\Model\FrontendUser {
+                    mapping {
+                        tableName = fe_users
+                    }
+                }
+            }
+        }
     }
 }

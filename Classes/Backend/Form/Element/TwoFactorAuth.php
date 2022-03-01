@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Class UserSettings
  *
@@ -12,7 +15,7 @@
  * @see           https://typo3.org
  */
 
-namespace CodeFareith\CfGoogleAuthenticator\Hook;
+namespace CodeFareith\CfGoogleAuthenticator\Backend\Form\Element;
 
 use CodeFareith\CfGoogleAuthenticator\Domain\Immutable\AuthenticationSecret;
 use CodeFareith\CfGoogleAuthenticator\Service\GoogleQrCodeGenerator;
@@ -21,14 +24,15 @@ use CodeFareith\CfGoogleAuthenticator\Traits\GeneralUtilityObjectManager;
 use CodeFareith\CfGoogleAuthenticator\Utility\Base32Utility;
 use CodeFareith\CfGoogleAuthenticator\Utility\PathUtility;
 use Exception;
-use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use function sprintf;
 use function vsprintf;
+use TYPO3\CMS\Backend\Form\Element\AbstractFormElement;
 
 /**
- * Hook for the user settings
+ * Custom field for the OTP setup in TCA
  *
  * This class hooks into the backend user settings,
  * to extend the view by creating a secret key and an image of
@@ -37,7 +41,7 @@ use function vsprintf;
  * @package CodeFareith\CfGoogleAuthenticator\Hook
  * @since   1.0.0
  */
-class UserSettings
+class TwoFactorAuth extends AbstractFormElement
 {
     /*─────────────────────────────────────────────────────────────────────────────*\
             Traits
@@ -66,26 +70,23 @@ class UserSettings
             Methods
     \*─────────────────────────────────────────────────────────────────────────────*/
     /**
-     * @param mixed[] $data
-     *
-     * @return string
+     * @return array
      * @throws Exception
      */
-    public function createSecretField(array $data): string
+    public function render(): array
     {
-        $this->data = $data;
-
+        $result = $this->initializeResultArray();
         $authenticationSecret = $this->getAuthenticationSecret();
         $templateView = $this->initializeTemplateView();
         $isEnabled = $this->isGoogleAuthenticatorEnabled();
         $qrCodeUri = $this->getQrCodeGenerator()->generateUri($authenticationSecret);
 
         $prefix = '';
-        if ($data['table'] !== null) {
-            $prefix .= sprintf('[%s]', $data['table']);
+        if ($this->data['tableName'] !== null) {
+            $prefix .= sprintf('[%s]', $this->data['tableName']);
         }
-        if ($data['uid'] !== null) {
-            $prefix .= sprintf('[%s]', $data['uid']);
+        if ($data['databaseRow']['uid'] !== null) {
+            $prefix .= sprintf('[%s]', (string)$this->data['databaseRow']['uid']);
         }
 
         $templateView->assignMultiple(
@@ -97,7 +98,9 @@ class UserSettings
             ]
         );
 
-        return $templateView->render();
+        $result['html'] = $templateView->render();
+
+        return $result;
     }
 
     private function initializeTemplateView(): StandaloneView
@@ -146,18 +149,30 @@ class UserSettings
     {
         $layer = '';
 
-        if ($this->data['table'] === 'fe_users') {
+        if ($this->data['tableName'] === 'fe_users') {
             $layer = 'Frontend';
-        } elseif ($this->data['table'] === 'be_users') {
+        } elseif ($this->data['tableName'] === 'be_users') {
             $layer = 'Backend';
         }
 
-        return $layer;
+        $dispatcher = GeneralUtility::makeInstance(Dispatcher::class);
+        $signalArguments = [
+            'table' => $this->data['tableName'],
+            'layer' => $layer,
+            'caller' => $this,
+        ];
+        $signalArguments = $dispatcher->dispatch(
+            __CLASS__,
+            'defineIssuerLayer',
+            $signalArguments
+        );
+
+        return $signalArguments['layer'];
     }
 
     private function getUsername(): string
     {
-        return $this->data['row']['username'] ?? '';
+        return $this->data['databaseRow']['username'] ?? '';
     }
 
     /**
@@ -183,7 +198,7 @@ class UserSettings
     private function getSecretKey(): string
     {
         if ($this->isGoogleAuthenticatorEnabled()) {
-            $secretKey = (string) $this->getBackendUser()->user['tx_cfgoogleauthenticator_secret'];
+            $secretKey = (string) $this->data['databaseRow']['tx_cfgoogleauthenticator_secret'];
         } else {
             $secretKey = Base32Utility::generateRandomString(16);
         }
@@ -193,7 +208,10 @@ class UserSettings
 
     private function isGoogleAuthenticatorEnabled(): bool
     {
-        return (bool) $this->getBackendUser()->user['tx_cfgoogleauthenticator_enabled'];
+        if ($this->data['parameterArray']['fieldConf']['config']['type'] === 'user' && !is_array($this->data['databaseRow'])) {
+            $this->data['databaseRow'] = $GLOBALS['BE_USER']->user;
+        }
+        return (bool) $this->data['databaseRow']['tx_cfgoogleauthenticator_enabled'];
     }
 
     private function getQrCodeGenerator(): QrCodeGeneratorInterface
@@ -204,10 +222,4 @@ class UserSettings
 
         return $this->qrCodeGenerator;
     }
-
-    private function getBackendUser(): BackendUserAuthentication
-    {
-        return $GLOBALS['BE_USER'];
-    }
 }
-

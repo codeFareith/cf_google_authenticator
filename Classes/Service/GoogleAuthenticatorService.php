@@ -3,7 +3,7 @@
  * Class GoogleAuthenticatorService
  *
  * @author        Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
- * @copyright (c) 2018-2019 by Robin von den Bergen
+ * @copyright (c) 2018-2022 by Robin von den Bergen
  * @license       http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version       1.0.0
  *
@@ -73,7 +73,8 @@ class GoogleAuthenticatorService
                 $logArgs
             );
 
-            $otp = GeneralUtility::_GP('google-authenticator-otp');
+            // TODO: Bypass OTP check in case we try to access the Install Tool? Or add support for OTP in prompt?
+            $otp = GeneralUtility::_GP('google-authenticator-otp') ?? '';
             $secret = $user['tx_cfgoogleauthenticator_secret'];
 
             if (GoogleAuthenticatorUtility::verifyOneTimePassword($secret, $otp) === true) {
