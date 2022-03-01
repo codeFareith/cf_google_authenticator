@@ -34,6 +34,7 @@ use TYPO3\CMS\Extbase\Object\Exception as ObjectException;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 use TYPO3\CMS\Core\Localization\LanguageService;
+use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use function get_class;
 use function vsprintf;
 
@@ -82,6 +83,11 @@ class SetupController
      */
     private $authenticationSecret;
 
+    /**
+     * @var Dispatcher
+     */
+    protected $dispatcher;
+
     /*─────────────────────────────────────────────────────────────────────────────*\
             Methods
     \*─────────────────────────────────────────────────────────────────────────────*/
@@ -90,7 +96,8 @@ class SetupController
         GoogleQrCodeGenerator $qrCodeGenerator,
         SetupFormValidator $setupFormValidator,
         LanguageService $languageService,
-        Context $context
+        Context $context,
+        Dispatcher $dispatcher
     )
     {
         $this->frontendUserRepository = $frontendUserRepository;
@@ -98,6 +105,7 @@ class SetupController
         $this->setupFormValidator = $setupFormValidator;
         $this->languageService = $languageService;
         $this->context = $context;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -151,15 +159,30 @@ class SetupController
             if ($user !== null) {
                 $formData = (array)$this->request->getArgument(SetupForm::FORM_NAME);
 
+                $action = null;
                 if ($this->request->hasArgument('enable')) {
                     $user->enableGoogleAuthenticator($formData['secret']);
+                    $action = 'enable';
                 } elseif ($this->request->hasArgument('disable')) {
                     $user->disableGoogleAuthenticator();
+                    $action = 'disable';
                 }
 
                 $this->frontendUserRepository->update($user);
 
                 $this->addSuccessMessage();
+
+                if ($action !== null) {
+                    $this->dispatcher->dispatch(
+                        __CLASS__,
+                        'toggleGoogleAuthenticator',
+                        [
+                            'action' => $action,
+                            'user' => $user,
+                            'caller' => $this,
+                        ]
+                    );
+                }
 
                 $this->redirect('index');
             }
