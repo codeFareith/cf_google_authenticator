@@ -17,7 +17,6 @@
             <directory suffix=".php">../../Classes</directory>
             <exclude>
                 <file>../../Classes/Service/CoreAuthenticationServiceAdapter.php</file>
-                <file>../../Classes/Service/LegacyAuthenticationServiceAdapter.php</file>
             </exclude>
         </whitelist>
     </filter>

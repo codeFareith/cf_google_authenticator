@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Configuration file for TYPO3 CMS Extension 'cf_google_authenticator'
  *
@@ -71,20 +70,32 @@ call_user_func(
         }
 
         if ((bool) $extConf['googleAuthenticatorEnableBE'] === true) {
-            $globalsReference['TYPO3_CONF_VARS']['EXTCONF']['backend']['loginProviders'][1433416747]['provider'] = \CodeFareith\CfGoogleAuthenticator\Provider\Login\GoogleAuthenticatorLoginProvider::class;
+            $globalsReference['TYPO3_CONF_VARS']
+                ['EXTCONF']
+                    ['backend']
+                        ['loginProviders']
+                            [1433416747]
+                                ['provider'] = \CodeFareith\CfGoogleAuthenticator\Provider\Login\GoogleAuthenticatorLoginProvider::class;
         }
 
-        $globalsReference['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][$_EXTKEY] = \CodeFareith\CfGoogleAuthenticator\Hook\TCEMain::class;
+        $globalsReference['TYPO3_CONF_VARS']
+            ['SC_OPTIONS']
+                ['t3lib/class.t3lib_tcemain.php']
+                    ['processDatamapClass']
+                        [$_EXTKEY] = \CodeFareith\CfGoogleAuthenticator\Hook\TCEMain::class;
 
-        $globalsReference['TYPO3_CONF_VARS']['EXTCONF']['felogin']['postProcContent'][$_EXTKEY] = \CodeFareith\CfGoogleAuthenticator\Hook\FeLogin::class . '->createOneTimePasswordField';
+        $globalsReference['TYPO3_CONF_VARS']
+            ['EXTCONF']
+                ['felogin']
+                    ['postProcContent']
+                        [$_EXTKEY] = \CodeFareith\CfGoogleAuthenticator\Hook\FeLogin::class . '->createOneTimePasswordField';
 
         // Register a node in ext_localconf.php
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1606376982] = [
             'nodeName' => 'TwoFactorAuth',
             'priority' => 40,
-            'class' => \CodeFareith\CfGoogleAuthenticator\Hook\UserSettings::class,
+            'class' => \CodeFareith\CfGoogleAuthenticator\Backend\Form\Element\TwoFactorAuth::class,
         ];
     },
-    /** @var string $_EXTKEY */
     'cf_google_authenticator'
 );

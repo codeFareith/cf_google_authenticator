@@ -3,7 +3,7 @@
  * Class TCEMain
  *
  * @author        Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
- * @copyright (c) 2018-2019 by Robin von den Bergen
+ * @copyright (c) 2018-2022 by Robin von den Bergen
  * @license       http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version       1.0.0
  *
@@ -54,7 +54,7 @@ class TCEMain
     /**
      * @noinspection MoreThanThreeArgumentsInspection
      *
-     * @param mixed      $fieldArray
+     * @param mixed $fieldArray
      * @param string|int $id
      *
      * @throws MissingRequiredField
@@ -69,20 +69,20 @@ class TCEMain
     ): void
     {
         $otpInFieldArray = &$fieldArray['tx_cfgoogleauthenticator_otp'];
-        $otpInPostData = $_POST['data']['be_users']['tx_cfgoogleauthenticator_otp'];
+        $otpInPostData = $_POST['data'][$table]['tx_cfgoogleauthenticator_otp'];
 
         if ($otpInFieldArray === null && $otpInPostData !== null) {
             $otpInFieldArray = $otpInPostData;
         }
 
-		$otpInFieldArray2 = &$fieldArray['tx_cfgoogleauthenticator_secret'];
-		$otpInPostData2 = $_POST['data']['be_users']['tx_cfgoogleauthenticator_secret'];
+        $secretInFieldArray = &$fieldArray['tx_cfgoogleauthenticator_secret'];
+        $secretInPostData = $_POST['data'][$table]['tx_cfgoogleauthenticator_secret'];
 
-        if ($otpInFieldArray2 === null && $otpInPostData2 !== null) {
-            $otpInFieldArray2 = $otpInPostData2;
-		}
+        if ($secretInFieldArray === null && $secretInPostData !== null) {
+            $secretInFieldArray = $secretInPostData;
+        }
 
-        $preProcessFieldArrayDTO = $this->getPreProcessFieldArrayDTO($fieldArray, $table, (int) $id, $dataHandler);
+        $preProcessFieldArrayDTO = $this->getPreProcessFieldArrayDTO($fieldArray, $table, (int)$id, $dataHandler);
         $result = $this->getGoogleAuthenticatorSetupHandler()->process($preProcessFieldArrayDTO);
 
         $fieldArray = array_merge($fieldArray, $result);

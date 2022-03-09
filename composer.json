@@ -46,16 +46,16 @@
     "rss": "https://github.com/codeFareith/cf_google_authenticator/commits/master.atom"
   },
   "require": {
-    "typo3/cms-core": "^8.7 || ^9.5 || ^10.4",
-    "typo3/cms-reports": "^8.7 || ^9.5 || ^10.4",
-    "typo3/cms-setup": "^8.7 || ^9.5 || ^10.4",
+    "typo3/cms-core": "^9.5 || ^10.4",
+    "typo3/cms-reports": "^9.5 || ^10.4",
+    "typo3/cms-setup": "^9.5 || ^10.4",
     "ext-json": "*"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
-    "typo3/testing-framework": "^2.0.1",
+    "typo3/testing-framework": "^3.4.2",
     "phpunit/php-code-coverage": "5.3.2",
-    "codeception/codeception": "^3.0"
+    "codeception/codeception": "^4.1"
   },
   "conflict": {},
   "replace": {
@@ -66,6 +66,7 @@
   "suggest": {
     "typo3/cms-felogin": "Needed to support 2FA for frontend accounts."
   },
+
   "autoload": {
     "psr-0": {},
     "psr-4": {
@@ -103,7 +104,7 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-master": "1.1.x-dev"
+      "dev-master": "1.2.x-dev"
     },
     "typo3/cms": {
       "extension-key": "cf_google_authenticator",

@@ -1,11 +1,12 @@
 <?php
 
 declare(strict_types=1);
+
 /**
  * Class UserSettings
  *
  * @author        Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
- * @copyright (c) 2018-2019 by Robin von den Bergen
+ * @copyright (c) 2018-2022 by Robin von den Bergen
  * @license       http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version       1.0.0
  *
@@ -14,7 +15,7 @@ declare(strict_types=1);
  * @see           https://typo3.org
  */
 
-namespace CodeFareith\CfGoogleAuthenticator\Hook;
+namespace CodeFareith\CfGoogleAuthenticator\Backend\Form\Element;
 
 use CodeFareith\CfGoogleAuthenticator\Domain\Immutable\AuthenticationSecret;
 use CodeFareith\CfGoogleAuthenticator\Service\GoogleQrCodeGenerator;
@@ -23,15 +24,15 @@ use CodeFareith\CfGoogleAuthenticator\Traits\GeneralUtilityObjectManager;
 use CodeFareith\CfGoogleAuthenticator\Utility\Base32Utility;
 use CodeFareith\CfGoogleAuthenticator\Utility\PathUtility;
 use Exception;
-use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
-use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use function sprintf;
 use function vsprintf;
+use TYPO3\CMS\Backend\Form\Element\AbstractFormElement;
 
 /**
- * Hook for the user settings
+ * Custom field for the OTP setup in TCA
  *
  * This class hooks into the backend user settings,
  * to extend the view by creating a secret key and an image of
@@ -40,7 +41,7 @@ use function vsprintf;
  * @package CodeFareith\CfGoogleAuthenticator\Hook
  * @since   1.0.0
  */
-class UserSettingsProfile
+class TwoFactorAuth extends AbstractFormElement
 {
     /*─────────────────────────────────────────────────────────────────────────────*\
             Traits
@@ -69,15 +70,12 @@ class UserSettingsProfile
             Methods
     \*─────────────────────────────────────────────────────────────────────────────*/
     /**
-     * @param mixed[] $data
-     *
-     * @return string
+     * @return array
      * @throws Exception
      */
-    public function createSecretField(array $data): string
+    public function render(): array
     {
-        $result = $this->data;
-        $data = $result;
+        $result = $this->initializeResultArray();
         $authenticationSecret = $this->getAuthenticationSecret();
         $templateView = $this->initializeTemplateView();
         $isEnabled = $this->isGoogleAuthenticatorEnabled();
@@ -100,7 +98,7 @@ class UserSettingsProfile
             ]
         );
 
-        $result = $templateView->render();
+        $result['html'] = $templateView->render();
 
         return $result;
     }

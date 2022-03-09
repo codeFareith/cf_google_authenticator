@@ -5,6 +5,6 @@ return [
         'tableName' => 'fe_users',
     ],
     \CodeFareith\CfGoogleAuthenticator\Domain\Model\BackendUser::class => [
-		'tableName' => 'be_users',
+        'tableName' => 'be_users',
     ],
 ];

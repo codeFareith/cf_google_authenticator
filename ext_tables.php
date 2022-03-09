@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Configuration file for TYPO3 CMS Extension 'cf_google_authenticator'
  *
@@ -25,10 +24,11 @@ defined('TYPO3_MODE')
     or die('Access denied.');
 
 call_user_func(
-    static function (/*$_EXTKEY*/) {
+    static function ($_EXTKEY) {
         $globalsReference = &$GLOBALS;
 
-        // $globalsReference['TBE_STYLES']['stylesheet2'] = \CodeFareith\CfGoogleAuthenticator\Utility\PathUtility::makeExtensionPath('Resources/Public/Css/cf_google_authenticator.css');
+        $globalsReference['TBE_STYLES']
+            ['stylesheet2'] = \CodeFareith\CfGoogleAuthenticator\Utility\PathUtility::makeExtensionPath('Resources/Public/Css/cf_google_authenticator.css');
 
         $globalsReference['TYPO3_USER_SETTINGS']['columns'] = array_merge(
             $globalsReference['TYPO3_USER_SETTINGS']['columns'],
@@ -48,22 +48,19 @@ call_user_func(
                         'locallang_db.xlf'
                     ),
                     'type' => 'user',
-                    'userFunc' => \CodeFareith\CfGoogleAuthenticator\Hook\UserSettingsProfile::class . '->createSecretField',
-                    'table' => 'be_users',
+                    'userFunc' => \CodeFareith\CfGoogleAuthenticator\Hook\UserSettings::class . '->createSecretField',
                 ],
             ]
         );
-
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToUserSettings(
             '--div--;'
-                . \CodeFareith\CfGoogleAuthenticator\Utility\PathUtility::makeLocalLangLinkPath(
-                    'tx_cfgoogleauthenticator',
-                    'locallang_db.xlf'
-                ) . ',
+            . \CodeFareith\CfGoogleAuthenticator\Utility\PathUtility::makeLocalLangLinkPath(
+                'tx_cfgoogleauthenticator',
+                'locallang_db.xlf'
+            ) . ',
                 tx_cfgoogleauthenticator_enabled,
                 tx_cfgoogleauthenticator_secret'
         );
     },
-    /** @var string $_EXTKEY */
     'cf_google_authenticator'
 );

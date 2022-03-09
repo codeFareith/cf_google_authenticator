@@ -6,7 +6,7 @@
  * are represented and handled in the TYPO3 backend.
  *
  * @author        Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
- * @copyright (c) 2018-2019 by Robin von den Bergen
+ * @copyright (c) 2018-2022 by Robin von den Bergen
  * @license       http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version       1.0.0
  *
@@ -31,6 +31,13 @@ call_user_func(
                     ),
                     'config' => [
                         'type' => 'check',
+                        'renderType' => 'checkboxToggle',
+                        'items' => [
+                            [
+                                0 => '',
+                                1 => '',
+                            ]
+                        ],
                     ],
                 ],
                 'tx_cfgoogleauthenticator_secret' => [
