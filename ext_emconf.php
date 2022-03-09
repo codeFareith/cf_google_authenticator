@@ -1,47 +1,36 @@
 <?php
-/**
- * Declaration file for TYPO3 CMS Extension 'cf_google_authenticator'
- *
- * This file contains a declaration of what this extension is and does for the
- * Extension Manager.
- *
- * @author        Robin 'codeFareith' von den Bergen <robinvonberg@gmx.de>
- * @copyright (c) 2018-2019 by Robin von den Bergen
- * @license       http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version       1.0.0
- *
- * @link          https://github.com/codeFareith/cf_google_authenticator
- * @see           https://www.fareith.de
- * @see           https://typo3.org
- */
 
-/** @var string $_EXTKEY */
+/***************************************************************
+ * Extension Manager/Repository config file for ext "cf_google_authenticator".
+ *
+ * Auto generated 23-11-2020 17:42
+ *
+ * Manual updates:
+ * Only the data in the array - everything else is removed by next
+ * writing. "version" and "dependencies" must not be touched!
+ ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = [
     'title' => '[codeFareith] Google Authenticator',
     'description' => 'Enable Google 2FA (two factor authentication) for both, frontend- and backend accounts.',
     'category' => 'misc',
-
     'author' => 'Robin "codeFareith" von den Bergen',
     'author_email' => 'robin@vondenbergen.de',
     'author_company' => '',
-
     'state' => 'stable',
     'version' => '1.2.4',
-
     'uploadFolders' => false,
     'createDirs' => '',
     'clearCacheOnLoad' => true,
-
     'constraints' => [
         'depends' => [
-            'php' => '7.1-',
-            'typo3' => '8.7.0-9.5.99',
+            'php' => '7.2-',
+            'typo3' => '9.5.0-10.4.99',
         ],
         'conflicts' => [
         ],
         'suggests' => [
-            'felogin' => '8.7.0-9.5.99',
+            'felogin' => '9.5.0-10.4.99',
         ],
     ],
 
@@ -56,3 +45,4 @@ $EM_CONF[$_EXTKEY] = [
         ],
     ],
 ];
+

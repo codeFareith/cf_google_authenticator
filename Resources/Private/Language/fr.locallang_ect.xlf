@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.0">
+    <file datatype="plaintext"
+          date="2018-06-03T12:00:00Z"
+          original="messages"
+          product-name="cf_google_authenticator"
+          source-language="en"
+          target-language="fr"
+    >
+        <header/>
+        <body>
+            <trans-unit id="basic.googleAuthenticatorEnableBE">
+                <target>BE activé : Google Authenticator pour la connexion au backend est activé.</target>
+            </trans-unit>
+            <trans-unit id="basic.googleAuthenticatorEnableFE">
+                <target>FE activé : Google Authenticator pour la connexion frontend est activé.</target>
+            </trans-unit>
+            <trans-unit id="basic.feLoginTemplate">
+                <source>FE-Login Template File : si googleAuthenticatorEnableFE est défini et que vous utilisez EXT:felogin pour la connexion frontend de votre site, le modèle original "FrontendLogin.html" doit être remplacé par un modèle qui fournit le champ de mot de passe à usage unique.</source>
+            </trans-unit>
+            <trans-unit id="basic.devlog">
+                <target>Devlog : Écrire des informations de débog dans Devlog.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

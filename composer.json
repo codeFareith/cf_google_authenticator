@@ -46,9 +46,9 @@
     "rss": "https://github.com/codeFareith/cf_google_authenticator/commits/master.atom"
   },
   "require": {
-    "typo3/cms-core": "^8.7 || ^9.5",
-    "typo3/cms-reports": "^8.7 || ^9.5",
-    "typo3/cms-setup": "^8.7 || ^9.5",
+    "typo3/cms-core": "^9.5 || ^10.4",
+    "typo3/cms-reports": "^9.5 || ^10.4",
+    "typo3/cms-setup": "^9.5 || ^10.4",
     "ext-json": "*"
   },
   "require-dev": {

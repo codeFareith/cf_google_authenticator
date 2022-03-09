@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.0">
+    <file datatype="plaintext"
+          date="2018-06-03T12:00:00Z"
+          original="messages"
+          product-name="cf_google_authenticator"
+          source-language="en"
+          target-language="fr"
+    >
+        <header/>
+        <body>
+            <trans-unit id="googleQrImage">
+                <target>Google Authenticator QR-Code</target>
+            </trans-unit>
+
+            <trans-unit id="secret">
+                <target>Clé</target>
+            </trans-unit>
+
+            <trans-unit id="otp">
+                <target>Mot de passe unique</target>
+            </trans-unit>
+
+            <trans-unit id="storeSecret">
+                <target>Rangez cette clé dans un endroit sûr.</target>
+            </trans-unit>
+            <trans-unit id="recoverAuthenticator">
+                <target>Vous aurez besoin de la clé si vous devez un jour restaurer l'Authenticator.</target>
+            </trans-unit>
+            <trans-unit id="disableAuthenticator">
+                <target>Pour désactiver Google Authenticator, décochez la case ci-dessus et saisissez un mot de passe à usage unique valide.</target>
+            </trans-unit>
+
+            <trans-unit id="setup.enable.success.title">
+                <source>Succès!</source>
+            </trans-unit>
+            <trans-unit id="setup.enable.success.body">
+                <source>Votre compte est désormais également protégé par une authentification à deux facteurs.</source>
+            </trans-unit>
+            <trans-unit id="setup.disable.success.title">
+                <source>Succès!</source>
+            </trans-unit>
+            <trans-unit id="setup.disable.success.body">
+                <source>Vous avez désactivé l'authentification à deux facteurs.</source>
+            </trans-unit>
+            <trans-unit id="setup.enable.error.title">
+                <source>Oops!</source>
+            </trans-unit>
+            <trans-unit id="setup.enable.error.body">
+                <source>Le mot de passe à usage unique indiqué était incorrect ou a expiré.</source>
+            </trans-unit>
+            <trans-unit id="setup.disable.error.title">
+                <source>Oops!</source>
+            </trans-unit>
+            <trans-unit id="setup.disable.error.body">
+                <source>Le mot de passe à usage unique indiqué était incorrect ou a expiré.</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
