@@ -18,7 +18,7 @@ use CodeFareith\CfGoogleAuthenticator\Traits\GeneralUtilityObjectManager;
 use CodeFareith\CfGoogleAuthenticator\Utility\ExtensionBasicDataUtility;
 use CodeFareith\CfGoogleAuthenticator\Utility\PathUtility;
 use TYPO3\CMS\Core\Service\MarkerBasedTemplateService;
-use TYPO3\CMS\Lang\LanguageService;
+use TYPO3\CMS\Core\Localization\LanguageService;
 
 /**
  * Hook for the TYPO3 CMS extension 'felogin'
