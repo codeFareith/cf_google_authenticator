@@ -46,6 +46,10 @@ class CoreAuthenticationServiceAdapter
 
     public function authUser(array $user): int
     {
+        // only handle request for actual login requests
+        if (empty($this->login['status']) || $this->login['status'] !== 'login') {
+            return GoogleAuthenticatorService::AUTH_FAIL_AND_PROCEED;
+        }
         parent::authUser($user);
         return $this->service->authUser($user);
     }
