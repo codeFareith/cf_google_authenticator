@@ -30,7 +30,7 @@ call_user_func(
         $globalsReference['TBE_STYLES']
             ['stylesheet2'] = \CodeFareith\CfGoogleAuthenticator\Utility\PathUtility::makeExtensionPath('Resources/Public/Css/cf_google_authenticator.css');
 
-        if (TYPO3_version >= '9.0.0') {
+        if (TYPO3_version >= '8.7.0') {
             $globalsReference['TYPO3_USER_SETTINGS']['columns'] = array_merge(
                 $globalsReference['TYPO3_USER_SETTINGS']['columns'],
                 [
