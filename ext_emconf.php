@@ -18,22 +18,22 @@ $EM_CONF[$_EXTKEY] = array (
   'author_email' => 'robin@vondenbergen.de',
   'author_company' => '',
   'state' => 'stable',
-  'version' => '1.2.4',
+  'version' => '1.3.0-dev',
   'uploadFolders' => false,
   'clearCacheOnLoad' => true,
   'constraints' =>
   array (
     'depends' =>
     array (
-      'php' => '7.1-',
-      'typo3' => '10.4.99-',
+      'php' => '7.4-',
+      'typo3' => '11.5.0-11.5.99',
+      'felogin' => '11.5.0-11.5.99',
     ),
     'conflicts' =>
     array (
     ),
     'suggests' =>
     array (
-      'felogin' => '10.4.99-',
     ),
   ),
   'autoload' =>
