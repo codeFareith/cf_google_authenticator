@@ -10,47 +10,37 @@
  * writing. "version" and "dependencies" must not be touched!
  ***************************************************************/
 
-$EM_CONF[$_EXTKEY] = array (
-  'title' => '[codeFareith] Google Authenticator',
-  'description' => 'Enable Google 2FA (two factor authentication) for both, frontend- and backend accounts.',
-  'category' => 'misc',
-  'author' => 'Robin "codeFareith" von den Bergen',
-  'author_email' => 'robin@vondenbergen.de',
-  'author_company' => '',
-  'state' => 'stable',
-  'version' => '1.3.0-dev',
-  'uploadFolders' => false,
-  'clearCacheOnLoad' => true,
-  'constraints' =>
-  array (
-    'depends' =>
-    array (
-      'php' => '7.4-',
-      'typo3' => '11.5.0-11.5.99',
-      'felogin' => '11.5.0-11.5.99',
-    ),
-    'conflicts' =>
-    array (
-    ),
-    'suggests' =>
-    array (
-    ),
-  ),
-  'autoload' =>
-  array (
-    'psr-4' =>
-    array (
-      'CodeFareith\\CfGoogleAuthenticator\\' => 'Classes',
-    ),
-  ),
-  'autoload-dev' =>
-  array (
-    'psr-4' =>
-    array (
-      'CodeFareith\\CfGoogleAuthenticator\\Tests\\' => 'Tests',
-    ),
-  ),
-  'uploadfolder' => false,
-  'clearcacheonload' => true,
-);
+$EM_CONF[$_EXTKEY] = [
+    'title' => '[codeFareith] Google Authenticator',
+    'description' => 'Enable Google 2FA (two factor authentication) for both, frontend- and backend accounts.',
+    'category' => 'misc',
+    'author' => 'Robin "codeFareith" von den Bergen',
+    'author_email' => 'robin@vondenbergen.de',
+    'author_company' => '',
+    'state' => 'stable',
+    'version' => '1.3.0-dev',
+    'uploadFolders' => false,
+    'clearCacheOnLoad' => true,
+    'constraints' => [
+        'depends' => [
+            'php' => '7.4-',
+            'typo3' => '11.5.0-11.5.99',
+            'felogin' => '11.5.0-11.5.99',
+        ],
+        'conflicts' => [],
+        'suggests' => [],
+    ],
+    'autoload' => [
+        'psr-4' => [
+            'CodeFareith\\CfGoogleAuthenticator\\' => 'Classes',
+        ],
+    ],
+    'autoload-dev' => [
+        'psr-4' => [
+            'CodeFareith\\CfGoogleAuthenticator\\Tests\\' => 'Tests',
+        ],
+    ],
+    'uploadfolder' => false,
+    'clearcacheonload' => true,
+];
 

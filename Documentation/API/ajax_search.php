@@ -24,7 +24,7 @@ $qry = $xpath->query(
     "//value[contains(translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', "
     . "'abcdefghijklmnopqrstuvwxyz'), '$term')]/.."
 );
-$results = array();
+$results = [];
 
 /** @var DOMElement $element */
 foreach ($qry as $element) {
