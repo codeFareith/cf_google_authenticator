@@ -22,8 +22,6 @@ defined('TYPO3_MODE')
 
 call_user_func(
     static function ($_EXTKEY) {
-        $globalsReference = &$GLOBALS;
-
         $extConf = \CodeFareith\CfGoogleAuthenticator\Utility\ExtensionBasicDataUtility::getExtensionConfiguration();
 
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService(
@@ -70,7 +68,7 @@ call_user_func(
         }
 
         if ((bool) $extConf['googleAuthenticatorEnableBE'] === true) {
-            $globalsReference['TYPO3_CONF_VARS']
+            $GLOBALS['TYPO3_CONF_VARS']
                 ['EXTCONF']
                     ['backend']
                         ['loginProviders']
@@ -78,13 +76,13 @@ call_user_func(
                                 ['provider'] = \CodeFareith\CfGoogleAuthenticator\Provider\Login\GoogleAuthenticatorLoginProvider::class;
         }
 
-        $globalsReference['TYPO3_CONF_VARS']
+        $GLOBALS['TYPO3_CONF_VARS']
             ['SC_OPTIONS']
                 ['t3lib/class.t3lib_tcemain.php']
                     ['processDatamapClass']
                         [$_EXTKEY] = \CodeFareith\CfGoogleAuthenticator\Hook\TCEMain::class;
 
-        $globalsReference['TYPO3_CONF_VARS']
+        $GLOBALS['TYPO3_CONF_VARS']
             ['EXTCONF']
                 ['felogin']
                     ['postProcContent']

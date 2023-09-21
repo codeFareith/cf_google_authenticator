@@ -25,36 +25,32 @@ defined('TYPO3_MODE')
 
 call_user_func(
     static function (/*$_EXTKEY*/) {
-        $globalsReference = &$GLOBALS;
-
-        $globalsReference['TBE_STYLES']
+        $GLOBALS['TBE_STYLES']
             ['stylesheet2'] = \CodeFareith\CfGoogleAuthenticator\Utility\PathUtility::makeExtensionPath('Resources/Public/Css/cf_google_authenticator.css');
 
-        if (TYPO3_version >= '9.0.0') {
-            $globalsReference['TYPO3_USER_SETTINGS']['columns'] = array_merge(
-                $globalsReference['TYPO3_USER_SETTINGS']['columns'],
-                [
-                    'tx_cfgoogleauthenticator_enabled' => [
-                        'label' => \CodeFareith\CfGoogleAuthenticator\Utility\PathUtility::makeLocalLangLinkPath(
-                            'be_users.tx_cfgoogleauthenticator_enabled',
-                            'locallang_db.xlf'
-                        ),
-                        'type' => 'check',
-                        'table' => 'be_users',
-                    ],
+        $GLOBALS['TYPO3_USER_SETTINGS']['columns'] = array_merge(
+            $GLOBALS['TYPO3_USER_SETTINGS']['columns'],
+            [
+                'tx_cfgoogleauthenticator_enabled' => [
+                    'label' => \CodeFareith\CfGoogleAuthenticator\Utility\PathUtility::makeLocalLangLinkPath(
+                        'be_users.tx_cfgoogleauthenticator_enabled',
+                        'locallang_db.xlf'
+                    ),
+                    'type' => 'check',
+                    'table' => 'be_users',
+                ],
 
-                    'tx_cfgoogleauthenticator_secret' => [
-                        'label' => \CodeFareith\CfGoogleAuthenticator\Utility\PathUtility::makeLocalLangLinkPath(
-                            'be_users.tx_cfgoogleauthenticator_secret',
-                            'locallang_db.xlf'
-                        ),
-                        'type' => 'user',
-                        'userFunc' => \CodeFareith\CfGoogleAuthenticator\Hook\UserSettings::class . '->createSecretField',
-                        'table' => 'be_users',
-                    ],
-                ]
-            );
-        }
+                'tx_cfgoogleauthenticator_secret' => [
+                    'label' => \CodeFareith\CfGoogleAuthenticator\Utility\PathUtility::makeLocalLangLinkPath(
+                        'be_users.tx_cfgoogleauthenticator_secret',
+                        'locallang_db.xlf'
+                    ),
+                    'type' => 'user',
+                    'userFunc' => \CodeFareith\CfGoogleAuthenticator\Hook\UserSettings::class . '->createSecretField',
+                    'table' => 'be_users',
+                ],
+            ]
+        );
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToUserSettings(
             '--div--;'
             . \CodeFareith\CfGoogleAuthenticator\Utility\PathUtility::makeLocalLangLinkPath(
@@ -66,5 +62,5 @@ call_user_func(
         );
     },
     /** @var string $_EXTKEY */
-    $_EXTKEY
+    'cf_google_authenticator'
 );
