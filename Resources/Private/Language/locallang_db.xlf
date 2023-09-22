@@ -12,13 +12,6 @@
                 <source>Google Authenticator</source>
             </trans-unit>
 
-            <trans-unit id="be_users.tx_cfgoogleauthenticator_enabled">
-                <source>Enable Google Authenticator</source>
-            </trans-unit>
-            <trans-unit id="be_users.tx_cfgoogleauthenticator_secret">
-                <source>Google Authenticator secret</source>
-            </trans-unit>
-
             <trans-unit id="fe_users.tx_cfgoogleauthenticator_enabled">
                 <source>Enable Google Authenticator</source>
             </trans-unit>

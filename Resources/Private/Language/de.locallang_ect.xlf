@@ -10,7 +10,7 @@
         <header/>
         <body>
             <trans-unit id="basic.devlog">
-                <target>Devlog: Schreibe Debug-Informationen in Devlog.</target>
+                <target>Devlog: Schreibe Debug-Informationen in den TYPO3-Logger.</target>
             </trans-unit>
         </body>
     </file>

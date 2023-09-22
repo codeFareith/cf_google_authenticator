@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.0">
+    <file datatype="plaintext"
+          date="2023-09-22T13:39:15Z"
+          original="messages"
+          product-name="cf_google_authenticator"
+          source-language="en"
+          target-language="fr"
+    >
+        <header/>
+        <body>
+            <trans-unit id="GoogleAuthenticatorOTP">
+                <target>Code Google Authenticator</target>
+            </trans-unit>
+
+            <trans-unit id="plugin.setup">
+                <target>Configuration de l'authentification à deux facteurs de Google</target>
+            </trans-unit>
+
+            <trans-unit id="otp">
+                <target>Mot de passe à usage unique</target>
+            </trans-unit>
+            <trans-unit id="disableAuthenticator">
+                <target>Pour désactiver Google Authenticator, saisissez un mot de passe à usage unique valide et cliquez sur le bouton DÉSACTIVER.</target>
+            </trans-unit>
+
+            <trans-unit id="setup.index.step1.title">
+                <target>Scanner le code QR</target>
+            </trans-unit>
+            <trans-unit id="setup.index.step1.body">
+                <target>Scannez le code QR ci-dessous dans votre application d'authentification.</target>
+            </trans-unit>
+            <trans-unit id="setup.index.step2.title">
+                <target>Garder le secret en lieu sûr</target>
+            </trans-unit>
+            <trans-unit id="setup.index.step2.body">
+                <target>Vous aurez besoin de ce code si vous devez récupérer votre authentificateur.</target>
+            </trans-unit>
+            <trans-unit id="setup.index.step3.title">
+                <target>Saisir le code de vérification</target>
+            </trans-unit>
+            <trans-unit id="setup.index.step3.body">
+                <target>Après avoir scanné le code QR, saisissez le code de vérification à 6 chiffres généré par l'application d'authentification.</target>
+            </trans-unit>
+            <trans-unit id="setup.index.action.enable">
+                <target>Activer</target>
+            </trans-unit>
+            <trans-unit id="setup.index.action.disable">
+                <target>Désactiver</target>
+            </trans-unit>
+
+            <trans-unit id="setup.update.success.title">
+                <target>Succès !</target>
+            </trans-unit>
+            <trans-unit id="setup.update.success.body">
+                <target>Vos modifications ont été enregistrées avec succès.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

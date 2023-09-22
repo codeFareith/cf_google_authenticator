@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xliff version="1.0">
     <file datatype="plaintext"
-          date="2018-06-03T12:00:00Z"
+          date="2023-09-22T13:39:15Z"
           original="messages"
           product-name="cf_google_authenticator"
           source-language="en"
+          target-language="fr"
     >
         <header/>
         <body>
             <trans-unit id="basic.devlog">
-                <source>Devlog: Write debug information to the TYPO3 logger.</source>
+                <target>Devlog: Écrire des informations de débogage dans le logger TYPO3.</target>
             </trans-unit>
         </body>
     </file>
