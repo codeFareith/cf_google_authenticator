@@ -17,7 +17,6 @@ namespace CodeFareith\CfGoogleAuthenticator\Hook;
 use CodeFareith\CfGoogleAuthenticator\Domain\Immutable\AuthenticationSecret;
 use CodeFareith\CfGoogleAuthenticator\Service\GoogleQrCodeGenerator;
 use CodeFareith\CfGoogleAuthenticator\Service\QrCodeGeneratorInterface;
-use CodeFareith\CfGoogleAuthenticator\Traits\GeneralUtilityObjectManager;
 use CodeFareith\CfGoogleAuthenticator\Utility\Base32Utility;
 use CodeFareith\CfGoogleAuthenticator\Utility\PathUtility;
 use Exception;
@@ -40,11 +39,6 @@ use TYPO3\CMS\Backend\Form\Element\AbstractFormElement;
  */
 class UserSettings extends AbstractFormElement
 {
-    /*─────────────────────────────────────────────────────────────────────────────*\
-            Traits
-    \*─────────────────────────────────────────────────────────────────────────────*/
-    use GeneralUtilityObjectManager;
-
     /*─────────────────────────────────────────────────────────────────────────────*\
             Properties
     \*─────────────────────────────────────────────────────────────────────────────*/
@@ -100,7 +94,7 @@ class UserSettings extends AbstractFormElement
         $templatePath = $this->getTemplatePath();
 
         /** @var StandaloneView $templateView */
-        $templateView = $this->objectManager()->get(StandaloneView::class);
+        $templateView = GeneralUtility::makeInstance(StandaloneView::class);
         $templateView->setLayoutRootPaths([$templatePath . 'Layouts/']);
         $templateView->setPartialRootPaths([$templatePath . 'Partials/']);
         $templateView->setTemplateRootPaths([$templatePath . 'Templates/']);
@@ -173,7 +167,7 @@ class UserSettings extends AbstractFormElement
     private function getAuthenticationSecret(): AuthenticationSecret
     {
         if ($this->authenticationSecret === null) {
-            $this->authenticationSecret = $this->objectManager()->get(
+            $this->authenticationSecret = GeneralUtility::makeInstance(
                 AuthenticationSecret::class,
                 $this->getIssuer(),
                 $this->getUsername(),
@@ -209,7 +203,7 @@ class UserSettings extends AbstractFormElement
     private function getQrCodeGenerator(): QrCodeGeneratorInterface
     {
         if ($this->qrCodeGenerator === null) {
-            $this->qrCodeGenerator = $this->objectManager()->get(GoogleQrCodeGenerator::class);
+            $this->qrCodeGenerator = GeneralUtility::makeInstance(GoogleQrCodeGenerator::class);
         }
 
         return $this->qrCodeGenerator;

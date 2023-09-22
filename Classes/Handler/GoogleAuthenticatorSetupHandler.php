@@ -21,7 +21,7 @@ use CodeFareith\CfGoogleAuthenticator\Exception\MissingRequiredField;
 use CodeFareith\CfGoogleAuthenticator\Exception\PropertyNotInitialized;
 use CodeFareith\CfGoogleAuthenticator\Utility\GoogleAuthenticatorUtility;
 use ReflectionException;
-use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use function in_array;
 use function preg_replace;
@@ -35,11 +35,6 @@ class GoogleAuthenticatorSetupHandler
     /*─────────────────────────────────────────────────────────────────────────────*\
             Properties
     \*─────────────────────────────────────────────────────────────────────────────*/
-    /**
-     * @var ObjectManagerInterface
-     */
-    protected $objectManager;
-
     /**
      * @var Dispatcher
      */
@@ -58,9 +53,8 @@ class GoogleAuthenticatorSetupHandler
     /*─────────────────────────────────────────────────────────────────────────────*\
             Methods
     \*─────────────────────────────────────────────────────────────────────────────*/
-    public function __construct(ObjectManagerInterface $objectManager, Dispatcher $dispatcher)
+    public function __construct(Dispatcher $dispatcher)
     {
-        $this->objectManager = $objectManager;
         $this->dispatcher = $dispatcher;
     }
 
@@ -118,7 +112,7 @@ class GoogleAuthenticatorSetupHandler
      */
     private function initGoogleAuthenticatorSettingsDTO(): void
     {
-        $this->googleAuthenticatorSettingsDTO = $this->objectManager->get(GoogleAuthenticatorSettingsDTO::class);
+        $this->googleAuthenticatorSettingsDTO = GeneralUtility::makeInstance(GoogleAuthenticatorSettingsDTO::class);
 
         if ($this->isNewUser() === false) {
             $recordInfo = $this->preProcessFieldArrayDTO->getDataHandler()->recordInfo(

@@ -26,6 +26,7 @@ use Exception;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
@@ -187,7 +188,7 @@ class SetupController
     private function getAuthenticationSecret(): AuthenticationSecret
     {
         if ($this->authenticationSecret === null) {
-            $this->authenticationSecret = $this->objectManager->get(
+            $this->authenticationSecret = GeneralUtility::makeInstance(
                 AuthenticationSecret::class,
                 $this->getIssuer(),
                 $this->getUsername(),
@@ -253,7 +254,7 @@ class SetupController
      */
     private function getSetupForm(): SetupForm
     {
-        $object = $this->objectManager->get(
+        $object = GeneralUtility::makeInstance(
             SetupForm::class,
             $this->getAuthenticationSecret()->getSecretKey(),
             ''
@@ -282,7 +283,7 @@ class SetupController
         $formData = (array)$this->request->getArgument(SetupForm::FORM_NAME);
 
         /** @var SetupForm $formObject */
-        $formObject = $this->objectManager->get(
+        $formObject = GeneralUtility::makeInstance(
             SetupForm::class,
             $formData['secret'],
             $formData['oneTimePassword']

@@ -14,8 +14,8 @@
 
 namespace CodeFareith\CfGoogleAuthenticator\Service;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use function version_compare;
 
 /**
@@ -25,16 +25,9 @@ use function version_compare;
 class GoogleAuthenticationServiceAdapterFactory
     implements AuthenticationServiceAdapterFactory
 {
-    protected $objectManager;
-
-    public function __construct(ObjectManager $objectManager)
-    {
-        $this->objectManager = $objectManager;
-    }
-
     public function create(): AuthenticationService
     {
-        return $this->objectManager->get(
+        return GeneralUtility::makeInstance(
             $this->suggestServiceAdapter(),
             $this->suggestAuthenticatorService()
         );
@@ -60,6 +53,6 @@ class GoogleAuthenticationServiceAdapterFactory
 
     private function suggestAuthenticatorService(): AuthenticationService
     {
-        return $this->objectManager->get(GoogleAuthenticatorService::class);
+        return GeneralUtility::makeInstance(GoogleAuthenticatorService::class);
     }
 }
