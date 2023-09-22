@@ -138,7 +138,7 @@ class SetupController
     public function updateAction(): void
     {
         if ($this->isValidUpdateRequest()) {
-            $user = $this->getFrontendUser();
+            $user = $this->initializeFrontendUser();
 
             if ($user !== null) {
                 $formData = (array)$this->request->getArgument(SetupForm::FORM_NAME);
@@ -180,7 +180,7 @@ class SetupController
             $this->authenticationSecret = GeneralUtility::makeInstance(
                 AuthenticationSecret::class,
                 $this->getIssuer(),
-                $this->getUsername(),
+                $this->getFrontendUser()['username'],
                 $this->getSecretKey()
             );
         }
@@ -204,18 +204,13 @@ class SetupController
         return $GLOBALS['TYPO3_CONF_VARS']['SYS']['sitename'];
     }
 
-    private function getUsername(): string
-    {
-        return $GLOBALS['TSFE']->fe_user->user['username'];
-    }
-
     /**
      * @throws Exception
      */
     private function getSecretKey(): string
     {
         if ($this->isGoogleAuthenticatorEnabled()) {
-            $secretKey = $GLOBALS['TSFE']->fe_user->user['tx_cfgoogleauthenticator_secret'];
+            $secretKey = $this->getFrontendUser()['tx_cfgoogleauthenticator_secret'];
         } else {
             $secretKey = Base32Utility::generateRandomString(16);
         }
@@ -235,7 +230,7 @@ class SetupController
 
     private function isGoogleAuthenticatorEnabled(): bool
     {
-        return (bool)$GLOBALS['TSFE']->fe_user->user['tx_cfgoogleauthenticator_enabled'];
+        return (bool)$this->getFrontendUser()['tx_cfgoogleauthenticator_enabled'];
     }
 
     /**
@@ -281,19 +276,12 @@ class SetupController
         return $formObject;
     }
 
-    private function getFrontendUser(): FrontendUser
+    private function initializeFrontendUser(): FrontendUser
     {
-        $user = null;
-
-        $userId = $this->getFrontendUserId();
+        $userId = $this->getFrontendUser()['uid'];
         $user = $this->frontendUserRepository->findByUid($userId);
 
         return $user;
-    }
-
-    private function getFrontendUserId()
-    {
-        return $GLOBALS['TSFE']->fe_user->user['uid'];
     }
 
     private function getLanguageService(): LanguageService
@@ -316,5 +304,10 @@ class SetupController
             ),
             FlashMessage::OK
         );
+    }
+
+    private function getFrontendUser(): array
+    {
+        return $this->request->getAttribute('frontend.user')->user;
     }
 }
