@@ -1,3 +1,10 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:cfga="http://typo3.org/ns/CodeFareith/CfGoogleAuthenticator/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
 <div>
-    <img src="{src}" alt="{f:translate(key: 'googleQrImage', extensionName: 'cf_google_authenticator')}">
+    <cfga:qrImage secret="{authenticationSecret}"
+                  alt="{f:translate(key: 'googleQrImage', extensionName: 'cf_google_authenticator')}"/>
 </div>
+
+</html>

@@ -31,15 +31,14 @@
                     <f:render
                         partial="Backend/Form/QrCode"
                         arguments="{
-                            src: qrCodeUri,
-                            secret: authenticatorSecret,
+                            authenticationSecret: authenticatorSecret,
                             prefix: prefix
                         }"
                     />
                     <f:render
                         partial="Backend/Form/Secret"
                         arguments="{
-                            secret: authenticatorSecret,
+                            secret: authenticatorSecret.secretKey,
                             prefix: prefix
                         }"
                     />

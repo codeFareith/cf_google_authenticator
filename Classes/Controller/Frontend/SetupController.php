@@ -18,7 +18,6 @@ use CodeFareith\CfGoogleAuthenticator\Domain\Form\SetupForm;
 use CodeFareith\CfGoogleAuthenticator\Domain\Immutable\AuthenticationSecret;
 use CodeFareith\CfGoogleAuthenticator\Domain\Model\FrontendUser;
 use CodeFareith\CfGoogleAuthenticator\Domain\Repository\FrontendUserRepository;
-use CodeFareith\CfGoogleAuthenticator\Service\GoogleQrCodeGenerator;
 use CodeFareith\CfGoogleAuthenticator\Utility\Base32Utility;
 use CodeFareith\CfGoogleAuthenticator\Utility\PathUtility;
 use CodeFareith\CfGoogleAuthenticator\Validation\Validator\SetupFormValidator;
@@ -59,11 +58,6 @@ class SetupController
     protected $frontendUserRepository;
 
     /**
-     * @var GoogleQrCodeGenerator
-     */
-    protected $qrCodeGenerator;
-
-    /**
      * @var SetupFormValidator
      */
     protected $setupFormValidator;
@@ -88,16 +82,12 @@ class SetupController
     \*─────────────────────────────────────────────────────────────────────────────*/
     public function __construct(
         FrontendUserRepository $frontendUserRepository,
-        GoogleQrCodeGenerator $qrCodeGenerator,
         SetupFormValidator $setupFormValidator,
         LanguageService $languageService,
         Context $context
     )
     {
-        //parent::__construct();
-
         $this->frontendUserRepository = $frontendUserRepository;
-        $this->qrCodeGenerator = $qrCodeGenerator;
         $this->setupFormValidator = $setupFormValidator;
         $this->languageService = $languageService;
         $this->context = $context;
@@ -112,14 +102,13 @@ class SetupController
             $authenticationSecret = $this->getAuthenticationSecret();
             $isEnabled = $this->isGoogleAuthenticatorEnabled();
             $setupForm = $this->getSetupForm();
-            $qrCodeUri = $this->qrCodeGenerator->generateUri($authenticationSecret);
 
             $this->view->assignMultiple(
                 [
                     'isEnabled' => $isEnabled,
                     'formData' => $setupForm,
                     'formName' => SetupForm::FORM_NAME,
-                    'qrCodeUri' => $qrCodeUri,
+                    'authenticationSecret' => $authenticationSecret,
                 ]
             );
         }

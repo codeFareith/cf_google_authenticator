@@ -49,7 +49,8 @@
     "typo3/cms-core": "^11",
     "typo3/cms-reports": "^11",
     "typo3/cms-setup": "^11",
-    "ext-json": "*"
+    "ext-json": "*",
+    "chillerlan/php-qrcode": "5.0-beta"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",

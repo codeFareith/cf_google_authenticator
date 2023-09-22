@@ -15,8 +15,6 @@
 namespace CodeFareith\CfGoogleAuthenticator\Hook;
 
 use CodeFareith\CfGoogleAuthenticator\Domain\Immutable\AuthenticationSecret;
-use CodeFareith\CfGoogleAuthenticator\Service\GoogleQrCodeGenerator;
-use CodeFareith\CfGoogleAuthenticator\Service\QrCodeGeneratorInterface;
 use CodeFareith\CfGoogleAuthenticator\Utility\Base32Utility;
 use CodeFareith\CfGoogleAuthenticator\Utility\PathUtility;
 use Exception;
@@ -47,11 +45,6 @@ class UserSettings extends AbstractFormElement
      */
     private $authenticationSecret;
 
-    /**
-     * @var QrCodeGeneratorInterface
-     */
-    private $qrCodeGenerator;
-
     /*─────────────────────────────────────────────────────────────────────────────*\
             Methods
     \*─────────────────────────────────────────────────────────────────────────────*/
@@ -62,10 +55,8 @@ class UserSettings extends AbstractFormElement
     public function render(): array
     {
 		$result = $this->initializeResultArray();
-        $authenticationSecret = $this->getAuthenticationSecret();
         $templateView = $this->initializeTemplateView();
         $isEnabled = $this->isGoogleAuthenticatorEnabled();
-        $qrCodeUri = $this->getQrCodeGenerator()->generateUri($authenticationSecret);
 
         $prefix = '';
         if ($this->data['tableName'] !== null) {
@@ -79,8 +70,7 @@ class UserSettings extends AbstractFormElement
             [
                 'prefix' => $prefix,
                 'isEnabled' => $isEnabled,
-                'qrCodeUri' => $qrCodeUri,
-                'authenticatorSecret' => $this->getAuthenticationSecret()->getSecretKey(),
+                'authenticatorSecret' => $this->getAuthenticationSecret(),
             ]
         );
 
@@ -198,14 +188,5 @@ class UserSettings extends AbstractFormElement
             $this->data['databaseRow'] = $GLOBALS['BE_USER']->user;
         }
         return (bool) $this->data['databaseRow']['tx_cfgoogleauthenticator_enabled'];
-    }
-
-    private function getQrCodeGenerator(): QrCodeGeneratorInterface
-    {
-        if ($this->qrCodeGenerator === null) {
-            $this->qrCodeGenerator = GeneralUtility::makeInstance(GoogleQrCodeGenerator::class);
-        }
-
-        return $this->qrCodeGenerator;
     }
 }
