@@ -15,15 +15,16 @@
 namespace CodeFareith\CfGoogleAuthenticator\Hook;
 
 use CodeFareith\CfGoogleAuthenticator\Domain\Immutable\AuthenticationSecret;
+use CodeFareith\CfGoogleAuthenticator\Event\DefineIssuerLayerEvent;
 use CodeFareith\CfGoogleAuthenticator\Utility\Base32Utility;
 use CodeFareith\CfGoogleAuthenticator\Utility\PathUtility;
 use Exception;
+use TYPO3\CMS\Backend\Form\Element\AbstractFormElement;
+use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use function sprintf;
 use function vsprintf;
-use TYPO3\CMS\Backend\Form\Element\AbstractFormElement;
 
 /**
  * Hook for the user settings
@@ -131,19 +132,15 @@ class UserSettings extends AbstractFormElement
             $layer = 'Backend';
         }
 
-        $dispatcher = GeneralUtility::makeInstance(Dispatcher::class);
-        $signalArguments = [
-            'table' => $this->data['tableName'],
-            'layer' => $layer,
-            'caller' => $this,
-        ];
-        $signalArguments = $dispatcher->dispatch(
-            __CLASS__,
-            'defineIssuerLayer',
-            $signalArguments
+        $eventDispatcher = GeneralUtility::makeInstance(EventDispatcher::class);
+        $event = new DefineIssuerLayerEvent(
+            $this,
+            $this->data['tableName'],
+            $layer
         );
+        $eventDispatcher->dispatch($event);
 
-        return $signalArguments['layer'];
+        return $event->getLayer();
     }
 
     private function getUsername(): string

@@ -17,12 +17,13 @@ namespace CodeFareith\CfGoogleAuthenticator\Handler;
 use CodeFareith\CfGoogleAuthenticator\Domain\DataTransferObject\GoogleAuthenticatorSettingsDTO;
 use CodeFareith\CfGoogleAuthenticator\Domain\DataTransferObject\PreProcessFieldArrayDTO;
 use CodeFareith\CfGoogleAuthenticator\Domain\Mapper\GoogleAuthenticatorSettingsMapper;
+use CodeFareith\CfGoogleAuthenticator\Event\CollectAllowedTablesEvent;
 use CodeFareith\CfGoogleAuthenticator\Exception\MissingRequiredField;
 use CodeFareith\CfGoogleAuthenticator\Exception\PropertyNotInitialized;
 use CodeFareith\CfGoogleAuthenticator\Utility\GoogleAuthenticatorUtility;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use ReflectionException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\SignalSlot\Dispatcher;
 use function in_array;
 use function preg_replace;
 
@@ -36,9 +37,9 @@ class GoogleAuthenticatorSetupHandler
             Properties
     \*─────────────────────────────────────────────────────────────────────────────*/
     /**
-     * @var Dispatcher
+     * @var EventDispatcherInterface
      */
-    protected $dispatcher;
+    protected $eventDispatcher;
 
     /**
      * @var PreProcessFieldArrayDTO
@@ -53,9 +54,9 @@ class GoogleAuthenticatorSetupHandler
     /*─────────────────────────────────────────────────────────────────────────────*\
             Methods
     \*─────────────────────────────────────────────────────────────────────────────*/
-    public function __construct(Dispatcher $dispatcher)
+    public function __construct(EventDispatcherInterface $eventDispatcher)
     {
-        $this->dispatcher = $dispatcher;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -85,20 +86,16 @@ class GoogleAuthenticatorSetupHandler
     {
         $table = $this->preProcessFieldArrayDTO->getTable();
 
-        $signalArguments = [
-            'tables' => [
+        $event = new CollectAllowedTablesEvent(
+            $this,
+            [
                 'be_users',
-                'fe_users'
-            ],
-            'caller' => $this,
-        ];
-        $signalArguments = $this->dispatcher->dispatch(
-            __CLASS__,
-            'collectAllowedTables',
-            $signalArguments
+                'fe_users',
+            ]
         );
+        $this->eventDispatcher->dispatch($event);
 
-        return in_array($table, $signalArguments['tables'], true);
+        return in_array($table, $event->getTables(), true);
     }
 
     private function setPreProcessFieldArrayDTO(PreProcessFieldArrayDTO $preProcessFieldArrayDTO): void
