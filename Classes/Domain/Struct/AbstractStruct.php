@@ -93,6 +93,7 @@ abstract class AbstractStruct
      * @throws PropertyNotFound
      * @throws ReflectionException
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         if (!$this->offsetExists($offset)) {
