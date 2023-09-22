@@ -52,12 +52,11 @@ call_user_func(
             \CodeFareith\CfGoogleAuthenticator\Utility\ExtensionBasicDataUtility::getVendorName() . '.' . \CodeFareith\CfGoogleAuthenticator\Utility\ExtensionBasicDataUtility::getExtensionKey(),
             'Setup',
             [
-                'Frontend\Setup' => 'index,form,update',
+                \CodeFareith\CfGoogleAuthenticator\Controller\Frontend\SetupController::class => 'index,form,update',
             ],
             [
-                'Frontend\Setup' => 'form,update',
-            ],
-            \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_PLUGIN
+                \CodeFareith\CfGoogleAuthenticator\Controller\Frontend\SetupController::class => 'form,update',
+            ]
         );
 
         $GLOBALS['TYPO3_CONF_VARS']
