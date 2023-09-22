@@ -2,6 +2,9 @@
       data-namespace-typo3-fluid="true">
 
 <f:flashMessages/>
+<f:if condition="{cookieWarning}">
+    <f:render partial="CookieWarning"/>
+</f:if>
 
 <f:if condition="{messageKey}">
     <h3>
@@ -11,10 +14,18 @@
         <f:render partial="RenderLabelOrMessage" arguments="{key: '{messageKey}_message'}"/>
     </p>
 </f:if>
-
-<f:form target="_top" fieldNamePrefix="" action="login" requestToken="{requestToken}" additionalAttributes="{spellcheck: 'false'}">
-    <f:render section="content" arguments="{_all}"/>
-</f:form>
+<f:if condition="{onSubmit}">
+    <f:then>
+        <f:form target="_top" fieldNamePrefix="" action="login" onsubmit="{onSubmit}" additionalAttributes="{spellcheck: 'false'}">
+            <f:render section="content" arguments="{_all}"/>
+        </f:form>
+    </f:then>
+    <f:else>
+        <f:form target="_top" fieldNamePrefix="" action="login" additionalAttributes="{spellcheck: 'false'}">
+            <f:render section="content" arguments="{_all}"/>
+        </f:form>
+    </f:else>
+</f:if>
 
 <f:if condition="{settings.showForgotPassword}">
     <f:link.action action="recovery" controller="PasswordRecovery">
@@ -70,6 +81,7 @@
 
         <div class="felogin-hidden">
             <f:form.hidden name="logintype" value="login"/>
+            <f:form.hidden name="pid" value="{storagePid}"/>
             <f:if condition="{redirectURL}!=''">
                 <f:form.hidden name="redirect_url" value="{redirectURL}"/>
             </f:if>

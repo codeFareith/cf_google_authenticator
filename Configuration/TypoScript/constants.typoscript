@@ -15,3 +15,15 @@ plugin {
         }
     }
 }
+
+[typo3.branch == "11.5"]
+    plugin {
+        tx_cfgoogleauthenticator_setup {
+            tx_felogin_login {
+                view {
+                    templateRootPath = EXT:cf_google_authenticator/Resources/Private/EXT_felogin/Templates/TYPO3v11/
+                }
+            }
+        }
+    }
+[global]
