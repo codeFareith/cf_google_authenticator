@@ -14,9 +14,7 @@
 
 namespace CodeFareith\CfGoogleAuthenticator\Domain\Model;
 
-use TYPO3\CMS\Extbase\Domain\Model\FrontendUser as FEUser;
-
-/** @noinspection LongInheritanceChainInspection */
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
  * Extension of the FrontendUser model
@@ -28,11 +26,16 @@ use TYPO3\CMS\Extbase\Domain\Model\FrontendUser as FEUser;
  * @since   1.0.0
  */
 class FrontendUser
-    extends FEUser
+    extends AbstractEntity
 {
     /*─────────────────────────────────────────────────────────────────────────────*\
             Properties
     \*─────────────────────────────────────────────────────────────────────────────*/
+    /**
+     * @var string
+     */
+    protected string $username;
+
     /**
      * @var bool
      */
@@ -46,6 +49,21 @@ class FrontendUser
     /*─────────────────────────────────────────────────────────────────────────────*\
             Methods
     \*─────────────────────────────────────────────────────────────────────────────*/
+    public function __construct(string $username = '')
+    {
+        $this->username = $username;
+    }
+
+    /**
+     * Returns the username value
+     *
+     * @return string
+     */
+    public function getUsername(): string
+    {
+        return $this->username;
+    }
+
     public function isTxCfgoogleauthenticatorEnabled(): bool
     {
         return $this->txCfgoogleauthenticatorEnabled;
