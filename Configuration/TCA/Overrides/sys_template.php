@@ -15,8 +15,7 @@
  * @see           https://typo3.org
  */
 
-defined('TYPO3_MODE')
-    or die('Access denied');
+defined('TYPO3') || die();
 
 call_user_func(
     static function () {
