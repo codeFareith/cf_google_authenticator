@@ -46,11 +46,11 @@
     "rss": "https://github.com/codeFareith/cf_google_authenticator/commits/master.atom"
   },
   "require": {
-    "typo3/cms-core": "^11",
-    "typo3/cms-reports": "^11",
-    "typo3/cms-setup": "^11",
+    "php": ">= 7.4.0, <= 8.2.99",
     "ext-json": "*",
-    "chillerlan/php-qrcode": "5.0-beta"
+    "typo3/cms-core": "^11",
+    "typo3/cms-felogin": "^11",
+    "chillerlan/php-qrcode": "^4.3 || 5.0-beta"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
