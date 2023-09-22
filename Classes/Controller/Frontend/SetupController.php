@@ -22,13 +22,14 @@ use CodeFareith\CfGoogleAuthenticator\Utility\Base32Utility;
 use CodeFareith\CfGoogleAuthenticator\Utility\PathUtility;
 use CodeFareith\CfGoogleAuthenticator\Validation\Validator\SetupFormValidator;
 use Exception;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
-use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException;
 use TYPO3\CMS\Extbase\Object\Exception as ObjectException;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
@@ -94,9 +95,10 @@ class SetupController
     }
 
     /**
+     * @return ResponseInterface
      * @throws Exception
      */
-    public function indexAction(): void
+    public function indexAction(): ResponseInterface
     {
         if ($this->isUserLoggedin()) {
             $authenticationSecret = $this->getAuthenticationSecret();
@@ -112,6 +114,8 @@ class SetupController
                 ]
             );
         }
+
+        return $this->htmlResponse($this->view->render());
     }
 
     /**
@@ -129,13 +133,13 @@ class SetupController
     }
 
     /**
+     * @return ResponseInterface
      * @throws NoSuchArgumentException
-     * @throws StopActionException
      * @throws IllegalObjectTypeException
      * @throws UnknownObjectException
      * @throws UnsupportedRequestTypeException
      */
-    public function updateAction(): void
+    public function updateAction(): ResponseInterface
     {
         if ($this->isValidUpdateRequest()) {
             $user = $this->initializeFrontendUser();
@@ -153,11 +157,11 @@ class SetupController
 
                 $this->addSuccessMessage();
 
-                $this->redirect('index');
+                return $this->redirect('index');
             }
         }
 
-        $this->forward('index');
+        return new ForwardResponse('index');
     }
 
     /**
