@@ -40,7 +40,8 @@ class MFAUpdateWizard implements UpgradeWizardInterface
 
     public function updateNecessary(): bool
     {
-        foreach (['be_users', 'fe_users'] as $table) {
+        $tables = ['be_users', /*'fe_users'*/];
+        foreach ($tables as $table) {
             $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
                 ->getQueryBuilderForTable($table);
 
@@ -63,7 +64,8 @@ class MFAUpdateWizard implements UpgradeWizardInterface
 
     public function executeUpdate(): bool
     {
-        foreach (['be_users', 'fe_users'] as $table) {
+        $tables = ['be_users', /*'fe_users'*/];
+        foreach ($tables as $table) {
             $tableConnection = GeneralUtility::makeInstance(ConnectionPool::class)
                 ->getConnectionForTable($table);
             $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
