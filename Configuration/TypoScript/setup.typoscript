@@ -15,4 +15,12 @@ plugin {
             }
         }
     }
+
+    tx_felogin_login {
+        view {
+            layoutRootPaths.11 = {$plugin.tx_cfgoogleauthenticator_setup.tx_felogin_login.view.layoutRootPath}
+            partialRootPaths.11 = {$plugin.tx_cfgoogleauthenticator_setup.tx_felogin_login.view.partialRootPath}
+            templateRootPaths.11 = {$plugin.tx_cfgoogleauthenticator_setup.tx_felogin_login.view.templateRootPath}
+        }
+    }
 }

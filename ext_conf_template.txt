@@ -2,8 +2,5 @@
 #   CfGoogleAuthenticator (cf_google_authenticator)
 #
 
-# cat=basic/enable; type=string; label=LLL:EXT:cf_google_authenticator/Resources/Private/Language/locallang_ect.xlf:basic.feLoginTemplate
-feLoginTemplate = EXT:cf_google_authenticator/Resources/Private/Templates/FeLogin/FrontendLogin.html
-
 # cat=basic/enable; type=boolean; label=LLL:EXT:cf_google_authenticator/Resources/Private/Language/locallang_ect.xlf:basic.devlog
 devlog = 0

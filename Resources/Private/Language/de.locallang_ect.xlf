@@ -9,9 +9,6 @@
     >
         <header/>
         <body>
-            <trans-unit id="basic.feLoginTemplate">
-                <source>FE-Login Template Datei: wenn Sie EXT:felogin für den Frontend Login ihrer Seite verwenden, muss das originale "FrontendLogin.html"-Template durch eines ersetzt werden, welches das Einmal-Passwort-Feld bereitstellt.</source>
-            </trans-unit>
             <trans-unit id="basic.devlog">
                 <target>Devlog: Schreibe Debug-Informationen in Devlog.</target>
             </trans-unit>

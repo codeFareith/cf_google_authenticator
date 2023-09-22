@@ -61,21 +61,11 @@ call_user_func(
             \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_PLUGIN
         );
 
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptConstants(
-            'styles.content.loginform.templateFile = ' . $extConf['feLoginTemplate']
-        );
-
         $GLOBALS['TYPO3_CONF_VARS']
             ['SC_OPTIONS']
                 ['t3lib/class.t3lib_tcemain.php']
                     ['processDatamapClass']
                         [$_EXTKEY] = \CodeFareith\CfGoogleAuthenticator\Hook\TCEMain::class;
-
-        $GLOBALS['TYPO3_CONF_VARS']
-            ['EXTCONF']
-                ['felogin']
-                    ['postProcContent']
-						[$_EXTKEY] = \CodeFareith\CfGoogleAuthenticator\Hook\FeLogin::class . '->createOneTimePasswordField';
 
 		// Register a node in ext_localconf.php
 		$GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeRegistry'][1606376982] = [

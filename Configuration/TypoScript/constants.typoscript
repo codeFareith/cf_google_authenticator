@@ -5,5 +5,13 @@ plugin {
             partialRootPath = EXT:cf_google_authenticator/Resources/Private/Partials/
             templateRootPath = EXT:cf_google_authenticator/Resources/Private/Templates/
         }
+
+        tx_felogin_login {
+            view {
+                layoutRootPath = EXT:cf_google_authenticator/Resources/Private/EXT_felogin/Layouts/
+                partialRootPath = EXT:cf_google_authenticator/Resources/Private/EXT_felogin/Partials/
+                templateRootPath = EXT:cf_google_authenticator/Resources/Private/EXT_felogin/Templates/
+            }
+        }
     }
 }
