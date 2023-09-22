@@ -42,6 +42,12 @@
             <trans-unit id="setup.index.step3.body">
                 <target>Nachdem Sie den QR-Code eingescannt haben, geben Sie den 6 Ziffern Verifizierungscode ein, den Ihre Authenticator App generiert hat.</target>
             </trans-unit>
+            <trans-unit id="setup.index.action.enable">
+                <target>Aktivieren</target>
+            </trans-unit>
+            <trans-unit id="setup.index.action.disable">
+                <target>Deaktivieren</target>
+            </trans-unit>
 
             <trans-unit id="setup.update.success.title">
                 <target>Erfolgreich!</target>
