@@ -8,10 +8,6 @@
     >
         <header/>
         <body>
-            <trans-unit id="googleQrImage">
-                <source>Google Authenticator QR-Code</source>
-            </trans-unit>
-
             <trans-unit id="secret">
                 <source>Secret</source>
             </trans-unit>

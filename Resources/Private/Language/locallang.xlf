@@ -12,6 +12,10 @@
                 <source>Google Authenticator Code</source>
             </trans-unit>
 
+            <trans-unit id="googleQrImage">
+                <source>Google Authenticator QR-Code</source>
+            </trans-unit>
+
             <trans-unit id="plugin.setup">
                 <source>Google Two-Factor-Authentication Setup</source>
             </trans-unit>

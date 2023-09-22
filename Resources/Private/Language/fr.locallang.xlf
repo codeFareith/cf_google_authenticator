@@ -13,6 +13,10 @@
                 <target>Code Google Authenticator</target>
             </trans-unit>
 
+            <trans-unit id="googleQrImage">
+                <target>QR-Code de Google Authenticator</target>
+            </trans-unit>
+
             <trans-unit id="plugin.setup">
                 <target>Configuration de l'authentification à deux facteurs de Google</target>
             </trans-unit>
