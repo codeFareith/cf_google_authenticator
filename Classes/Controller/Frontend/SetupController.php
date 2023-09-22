@@ -30,7 +30,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
-use TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 use TYPO3\CMS\Core\Localization\LanguageService;
@@ -136,7 +135,6 @@ class SetupController
      * @throws NoSuchArgumentException
      * @throws IllegalObjectTypeException
      * @throws UnknownObjectException
-     * @throws UnsupportedRequestTypeException
      */
     public function updateAction(): ResponseInterface
     {
