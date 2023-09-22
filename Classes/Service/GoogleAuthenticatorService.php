@@ -16,6 +16,9 @@ namespace CodeFareith\CfGoogleAuthenticator\Service;
 
 use CodeFareith\CfGoogleAuthenticator\Utility\ExtensionBasicDataUtility;
 use CodeFareith\CfGoogleAuthenticator\Utility\GoogleAuthenticatorUtility;
+use Psr\Log\LoggerInterface;
+use TYPO3\CMS\Core\Log\Logger;
+use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use function vsprintf;
 
@@ -96,10 +99,7 @@ class GoogleAuthenticatorService
     private function writeDevLog(string $message): void
     {
         if ((bool) $this->extConf['devlog'] === true) {
-            GeneralUtility::devLog(
-                $message,
-                'tx_cfgoogleauthenticator_sv'
-            );
+            static::getLogger()->debug($message);
         }
     }
 
@@ -108,5 +108,20 @@ class GoogleAuthenticatorService
         $this->writeDevLog(
             vsprintf($message, $args)
         );
+    }
+
+    /**
+     * Returns a logger.
+     *
+     * @return LoggerInterface
+     */
+    private static function getLogger(): LoggerInterface
+    {
+        /** @var Logger $logger */
+        static $logger = null;
+        if ($logger === null) {
+            $logger = GeneralUtility::makeInstance(LogManager::class)->getLogger(__CLASS__);
+        }
+        return $logger;
     }
 }
