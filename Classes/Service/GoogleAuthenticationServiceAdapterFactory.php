@@ -15,8 +15,6 @@
 namespace CodeFareith\CfGoogleAuthenticator\Service;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
-use function version_compare;
 
 /**
  * @package CodeFareith\CfGoogleAuthenticator\Service
@@ -35,20 +33,7 @@ class GoogleAuthenticationServiceAdapterFactory
 
     private function suggestServiceAdapter(): string
     {
-        if ($this->isLegacyInstallation()) {
-            $serviceAdapter = LegacyAuthenticationServiceAdapter::class;
-        } else {
-            $serviceAdapter = CoreAuthenticationServiceAdapter::class;
-        }
-
-        return $serviceAdapter;
-    }
-
-    private function isLegacyInstallation(): bool
-    {
-        $version = VersionNumberUtility::getNumericTypo3Version();
-
-        return version_compare($version, '9.0.0', '<');
+        return CoreAuthenticationServiceAdapter::class;
     }
 
     private function suggestAuthenticatorService(): AuthenticationService
