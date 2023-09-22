@@ -62,8 +62,6 @@ class UserSettings extends AbstractFormElement
             Methods
     \*─────────────────────────────────────────────────────────────────────────────*/
     /**
-     * @param mixed[] $data
-     *
      * @return string
      * @throws Exception
      */
@@ -79,7 +77,7 @@ class UserSettings extends AbstractFormElement
         if ($this->data['tableName'] !== null) {
             $prefix .= sprintf('[%s]', $this->data['tableName']);
         }
-        if ($data['databaseRow']['uid'] !== null) {
+        if ($this->data['databaseRow']['uid'] !== null) {
             $prefix .= sprintf('[%s]', (string)$this->data['databaseRow']['uid']);
         }
 
