@@ -21,8 +21,6 @@ defined('TYPO3') || die();
 
 call_user_func(
     static function ($_EXTKEY) {
-        $extConf = \CodeFareith\CfGoogleAuthenticator\Utility\ExtensionBasicDataUtility::getExtensionConfiguration();
-
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addService(
             $_EXTKEY,
             'auth',

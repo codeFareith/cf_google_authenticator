@@ -53,23 +53,8 @@ final class ExtensionBasicDataUtility
 
     public static function getExtensionConfiguration(): array
     {
-        try {
-            /** @var ExtensionConfiguration $extensionConfiguration */
-            $extensionConfiguration = GeneralUtility::makeInstance(ExtensionConfiguration::class);
-            $configuration = $extensionConfiguration->get(self::getExtensionKey());
-        } catch (Throwable $e) {
-            $configuration = unserialize(
-                $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][self::getExtensionKey()],
-                [
-                    'allowed_classes' => false,
-                ]
-            );
-        }
-
-        if (!is_array($configuration)) {
-            $configuration = [];
-        }
-
-        return $configuration;
+        /** @var ExtensionConfiguration $extensionConfiguration */
+        $extensionConfiguration = GeneralUtility::makeInstance(ExtensionConfiguration::class);
+        return $extensionConfiguration->get(self::getExtensionKey()) ?? [];
     }
 }

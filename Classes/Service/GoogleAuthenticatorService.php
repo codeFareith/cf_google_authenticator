@@ -25,7 +25,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * Google Authenticator Service
  *
  * The Google Authenticator Service handles backend login requests.
- * When a user tries to log in, this service checks wether the
+ * When a user tries to log in, this service checks whether the
  * user has enabled the Google Authenticator.
  * If so, the given code (if any) is validated against the
  * stored secret and on success, the user can proceed.
@@ -65,9 +65,11 @@ class GoogleAuthenticatorService
     public function authUser(array $user): int
     {
         if ((bool) $user['tx_cfgoogleauthenticator_enabled'] === true) {
-            static::getLogger()->debug('Frontend login using Google Authenticator', [
-                'username' => $user['username'],
-            ]);
+            if ((bool)$this->extConf['devlog']) {
+                static::getLogger()->debug('Frontend login using Google Authenticator', [
+                    'username' => $user['username'],
+                ]);
+            }
 
             $otp = GeneralUtility::_GP('google-authenticator-otp');
             $secret = $user['tx_cfgoogleauthenticator_secret'];
@@ -78,9 +80,11 @@ class GoogleAuthenticatorService
                 $status = self::AUTH_FAIL_AND_STOP;
             }
         } else {
-            static::getLogger()->debug('Frontend login using TYPO3 password authentication', [
-                'username' => $user['username'],
-            ]);
+            if ((bool)$this->extConf['devlog']) {
+                static::getLogger()->debug('Frontend login using TYPO3 password authentication', [
+                    'username' => $user['username'],
+                ]);
+            }
 
             $status = static::AUTH_FAIL_AND_PROCEED;
         }
