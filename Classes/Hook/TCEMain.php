@@ -73,14 +73,14 @@ class TCEMain
         }
 
         $otpInFieldArray = &$fieldArray['tx_cfgoogleauthenticator_otp'];
-        $otpInPostData = $_POST['data'][$table]['tx_cfgoogleauthenticator_otp'];
+        $otpInPostData = $_POST['data'][$table]['tx_cfgoogleauthenticator_otp'] ?? null;
 
         if ($otpInFieldArray === null && $otpInPostData !== null) {
             $otpInFieldArray = $otpInPostData;
         }
 
 		$otpInFieldArray2 = &$fieldArray['tx_cfgoogleauthenticator_secret'];
-		$otpInPostData2 = $_POST['data'][$table]['tx_cfgoogleauthenticator_secret'];
+		$otpInPostData2 = $_POST['data'][$table]['tx_cfgoogleauthenticator_secret'] ?? null;
 
         if ($otpInFieldArray2 === null && $otpInPostData2 !== null) {
             $otpInFieldArray2 = $otpInPostData2;
