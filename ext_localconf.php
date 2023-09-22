@@ -61,11 +61,9 @@ call_user_func(
             \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_PLUGIN
         );
 
-        if ((bool) $extConf['googleAuthenticatorEnableFE'] === true) {
-            \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptConstants(
-                'styles.content.loginform.templateFile = ' . $extConf['feLoginTemplate']
-            );
-        }
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptConstants(
+            'styles.content.loginform.templateFile = ' . $extConf['feLoginTemplate']
+        );
 
         $GLOBALS['TYPO3_CONF_VARS']
             ['SC_OPTIONS']

@@ -57,7 +57,7 @@ class GoogleAuthenticatorService
     {
         $this->extConf = ExtensionBasicDataUtility::getExtensionConfiguration();
 
-        return ((bool) $this->extConf['googleAuthenticatorEnable' . TYPO3_MODE]);
+        return true;
     }
 
     public function authUser(array $user): int

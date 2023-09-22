@@ -54,30 +54,14 @@ class FeLogin
     \*─────────────────────────────────────────────────────────────────────────────*/
     public function createOneTimePasswordField(array $params): string
     {
-        $marker = [];
-
-        if ($this->isGoogleAuthenticatorEnabled()) {
-            $localLangLink = PathUtility::makeLocalLangLinkPath('GoogleAuthenticatorOTP');
-            $marker = [
-                '###OTP_LABEL###' => $this->getLanguageService()->sL($localLangLink),
-            ];
-        }
+        $localLangLink = PathUtility::makeLocalLangLinkPath('GoogleAuthenticatorOTP');
+        $marker = [
+            '###OTP_LABEL###' => $this->getLanguageService()->sL($localLangLink),
+        ];
 
         $content = $this->getMarkerBasedTemplateService()->substituteMarkerAndSubpartArrayRecursive($params['content'], $marker);
 
         return $content;
-    }
-
-    private function isGoogleAuthenticatorEnabled(): bool
-    {
-        $result = false;
-        $extConf = ExtensionBasicDataUtility::getExtensionConfiguration();
-
-        if ($extConf['googleAuthenticatorEnableFE'] !== null) {
-            $result = (bool) $extConf['googleAuthenticatorEnableFE'];
-        }
-
-        return $result;
     }
 
     private function getMarkerBasedTemplateService(): MarkerBasedTemplateService
