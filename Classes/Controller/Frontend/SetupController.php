@@ -31,7 +31,6 @@ use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
 use TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException;
-use TYPO3\CMS\Extbase\Object\Exception as ObjectException;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 use TYPO3\CMS\Core\Localization\LanguageService;
@@ -249,7 +248,7 @@ class SetupController
         );
 
         if (!$object instanceof SetupForm) {
-            throw new ObjectException(
+            throw new Exception(
                 vsprintf(
                     'Invalid class. Expected "%s", got "%s".',
                     [
