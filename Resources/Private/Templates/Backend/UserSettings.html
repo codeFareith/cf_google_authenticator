@@ -11,7 +11,7 @@
             }"
         />
 
-        <div class="form-control-wrap" style="max-width: 360px">
+        <div class="form-group" style="max-width: 360px">
             <f:if condition="{isEnabled}">
                 <f:then>
                     <f:render
@@ -21,10 +21,8 @@
                         }"
                     />
 
-                    <div>
-                        <span>
-                            <f:translate key="LLL:EXT:cf_google_authenticator/Resources/Private/Language/locallang_be.xlf:disableAuthenticator"/>
-                        </span>
+                    <div class="text-muted">
+                        <f:translate key="LLL:EXT:cf_google_authenticator/Resources/Private/Language/locallang_be.xlf:disableAuthenticator"/>
                     </div>
                 </f:then>
                 <f:else>

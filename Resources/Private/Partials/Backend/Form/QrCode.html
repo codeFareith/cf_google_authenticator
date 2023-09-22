@@ -2,7 +2,7 @@
       xmlns:cfga="http://typo3.org/ns/CodeFareith/CfGoogleAuthenticator/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
-<div>
+<div class="mb-2">
     <cfga:qrImage secret="{authenticationSecret}"
                   alt="{f:translate(key: 'googleQrImage', extensionName: 'cf_google_authenticator')}"
                   title="Secret: {authenticationSecret.secretKey}"
