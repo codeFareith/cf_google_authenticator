@@ -49,11 +49,6 @@ class UserSettings extends AbstractFormElement
             Properties
     \*─────────────────────────────────────────────────────────────────────────────*/
     /**
-     * @var mixed[]
-     */
-    protected $data;
-
-    /**
      * @var AuthenticationSecret
      */
     private $authenticationSecret;
