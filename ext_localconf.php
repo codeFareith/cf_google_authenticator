@@ -71,8 +71,12 @@ call_user_func(
 		];
 
         // Migrate TOTP setup from EXT:cf_google_authenticator to native MFA
-        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update'][\CodeFareith\CfGoogleAuthenticator\Updates\MFAUpdateWizard::class]
-            = \CodeFareith\CfGoogleAuthenticator\Updates\MFAUpdateWizard::class;
+        $GLOBALS['TYPO3_CONF_VARS']
+            ['SC_OPTIONS']
+                ['ext/install']
+                    ['update']
+                        [\CodeFareith\CfGoogleAuthenticator\Updates\MFAUpdateWizard::class]
+                            = \CodeFareith\CfGoogleAuthenticator\Updates\MFAUpdateWizard::class;
     },
     /** @var string $_EXTKEY */
     'cf_google_authenticator'
