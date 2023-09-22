@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace CodeFareith\CfGoogleAuthenticator\ViewHelpers;
 
-use chillerlan\QRCode\Common\EccLevel;
 use chillerlan\QRCode\QRCode;
 use chillerlan\QRCode\QROptions;
 use CodeFareith\CfGoogleAuthenticator\Domain\Immutable\AuthenticationSecret;
@@ -65,17 +64,17 @@ class QrImageViewHelper extends AbstractTagBasedViewHelper
             $options->level = 7;
             switch ($correction) {
                 case 'H':
-                    $options->eccLevel = EccLevel::H;
+                    $options->eccLevel = QRCode::ECC_H;
                     break;
                 case 'Q':
-                    $options->eccLevel = EccLevel::Q;
+                    $options->eccLevel = QRCode::ECC_Q;
                     break;
                 case 'M':
-                    $options->eccLevel = EccLevel::M;
+                    $options->eccLevel = QRCode::ECC_M;
                     break;
                 case 'L':
                 default:
-                    $options->eccLevel = EccLevel::L;
+                    $options->eccLevel = QRCode::ECC_L;
                     break;
             }
             $imageUri = (new QRCode($options))->render($authenticationSecret->getUri());

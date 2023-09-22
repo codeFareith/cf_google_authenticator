@@ -50,7 +50,7 @@
     "ext-json": "*",
     "typo3/cms-core": "^11 || ^12",
     "typo3/cms-felogin": "^11 || ^12",
-    "chillerlan/php-qrcode": "5.0-beta"
+    "chillerlan/php-qrcode": "^4.3 || 5.0-beta"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
