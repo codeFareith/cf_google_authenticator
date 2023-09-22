@@ -1,6 +1,6 @@
 {
   "name": "codefareith/cf-google-authenticator",
-  "description": "Enable Google 2FA (two factor authentication) for both, frontend- and backend accounts.",
+  "description": "Enable Google 2FA (two factor authentication) for frontend accounts.",
   "type": "typo3-cms-extension",
   "keywords": [
     "typo3",

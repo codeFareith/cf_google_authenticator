@@ -2,9 +2,6 @@
 #   CfGoogleAuthenticator (cf_google_authenticator)
 #
 
-# cat=basic/enable; type=boolean; label=LLL:EXT:cf_google_authenticator/Resources/Private/Language/locallang_ect.xlf:basic.googleAuthenticatorEnableBE
-googleAuthenticatorEnableBE = 1
-
 # cat=basic/enable; type=boolean; label=LLL:EXT:cf_google_authenticator/Resources/Private/Language/locallang_ect.xlf:basic.googleAuthenticatorEnableFE
 googleAuthenticatorEnableFE = 0
 

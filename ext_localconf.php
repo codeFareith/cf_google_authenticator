@@ -30,8 +30,8 @@ call_user_func(
             \CodeFareith\CfGoogleAuthenticator\Service\AuthenticationService::class,
             [
                 'title' => 'Google Authenticator',
-                'description' => 'Enable Google 2FA for both, frontend- and backend login',
-                'subtype' => 'authUserFE,authUserBE',
+                'description' => 'Enable Google 2FA for frontend login',
+                'subtype' => 'authUserFE',
                 'available' => true,
                 'priority' => 80,
                 'quality' => 80,
@@ -65,15 +65,6 @@ call_user_func(
             \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptConstants(
                 'styles.content.loginform.templateFile = ' . $extConf['feLoginTemplate']
             );
-        }
-
-        if ((bool) $extConf['googleAuthenticatorEnableBE'] === true) {
-            $GLOBALS['TYPO3_CONF_VARS']
-                ['EXTCONF']
-                    ['backend']
-                        ['loginProviders']
-                            [1433416747]
-                                ['provider'] = \CodeFareith\CfGoogleAuthenticator\Provider\Login\GoogleAuthenticatorLoginProvider::class;
         }
 
         $GLOBALS['TYPO3_CONF_VARS']

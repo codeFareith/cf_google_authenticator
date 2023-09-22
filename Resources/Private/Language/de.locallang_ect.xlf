@@ -9,9 +9,6 @@
     >
         <header/>
         <body>
-            <trans-unit id="basic.googleAuthenticatorEnableBE">
-                <target>BE aktiviert: Aktiviert Google Authenticator für den Backend Login.</target>
-            </trans-unit>
             <trans-unit id="basic.googleAuthenticatorEnableFE">
                 <target>FE aktiviert: Aktiviert Google Authenticator für den Frontend Login.</target>
             </trans-unit>

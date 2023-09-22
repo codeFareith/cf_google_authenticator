@@ -8,9 +8,6 @@
     >
         <header/>
         <body>
-            <trans-unit id="basic.googleAuthenticatorEnableBE">
-                <source>BE enabled: Enable Google Authenticator for the backend login.</source>
-            </trans-unit>
             <trans-unit id="basic.googleAuthenticatorEnableFE">
                 <source>FE enabled: Enable Google Authenticator for the frontend login. Hint: make sure to clear the cache after making changes on this setting.</source>
             </trans-unit>
