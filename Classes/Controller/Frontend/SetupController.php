@@ -98,7 +98,7 @@ class SetupController
      */
     public function indexAction(): ResponseInterface
     {
-        if ($this->isUserLoggedin()) {
+        if ($this->isUserLoggedIn()) {
             $authenticationSecret = $this->getAuthenticationSecret();
             $isEnabled = $this->isGoogleAuthenticatorEnabled();
             $setupForm = $this->getSetupForm();
@@ -164,7 +164,7 @@ class SetupController
     /**
      * @throws AspectNotFoundException
      */
-    private function isUserLoggedin(): bool
+    private function isUserLoggedIn(): bool
     {
         return (bool)$this->context->getPropertyFromAspect(
             'frontend.user',
