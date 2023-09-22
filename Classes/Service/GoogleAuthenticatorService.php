@@ -20,7 +20,6 @@ use Psr\Log\LoggerInterface;
 use TYPO3\CMS\Core\Log\Logger;
 use TYPO3\CMS\Core\Log\LogManager;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use function vsprintf;
 
 /**
  * Google Authenticator Service
@@ -65,16 +64,10 @@ class GoogleAuthenticatorService
 
     public function authUser(array $user): int
     {
-        $logArgs = [
-            TYPO3_MODE,
-            $user['username'],
-        ];
-
         if ((bool) $user['tx_cfgoogleauthenticator_enabled'] === true) {
-            $this->vsprintfDevLog(
-                '%s login using Google Authenticator for user: %s',
-                $logArgs
-            );
+            static::getLogger()->debug('Frontend login using Google Authenticator', [
+                'username' => $user['username'],
+            ]);
 
             $otp = GeneralUtility::_GP('google-authenticator-otp');
             $secret = $user['tx_cfgoogleauthenticator_secret'];
@@ -85,29 +78,14 @@ class GoogleAuthenticatorService
                 $status = self::AUTH_FAIL_AND_STOP;
             }
         } else {
-            $this->vsprintfDevLog(
-                '%s login using TYPO3 password authentication for user: %s',
-                $logArgs
-            );
+            static::getLogger()->debug('Frontend login using TYPO3 password authentication', [
+                'username' => $user['username'],
+            ]);
 
             $status = static::AUTH_FAIL_AND_PROCEED;
         }
 
         return $status;
-    }
-
-    private function writeDevLog(string $message): void
-    {
-        if ((bool) $this->extConf['devlog'] === true) {
-            static::getLogger()->debug($message);
-        }
-    }
-
-    private function vsprintfDevLog(string $message, array $args): void
-    {
-        $this->writeDevLog(
-            vsprintf($message, $args)
-        );
     }
 
     /**
