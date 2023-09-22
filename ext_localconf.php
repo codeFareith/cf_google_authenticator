@@ -47,7 +47,7 @@ call_user_func(
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            \CodeFareith\CfGoogleAuthenticator\Utility\ExtensionBasicDataUtility::getVendorName() . '.' . \CodeFareith\CfGoogleAuthenticator\Utility\ExtensionBasicDataUtility::getExtensionKey(),
+            $_EXTKEY,
             'Setup',
             [
                 \CodeFareith\CfGoogleAuthenticator\Controller\Frontend\SetupController::class => 'index,form,update',
