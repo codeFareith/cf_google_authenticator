@@ -77,13 +77,6 @@ call_user_func(
                     ['update']
                         [\CodeFareith\CfGoogleAuthenticator\Updates\MFAUpdateWizard::class]
                             = \CodeFareith\CfGoogleAuthenticator\Updates\MFAUpdateWizard::class;
-
-        $typo3Version = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class);
-        if (version_compare($typo3Version->getBranch(), '12.0', '<')) {
-            $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects'][\CodeFareith\CfGoogleAuthenticator\Validation\Validator\SetupFormValidator::class] = [
-                'className' => \CodeFareith\CfGoogleAuthenticator\Validation\Validator\TYPO3v11\SetupFormValidator::class
-            ];
-        }
     },
     /** @var string $_EXTKEY */
     'cf_google_authenticator'

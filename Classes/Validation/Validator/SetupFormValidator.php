@@ -17,13 +17,21 @@ namespace CodeFareith\CfGoogleAuthenticator\Validation\Validator;
 use CodeFareith\CfGoogleAuthenticator\Domain\Form\SetupForm;
 use CodeFareith\CfGoogleAuthenticator\Utility\GoogleAuthenticatorUtility;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractGenericObjectValidator;
+use TYPO3\CMS\Extbase\Validation\Validator\GenericObjectValidator;
+
+$typo3Version = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class);
+if (version_compare($typo3Version->getBranch(), '12.0', '>=')) {
+    class ParentValidatorClass extends AbstractGenericObjectValidator {};
+} else {
+    class ParentValidatorClass extends GenericObjectValidator {};
+}
 
 /**
  * @package CodeFareith\CfGoogleAuthenticator\Validation\Validator
  * @since   1.0.0
  */
 class SetupFormValidator
-    extends AbstractGenericObjectValidator
+    extends ParentValidatorClass
 {
     /*─────────────────────────────────────────────────────────────────────────────*\
             Methods

@@ -6,9 +6,6 @@ services:
 
   CodeFareith\CfGoogleAuthenticator\:
     resource: '../Classes/*'
-    exclude: [
-      '../Classes/Validation/Validator/TYPO3v11/*'
-    ]
 
   CodeFareith\CfGoogleAuthenticator\Handler\GoogleAuthenticatorSetupHandler:
     public: true
