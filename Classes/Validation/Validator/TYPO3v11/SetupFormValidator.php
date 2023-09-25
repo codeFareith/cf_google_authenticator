@@ -12,32 +12,34 @@
  * @see           https://typo3.org
  */
 
-namespace CodeFareith\CfGoogleAuthenticator\Validation\Validator;
+namespace CodeFareith\CfGoogleAuthenticator\Validation\Validator\TYPO3v11;
 
 use CodeFareith\CfGoogleAuthenticator\Domain\Form\SetupForm;
 use CodeFareith\CfGoogleAuthenticator\Utility\GoogleAuthenticatorUtility;
-use TYPO3\CMS\Extbase\Validation\Validator\AbstractGenericObjectValidator;
+use TYPO3\CMS\Extbase\Validation\Validator\GenericObjectValidator;
 
 /**
  * @package CodeFareith\CfGoogleAuthenticator\Validation\Validator
  * @since   1.0.0
  */
 class SetupFormValidator
-    extends AbstractGenericObjectValidator
+    extends GenericObjectValidator
 {
     /*─────────────────────────────────────────────────────────────────────────────*\
             Methods
     \*─────────────────────────────────────────────────────────────────────────────*/
-    public function canValidate(mixed $object): bool
+    public function canValidate($object): bool
     {
         parent::canValidate($object);
 
         return ($object instanceof SetupForm);
     }
 
-    protected function isValid(mixed $object): void
+    public function isValid($object): bool
     {
         parent::isValid($object);
+
+        $result = true;
 
         /** @var SetupForm $object */
         $secret = $object->getSecret();
@@ -48,8 +50,12 @@ class SetupFormValidator
         if ($isValid !== true) {
             $this->addError(
                 'The given one-time password is invalid or has expired.',
-                1695626410
+                'otp_invalid'
             );
+
+            $result = false;
         }
+
+        return $result;
     }
 }

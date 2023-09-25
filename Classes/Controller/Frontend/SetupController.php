@@ -25,6 +25,7 @@ use Exception;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
+use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
@@ -32,7 +33,7 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
-use TYPO3\CMS\Core\Localization\LanguageService;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use function get_class;
 use function vsprintf;
 
@@ -61,10 +62,6 @@ class SetupController
      */
     protected $setupFormValidator;
 
-    /**
-     * @var LanguageService
-     */
-    protected $languageService;
 
     /**
      * @var Context
@@ -82,13 +79,11 @@ class SetupController
     public function __construct(
         FrontendUserRepository $frontendUserRepository,
         SetupFormValidator $setupFormValidator,
-        LanguageService $languageService,
         Context $context
     )
     {
         $this->frontendUserRepository = $frontendUserRepository;
         $this->setupFormValidator = $setupFormValidator;
-        $this->languageService = $languageService;
         $this->context = $context;
     }
 
@@ -125,8 +120,11 @@ class SetupController
             $formObject = $this->getFormObject();
             $results = $this->setupFormValidator->validate($formObject);
 
-            $this->request->setOriginalRequest(clone $this->request);
-            $this->request->setOriginalRequestMappingResults($results);
+            $typo3Version = GeneralUtility::makeInstance(Typo3Version::class);
+            if (version_compare($typo3Version->getBranch(), '12.0', '<')) {
+                $this->request->setOriginalRequest(clone $this->request);
+                $this->request->setOriginalRequestMappingResults($results);
+            }
         }
     }
 
@@ -221,9 +219,16 @@ class SetupController
 
     private function isValidUpdateRequest(): bool
     {
-        $mappingResults = $this->request->getOriginalRequestMappingResults();
+        $typo3Version = GeneralUtility::makeInstance(Typo3Version::class);
+        if (version_compare($typo3Version->getBranch(), '12.0', '>=')) {
+            $extbaseRequestParameters = clone $this->request->getAttribute('extbase');
+            $result = $extbaseRequestParameters->getOriginalRequestMappingResults();
+        } else {
+            // TYPO3 v11
+            $result = $this->request->getOriginalRequestMappingResults();
+        }
 
-        $hasErrors = $mappingResults->hasErrors();
+        $hasErrors = $result->hasErrors();
         $hasArgument = $this->request->hasArgument(SetupForm::FORM_NAME);
 
         return (!$hasErrors && $hasArgument);
@@ -285,20 +290,15 @@ class SetupController
         return $user;
     }
 
-    private function getLanguageService(): LanguageService
-    {
-        return $this->languageService;
-    }
-
     private function addSuccessMessage(): void
     {
         $this->addFlashMessage(
-            $this->getLanguageService()->sL(
+            LocalizationUtility::translate(
                 PathUtility::makeLocalLangLinkPath(
                     'setup.update.success.body'
                 )
             ),
-            $this->getLanguageService()->sL(
+            LocalizationUtility::translate(
                 PathUtility::makeLocalLangLinkPath(
                     'setup.update.success.title'
                 )
