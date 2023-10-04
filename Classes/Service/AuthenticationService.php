@@ -22,5 +22,5 @@ interface AuthenticationService
 {
     public function init(): bool;
 
-    public function authUser(array $array): int;
+    public function authUser(array $user): int;
 }
