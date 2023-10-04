@@ -50,7 +50,10 @@ class CoreAuthenticationServiceAdapter
         if (empty($this->login['status']) || $this->login['status'] !== 'login') {
             return GoogleAuthenticatorService::AUTH_FAIL_AND_PROCEED;
         }
-        parent::authUser($user);
-        return $this->service->authUser($user);
+        $code = parent::authUser($user);
+        if ($code === GoogleAuthenticatorService::AUTH_SUCCEED_AND_STOP) {
+            $code = $this->service->authUser($user);
+        }
+        return $code;
     }
 }
