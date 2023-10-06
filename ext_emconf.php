@@ -12,7 +12,7 @@
 
 $EM_CONF[$_EXTKEY] = [
     'title' => '[codeFareith] Google Authenticator',
-    'description' => 'Enable Google 2FA (two factor authentication) for both, frontend- and backend accounts.',
+    'description' => 'Enable Google 2FA (two factor authentication) for frontend accounts.',
     'category' => 'misc',
     'author' => 'Robin "codeFareith" von den Bergen',
     'author_email' => 'robin@vondenbergen.de',
