@@ -50,10 +50,10 @@ call_user_func(
             $_EXTKEY,
             'Setup',
             [
-                \CodeFareith\CfGoogleAuthenticator\Controller\Frontend\SetupController::class => 'index,form,update',
+                \CodeFareith\CfGoogleAuthenticator\Controller\Frontend\SetupController::class => 'index,update',
             ],
             [
-                \CodeFareith\CfGoogleAuthenticator\Controller\Frontend\SetupController::class => 'form,update',
+                \CodeFareith\CfGoogleAuthenticator\Controller\Frontend\SetupController::class => 'index,update',
             ]
         );
 
