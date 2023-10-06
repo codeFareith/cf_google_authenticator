@@ -55,7 +55,10 @@ class SetupFormValidator
 
         if ($isValid !== true) {
             $this->addError(
-                'The given one-time password is invalid or has expired.',
+                $this->translateErrorMessage(
+                    'validator.otp.notvalid',
+                    'cf_google_authenticator'
+                ),
                 1695626410
             );
         }

@@ -59,6 +59,10 @@
             <trans-unit id="setup.update.success.body">
                 <target>Ihre Änderungen wurden erfolgreich gespeichert.</target>
             </trans-unit>
+
+            <trans-unit id="validator.otp.notvalid">
+                <target>Das angegebene Einmalpasswort ist ungültig oder abgelaufen.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

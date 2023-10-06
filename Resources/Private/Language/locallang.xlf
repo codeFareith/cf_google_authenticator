@@ -58,6 +58,10 @@
             <trans-unit id="setup.update.success.body">
                 <source>Your changes have been saved successfully.</source>
             </trans-unit>
+
+            <trans-unit id="validator.otp.notvalid">
+                <source>The given one-time password is invalid or has expired.</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>

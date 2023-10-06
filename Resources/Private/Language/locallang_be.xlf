@@ -42,13 +42,13 @@
                 <source>Oops!</source>
             </trans-unit>
             <trans-unit id="setup.enable.error.body">
-                <source>The given one-time password was incorrect or has expired.</source>
+                <source>The given one-time password is invalid or has expired.</source>
             </trans-unit>
             <trans-unit id="setup.disable.error.title">
                 <source>Oops!</source>
             </trans-unit>
             <trans-unit id="setup.disable.error.body">
-                <source>The given one-time password was incorrect or has expired.</source>
+                <source>The given one-time password is invalid or has expired.</source>
             </trans-unit>
         </body>
     </file>

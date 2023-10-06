@@ -59,6 +59,10 @@
             <trans-unit id="setup.update.success.body">
                 <target>Vos modifications ont été enregistrées avec succès.</target>
             </trans-unit>
+
+            <trans-unit id="validator.otp.notvalid">
+                <target>Le mot de passe à usage unique donné n'est pas valide ou a expiré.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

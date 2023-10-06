@@ -43,13 +43,13 @@
                 <target>Oops !</target>
             </trans-unit>
             <trans-unit id="setup.enable.error.body">
-                <target>Le mot de passe à usage unique donné était incorrect ou a expiré.</target>
+                <target>Le mot de passe à usage unique donné n'est pas valide ou a expiré.</target>
             </trans-unit>
             <trans-unit id="setup.disable.error.title">
                 <target>Oops !</target>
             </trans-unit>
             <trans-unit id="setup.disable.error.body">
-                <target>Le mot de passe à usage unique donné était incorrect ou a expiré.</target>
+                <target>Le mot de passe à usage unique donné n'est pas valide ou a expiré.</target>
             </trans-unit>
         </body>
     </file>

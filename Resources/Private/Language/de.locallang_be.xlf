@@ -43,13 +43,13 @@
                 <source>Oops!</source>
             </trans-unit>
             <trans-unit id="setup.enable.error.body">
-                <source>Das angegebene Einmalpasswort war falsch oder ist abgelaufen.</source>
+                <source>Das angegebene Einmalpasswort ist ungültig oder abgelaufen.</source>
             </trans-unit>
             <trans-unit id="setup.disable.error.title">
                 <source>Oops!</source>
             </trans-unit>
             <trans-unit id="setup.disable.error.body">
-                <source>Das angegebene Einmalpasswort war falsch oder ist abgelaufen.</source>
+                <source>Das angegebene Einmalpasswort ist ungültig oder abgelaufen.</source>
             </trans-unit>
         </body>
     </file>
