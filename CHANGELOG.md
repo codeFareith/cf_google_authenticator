@@ -9,8 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [1.3.0] - *not yet released*
 ### Changed
-- compatibility with TYPO3 v11
-- QR code are generated natively if extension is installed with composer, otherwise it will fallback (as before) to
+- compatibility with TYPO3 v11 and v12
+- QR code are generated natively if extension is installed with composer, otherwise it will fall back (as before) to
   the online service on chart.googleapis.com
 
 ## [1.2.4] - 2020-07-23
@@ -91,7 +91,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 - Remove "use" statement for core classes in ext_* files
-- Avoid TypeError when record info is null 
+- Avoid TypeError when record info is null
 
 ## [1.1.4] - 2019-05-07
 ### Added
