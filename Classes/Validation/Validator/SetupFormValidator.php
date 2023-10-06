@@ -21,9 +21,9 @@ use TYPO3\CMS\Extbase\Validation\Validator\GenericObjectValidator;
 
 $typo3Version = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class);
 if (version_compare($typo3Version->getBranch(), '12.0', '>=')) {
-    class ParentValidatorClass extends AbstractGenericObjectValidator {};
+    class ParentValidatorClass extends AbstractGenericObjectValidator {}
 } else {
-    class ParentValidatorClass extends GenericObjectValidator {};
+    class ParentValidatorClass extends GenericObjectValidator {}
 }
 
 /**

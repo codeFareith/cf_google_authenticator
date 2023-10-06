@@ -28,9 +28,11 @@ use TYPO3\CMS\Core\Context\Exception\AspectNotFoundException;
 use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Error\Error;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
+use TYPO3\CMS\Extbase\Mvc\ExtbaseRequestParameters;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -111,22 +113,6 @@ class SetupController
         return $this->htmlResponse($this->view->render());
     }
 
-    /**
-     * @throws NoSuchArgumentException
-     */
-    public function initializeUpdateAction(): void
-    {
-        if ($this->request->hasArgument(SetupForm::FORM_NAME)) {
-            $formObject = $this->getFormObject();
-            $results = $this->setupFormValidator->validate($formObject);
-
-            $typo3Version = GeneralUtility::makeInstance(Typo3Version::class);
-            if (version_compare($typo3Version->getBranch(), '12.0', '<')) {
-                $this->request->setOriginalRequest(clone $this->request);
-                $this->request->setOriginalRequestMappingResults($results);
-            }
-        }
-    }
 
     /**
      * @return ResponseInterface
@@ -136,27 +122,49 @@ class SetupController
      */
     public function updateAction(): ResponseInterface
     {
-        if ($this->isValidUpdateRequest()) {
-            $user = $this->initializeFrontendUser();
-
-            if ($user !== null) {
-                $formData = (array)$this->request->getArgument(SetupForm::FORM_NAME);
-
-                if ($this->request->hasArgument('enable')) {
-                    $user->enableGoogleAuthenticator($formData['secret']);
-                } elseif ($this->request->hasArgument('disable')) {
-                    $user->disableGoogleAuthenticator();
-                }
-
-                $this->frontendUserRepository->update($user);
-
-                $this->addSuccessMessage();
-
-                return $this->redirect('index');
-            }
+        if (($response = $this->validateUpdateRequest()) instanceof ResponseInterface) {
+            return $response;
         }
 
-        return new ForwardResponse('index');
+        $user = $this->initializeFrontendUser();
+        if ($user !== null) {
+            $formData = (array)$this->request->getArgument(SetupForm::FORM_NAME);
+
+            if ($this->request->hasArgument('enable')) {
+                $user->enableGoogleAuthenticator($formData['secret']);
+            } elseif ($this->request->hasArgument('disable')) {
+                $user->disableGoogleAuthenticator();
+            }
+
+            $this->frontendUserRepository->update($user);
+
+            $this->addSuccessMessage();
+        }
+
+        return $this->redirect('index');
+    }
+
+    protected function validateUpdateRequest(): ?ResponseInterface
+    {
+        if (!$this->request->hasArgument(SetupForm::FORM_NAME)) {
+            return new RedirectResponse('index');
+        }
+
+        /** @var ExtbaseRequestParameters $extbaseRequestParameters */
+        $extbaseRequestParameters = clone $this->request->getAttribute('extbase');
+        $originalResult = $extbaseRequestParameters->getOriginalRequestMappingResults();
+
+        $formObject = $this->getFormObject();
+        $results = $this->setupFormValidator->validate($formObject);
+
+        $results->merge($originalResult);
+
+        if ($results->hasErrors()) {
+            return (new ForwardResponse('index'))
+                ->withArgumentsValidationResult($results);
+        }
+
+        return null;
     }
 
     /**
@@ -215,23 +223,6 @@ class SetupController
         }
 
         return $secretKey;
-    }
-
-    private function isValidUpdateRequest(): bool
-    {
-        $typo3Version = GeneralUtility::makeInstance(Typo3Version::class);
-        if (version_compare($typo3Version->getBranch(), '12.0', '>=')) {
-            $extbaseRequestParameters = clone $this->request->getAttribute('extbase');
-            $result = $extbaseRequestParameters->getOriginalRequestMappingResults();
-        } else {
-            // TYPO3 v11
-            $result = $this->request->getOriginalRequestMappingResults();
-        }
-
-        $hasErrors = $result->hasErrors();
-        $hasArgument = $this->request->hasArgument(SetupForm::FORM_NAME);
-
-        return (!$hasErrors && $hasArgument);
     }
 
     private function isGoogleAuthenticatorEnabled(): bool
