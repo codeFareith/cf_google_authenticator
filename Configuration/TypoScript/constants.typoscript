@@ -9,6 +9,11 @@ plugin {
             templateRootPath = EXT:cf_google_authenticator/Resources/Private/Templates/
         }
 
+        settings {
+            # cat=plugin.tx_cfgoogleauthenticator_setup/enable; type=options[UIkit,Bootstrap]; label=Templating framework (if you rely on default templates)
+            templatingFramework = UIkit
+        }
+
         tx_felogin_login {
             view {
                 layoutRootPath = EXT:cf_google_authenticator/Resources/Private/EXT_felogin/Layouts/

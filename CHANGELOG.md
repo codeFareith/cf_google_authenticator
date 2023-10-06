@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - compatibility with TYPO3 v11 and v12
 - QR code are generated natively if extension is installed with composer, otherwise it will fall back (as before) to
   the online service on chart.googleapis.com
+- default templates are using UIkit templating framework (as before) but a constant in TypoScript lets you
+  switch to Bootstrap 5
 
 ## [1.2.4] - 2020-07-23
 ### Changed

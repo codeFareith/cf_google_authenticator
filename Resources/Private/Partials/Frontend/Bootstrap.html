@@ -1,0 +1,104 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+
+<section>
+    <f:render
+        partial="Shared/FlashMessages"
+        arguments="{
+            hasCloseButton: 1
+        }"
+    />
+
+    <f:render
+        partial="Shared/ValidationResults"
+    />
+
+    <div class="d-flex justify-content-center">
+        <div class="card" style="width: 30rem;">
+            <f:form method="post" controller="Frontend\Setup" action="update" object="{formData}" name="{formName}">
+                <f:if condition="{isEnabled}">
+                    <f:then>
+                        <f:render section="disable-form" arguments="{_all}"/>
+                    </f:then>
+                    <f:else>
+                        <f:render section="enable-form" arguments="{_all}"/>
+                    </f:else>
+                </f:if>
+            </f:form>
+        </div>
+    </div>
+</section>
+
+<f:section name="disable-form">
+    <div class="body p-3">
+        <f:render
+            partial="Frontend/Form/Secret"
+            arguments="{hidden: 1}"
+        />
+        <f:render
+            partial="Frontend/Form/OneTimePassword"
+            arguments="{_all}"
+        />
+    </div>
+
+    <div class="card-footer text-end">
+        <f:form.submit
+            class="btn btn-primary"
+            name="disable"
+            value="{f:translate(key:'setup.index.action.disable', extensionName:'cf_google_authenticator')}"
+        />
+    </div>
+</f:section>
+
+<f:section name="enable-form">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <span class="badge bg-primary mt-1 float-start">1</span>
+            <h4 class="card-title ms-5">
+                <f:translate key="setup.index.step1.title" extensionName="cf_google_authenticator"/>
+            </h4>
+            <p>
+                <f:translate key="setup.index.step1.body" extensionName="cf_google_authenticator"/>
+            </p>
+            <div class="text-center">
+                <f:render
+                    partial="Frontend/Form/QrCode"
+                    arguments="{authenticationSecret: authenticationSecret}"
+                />
+            </div>
+        </li>
+        <li class="list-group-item">
+            <span class="badge bg-primary mt-1 float-start">2</span>
+            <h4 class="card-title ms-5">
+                <f:translate key="setup.index.step2.title" extensionName="cf_google_authenticator"/>
+            </h4>
+            <p>
+                <f:translate key="setup.index.step2.body" extensionName="cf_google_authenticator"/>
+            </p>
+            <f:render
+                partial="Frontend/Form/Secret"
+            />
+        </li>
+        <li class="list-group-item pb-4">
+            <span class="badge bg-primary mt-1 float-start">3</span>
+            <h4 class="card-title ms-5">
+                <f:translate key="setup.index.step3.title" extensionName="cf_google_authenticator"/>
+            </h4>
+            <p>
+                <f:translate key="setup.index.step3.body" extensionName="cf_google_authenticator"/>
+            </p>
+            <f:render
+                partial="Frontend/Form/OneTimePassword"
+            />
+        </li>
+    </ul>
+    <div class="card-footer text-end">
+        <f:form.submit
+            class="btn btn-primary"
+            name="enable"
+            value="{f:translate(key:'setup.index.action.enable', extensionName:'cf_google_authenticator')}"
+        />
+    </div>
+</f:section>
+
+</html>

@@ -14,6 +14,10 @@ plugin {
                 1 = {$plugin.tx_cfgoogleauthenticator_setup.view.templateRootPath}
             }
         }
+
+        settings {
+            templatingFramework = {$plugin.tx_cfgoogleauthenticator_setup.settings.templatingFramework}
+        }
     }
 
     tx_felogin_login {
