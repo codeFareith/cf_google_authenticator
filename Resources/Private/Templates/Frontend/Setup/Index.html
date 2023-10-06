@@ -1,128 +1,131 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       data-namespace-typo3-fluid="true">
 
-    <f:layout name="Frontend/Default"/>
+<f:layout name="Frontend/Default"/>
 
-    <f:section name="main">
-        <f:security.ifAuthenticated>
+<f:section name="main">
+    <f:security.ifAuthenticated>
 
-            <div class="uk-section">
+        <div class="uk-section">
+            <f:render
+                partial="Shared/FlashMessages"
+                arguments="{
+                    hasCloseButton: 1
+                }"
+            />
 
-                <f:render
-                    partial="Shared/FlashMessages"
-                    arguments="{
-                        hasCloseButton: 1
-                    }"
-                />
+            <f:render
+                partial="Shared/ValidationResults"
+            />
 
-                <f:render
-                    partial="Shared/ValidationResults"
-                />
-
-                <div class="uk-container uk-flex">
-                    <div class="uk-card uk-card-default uk-box-shadow-medium uk-width-1-2">
-                        <f:form method="post" controller="Frontend\Setup" action="update" object="{formData}" name="{formName}">
-                            <f:if condition="{isEnabled}">
-                                <f:then>
-
-                                    <div class="uk-card-body">
-                                        <f:render
-                                            partial="Frontend/Form/Secret"
-                                            arguments="{hidden: 1}"
-                                        />
-                                        <f:render
-                                            partial="Frontend/Form/OneTimePassword"
-                                            arguments="{_all}"
-                                        />
-                                    </div>
-
-                                    <div class="uk-card-footer">
-                                        <f:form.submit
-                                            class="uk-button uk-button-primary uk-float-right"
-                                            name="disable"
-                                            value="{f:translate(key:'setup.index.action.disable', extensionName:'cf_google_authenticator')}"
-                                        />
-                                    </div>
-
-                                </f:then>
-                                <f:else>
-
-                                    <div class="uk-card-body">
-                                        <div class="uk-margin">
-                                            <div class="uk-grid-small uk-flex-middle" uk-grid>
-                                                <div class="uk-width-auto">
-                                                    <span class="uk-badge">1</span>
-                                                </div>
-                                                <div class="uk-width-expand">
-                                                    <span class="uk-card-title">
-                                                        <f:translate key="setup.index.step1.title" extensionName="cf_google_authenticator"/>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <p>
-                                                <f:translate key="setup.index.step1.body" extensionName="cf_google_authenticator"/>
-                                            </p>
-                                            <f:render
-                                                partial="Frontend/Form/QrCode"
-                                                arguments="{authenticationSecret: authenticationSecret}"
-                                            />
-                                        </div>
-
-                                        <div class="uk-margin">
-                                            <div class="uk-grid-small uk-flex-middle uk-margin" uk-grid>
-                                                <div class="uk-width-auto">
-                                                    <span class="uk-badge">2</span>
-                                                </div>
-                                                <div class="uk-width-expand">
-                                                    <span class="uk-card-title">
-                                                        <f:translate key="setup.index.step2.title" extensionName="cf_google_authenticator"/>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <p>
-                                                <f:translate key="setup.index.step2.body" extensionName="cf_google_authenticator"/>
-                                            </p>
-                                            <f:render
-                                                partial="Frontend/Form/Secret"
-                                            />
-                                        </div>
-
-                                        <div class="uk-margin">
-                                            <div class="uk-grid-small uk-flex-middle uk-margin" uk-grid>
-                                                <div class="uk-width-auto">
-                                                    <span class="uk-badge">3</span>
-                                                </div>
-                                                <div class="uk-width-expand">
-                                                    <span class="uk-card-title">
-                                                        <f:translate key="setup.index.step3.title" extensionName="cf_google_authenticator"/>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <p>
-                                                <f:translate key="setup.index.step3.body" extensionName="cf_google_authenticator"/>
-                                            </p>
-                                            <f:render
-                                                partial="Frontend/Form/OneTimePassword"
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div class="uk-card-footer">
-                                        <f:form.submit
-                                            class="uk-button uk-button-primary uk-float-right"
-                                            name="enable"
-                                            value="{f:translate(key:'setup.index.action.enable', extensionName:'cf_google_authenticator')}"
-                                        />
-                                    </div>
-
-                                </f:else>
-                            </f:if>
-                        </f:form>
-                    </div>
+            <div class="uk-container uk-flex">
+                <div class="uk-card uk-card-default uk-box-shadow-medium uk-width-1-2">
+                    <f:form method="post" controller="Frontend\Setup" action="update" object="{formData}" name="{formName}">
+                        <f:if condition="{isEnabled}">
+                            <f:then>
+                                <f:render section="disable-form" arguments="{_all}"/>
+                            </f:then>
+                            <f:else>
+                                <f:render section="enable-form" arguments="{_all}"/>
+                            </f:else>
+                        </f:if>
+                    </f:form>
                 </div>
             </div>
+        </div>
 
-        </f:security.ifAuthenticated>
-    </f:section>
+    </f:security.ifAuthenticated>
+</f:section>
+
+<f:section name="disable-form">
+    <div class="uk-card-body">
+        <f:render
+            partial="Frontend/Form/Secret"
+            arguments="{hidden: 1}"
+        />
+        <f:render
+            partial="Frontend/Form/OneTimePassword"
+            arguments="{_all}"
+        />
+    </div>
+
+    <div class="uk-card-footer">
+        <f:form.submit
+            class="uk-button uk-button-primary uk-float-right"
+            name="disable"
+            value="{f:translate(key:'setup.index.action.disable', extensionName:'cf_google_authenticator')}"
+        />
+    </div>
+</f:section>
+
+<f:section name="enable-form">
+    <div class="uk-card-body">
+        <div class="uk-margin">
+            <div class="uk-grid-small uk-flex-middle" uk-grid>
+                <div class="uk-width-auto">
+                    <span class="uk-badge">1</span>
+                </div>
+                <div class="uk-width-expand">
+                    <span class="uk-card-title">
+                        <f:translate key="setup.index.step1.title" extensionName="cf_google_authenticator"/>
+                    </span>
+                </div>
+            </div>
+            <p>
+                <f:translate key="setup.index.step1.body" extensionName="cf_google_authenticator"/>
+            </p>
+            <f:render
+                partial="Frontend/Form/QrCode"
+                arguments="{authenticationSecret: authenticationSecret}"
+            />
+        </div>
+
+        <div class="uk-margin">
+            <div class="uk-grid-small uk-flex-middle uk-margin" uk-grid>
+                <div class="uk-width-auto">
+                    <span class="uk-badge">2</span>
+                </div>
+                <div class="uk-width-expand">
+                    <span class="uk-card-title">
+                        <f:translate key="setup.index.step2.title" extensionName="cf_google_authenticator"/>
+                    </span>
+                </div>
+            </div>
+            <p>
+                <f:translate key="setup.index.step2.body" extensionName="cf_google_authenticator"/>
+            </p>
+            <f:render
+                partial="Frontend/Form/Secret"
+            />
+        </div>
+
+        <div class="uk-margin">
+            <div class="uk-grid-small uk-flex-middle uk-margin" uk-grid>
+                <div class="uk-width-auto">
+                    <span class="uk-badge">3</span>
+                </div>
+                <div class="uk-width-expand">
+                    <span class="uk-card-title">
+                        <f:translate key="setup.index.step3.title" extensionName="cf_google_authenticator"/>
+                    </span>
+                </div>
+            </div>
+            <p>
+                <f:translate key="setup.index.step3.body" extensionName="cf_google_authenticator"/>
+            </p>
+            <f:render
+                partial="Frontend/Form/OneTimePassword"
+            />
+        </div>
+    </div>
+
+    <div class="uk-card-footer">
+        <f:form.submit
+            class="uk-button uk-button-primary uk-float-right"
+            name="enable"
+            value="{f:translate(key:'setup.index.action.enable', extensionName:'cf_google_authenticator')}"
+        />
+    </div>
+</f:section>
 
 </html>
