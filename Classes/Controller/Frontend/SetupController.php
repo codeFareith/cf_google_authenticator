@@ -273,12 +273,10 @@ class SetupController
         return $formObject;
     }
 
-    private function initializeFrontendUser(): FrontendUser
+    private function initializeFrontendUser(): ?FrontendUser
     {
         $userId = $this->getFrontendUser()['uid'];
-        $user = $this->frontendUserRepository->findByUid($userId);
-
-        return $user;
+        return $this->frontendUserRepository->findByUid($userId);
     }
 
     private function addSuccessMessage(): void
