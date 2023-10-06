@@ -1,8 +1,11 @@
 plugin {
     tx_cfgoogleauthenticator_setup {
         view {
+            # cat=plugin.tx_cfgoogleauthenticator_setup/file; type=string; label=Path to template layouts (FE)
             layoutRootPath = EXT:cf_google_authenticator/Resources/Private/Layouts/
+            # cat=plugin.tx_cfgoogleauthenticator_setup/file; type=string; label=Path to template partials (FE)
             partialRootPath = EXT:cf_google_authenticator/Resources/Private/Partials/
+            # cat=plugin.tx_cfgoogleauthenticator_setup/file; type=string; label=Path to template root (FE)
             templateRootPath = EXT:cf_google_authenticator/Resources/Private/Templates/
         }
 
