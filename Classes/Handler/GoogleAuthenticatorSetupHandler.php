@@ -87,7 +87,6 @@ class GoogleAuthenticatorSetupHandler
         $table = $this->preProcessFieldArrayDTO->getTable();
 
         $event = new CollectAllowedTablesEvent(
-            $this,
             [
                 'be_users',
                 'fe_users',

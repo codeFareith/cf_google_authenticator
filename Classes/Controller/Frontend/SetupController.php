@@ -141,7 +141,6 @@ class SetupController
             $this->frontendUserRepository->update($user);
 
             $event = new ToggleGoogleAuthenticatorEvent(
-                $this,
                 $action,
                 $user
             );

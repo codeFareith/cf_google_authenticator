@@ -15,9 +15,11 @@
 namespace CodeFareith\CfGoogleAuthenticator\Hook;
 
 use CodeFareith\CfGoogleAuthenticator\Domain\DataTransferObject\PreProcessFieldArrayDTO;
+use CodeFareith\CfGoogleAuthenticator\Event\CollectAllowedTablesEvent;
 use CodeFareith\CfGoogleAuthenticator\Exception\MissingRequiredField;
 use CodeFareith\CfGoogleAuthenticator\Exception\PropertyNotInitialized;
 use CodeFareith\CfGoogleAuthenticator\Handler\GoogleAuthenticatorSetupHandler;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use ReflectionException;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -38,6 +40,8 @@ class TCEMain
     /*─────────────────────────────────────────────────────────────────────────────*\
             Properties
     \*─────────────────────────────────────────────────────────────────────────────*/
+    protected EventDispatcherInterface $eventDispatcher;
+
     /**
      * @var GoogleAuthenticatorSetupHandler
      */
@@ -46,6 +50,11 @@ class TCEMain
     /*─────────────────────────────────────────────────────────────────────────────*\
             Methods
     \*─────────────────────────────────────────────────────────────────────────────*/
+    public function __construct(EventDispatcherInterface $eventDispatcher)
+    {
+        $this->eventDispatcher = $eventDispatcher;
+    }
+
     /**
      * @noinspection MoreThanThreeArgumentsInspection
      *
@@ -63,7 +72,15 @@ class TCEMain
         DataHandler $dataHandler
     ): void
     {
-        if ($table !== 'fe_users') {
+        $event = new CollectAllowedTablesEvent(
+            [
+                'be_users',
+                'fe_users',
+            ]
+        );
+        $this->eventDispatcher->dispatch($event);
+
+        if (!in_array($table, $event->getTables(), true)) {
             return;
         }
 

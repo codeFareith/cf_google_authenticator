@@ -16,26 +16,15 @@ declare(strict_types=1);
 
 namespace CodeFareith\CfGoogleAuthenticator\Event;
 
-use CodeFareith\CfGoogleAuthenticator\Handler\GoogleAuthenticatorSetupHandler;
-
 final class CollectAllowedTablesEvent
 {
-    private GoogleAuthenticatorSetupHandler $caller;
-
     private array $tables;
 
     public function __construct(
-        GoogleAuthenticatorSetupHandler $caller,
         array $tables
     )
     {
-        $this->caller = $caller;
         $this->tables = $tables;
-    }
-
-    public function getCaller(): GoogleAuthenticatorSetupHandler
-    {
-        return $this->caller;
     }
 
     public function getTables(): array

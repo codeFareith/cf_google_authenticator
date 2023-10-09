@@ -7,5 +7,8 @@ services:
   CodeFareith\CfGoogleAuthenticator\:
     resource: '../Classes/*'
 
+  CodeFareith\CfGoogleAuthenticator\Hook\TCEMain:
+    public: true
+
   CodeFareith\CfGoogleAuthenticator\Handler\GoogleAuthenticatorSetupHandler:
     public: true

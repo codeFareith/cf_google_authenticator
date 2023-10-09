@@ -134,7 +134,6 @@ class UserSettings extends AbstractFormElement
 
         $eventDispatcher = GeneralUtility::makeInstance(EventDispatcher::class);
         $event = new DefineIssuerLayerEvent(
-            $this,
             $this->data['tableName'],
             $layer
         );

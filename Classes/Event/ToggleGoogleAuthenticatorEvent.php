@@ -21,26 +21,17 @@ use CodeFareith\CfGoogleAuthenticator\Domain\Model\FrontendUser;
 
 final class ToggleGoogleAuthenticatorEvent
 {
-    private SetupController $caller;
-    
     private ?string $action;
     
     private FrontendUser $user;
     
     public function __construct(
-        SetupController $caller,
         ?string $action,
         FrontendUser $user
     )
     {
-        $this->caller = $caller;
         $this->action = $action;
         $this->user = $user;
-    }
-    
-    public function getCaller(): SetupController
-    {
-        return $this->caller;
     }
     
     public function getAction(): ?string

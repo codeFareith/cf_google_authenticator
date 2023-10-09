@@ -16,30 +16,19 @@ declare(strict_types=1);
 
 namespace CodeFareith\CfGoogleAuthenticator\Event;
 
-use CodeFareith\CfGoogleAuthenticator\Hook\UserSettings;
-
 final class DefineIssuerLayerEvent
 {
-    private UserSettings $caller;
-
     private string $table;
 
     private string $layer;
 
     public function __construct(
-        UserSettings $caller,
         string $table,
         string $layer
     )
     {
-        $this->caller = $caller;
         $this->table = $table;
         $this->layer = $layer;
-    }
-
-    public function getCaller(): UserSettings
-    {
-        return $this->caller;
     }
 
     public function getTable(): string
