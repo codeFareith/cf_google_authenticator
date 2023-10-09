@@ -18,6 +18,7 @@ use CodeFareith\CfGoogleAuthenticator\Domain\Form\SetupForm;
 use CodeFareith\CfGoogleAuthenticator\Domain\Immutable\AuthenticationSecret;
 use CodeFareith\CfGoogleAuthenticator\Domain\Model\FrontendUser;
 use CodeFareith\CfGoogleAuthenticator\Domain\Repository\FrontendUserRepository;
+use CodeFareith\CfGoogleAuthenticator\Event\ToggleGoogleAuthenticatorEvent;
 use CodeFareith\CfGoogleAuthenticator\Utility\Base32Utility;
 use CodeFareith\CfGoogleAuthenticator\Utility\PathUtility;
 use CodeFareith\CfGoogleAuthenticator\Validation\Validator\SetupFormValidator;
@@ -128,13 +129,23 @@ class SetupController
         if ($user !== null) {
             $formData = (array)$this->request->getArgument(SetupForm::FORM_NAME);
 
+            $action = null;
             if ($this->request->hasArgument('enable')) {
                 $user->enableGoogleAuthenticator($formData['secret']);
+                $action = 'enable';
             } elseif ($this->request->hasArgument('disable')) {
                 $user->disableGoogleAuthenticator();
+                $action = 'disable';
             }
 
             $this->frontendUserRepository->update($user);
+
+            $event = new ToggleGoogleAuthenticatorEvent(
+                $this,
+                $action,
+                $user
+            );
+            $this->eventDispatcher->dispatch($event);
 
             $this->addSuccessMessage();
         }
