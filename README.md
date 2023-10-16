@@ -29,6 +29,18 @@ The extension needs to be installed as any other extension of TYPO3 CMS:
     3. **Get it from packagist.org**: Add this extension as dependency using Composer: `composer require codefareith/cf-google-authenticator`
 3. Change the extension configuration to your needs
 
+## Update
+If you update from version before 1.3.0, you need to run the Upgrade Wizard to move the existing 2FA configuration to
+the new data structure in TYPO3 v11 and above.
+
+1. **If TYPO3 suggests it, be sure NOT to rename or drop legacy columns `tx_cfgoogleauthenticator_enabled` and
+   `tx_cfgoogleauthenticator_secret`** for table `be_users` (yet)
+2. Switch to the module "Upgrade" within "Admin Tools"
+3. Click the button "Upgrade Wizard"
+4. Run upgrade wizard "Migrate TOTP settings from be_users"
+
+At this point, you may safely rename/drop legacy columns as described above.
+
 ## Usage
 After installing and activating the extension you'll be able to activate 2FA for frontend users.
 

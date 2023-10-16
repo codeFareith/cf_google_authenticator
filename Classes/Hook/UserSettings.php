@@ -128,8 +128,6 @@ class UserSettings extends AbstractFormElement
 
         if ($this->data['tableName'] === 'fe_users') {
             $layer = 'Frontend';
-        } elseif ($this->data['tableName'] === 'be_users') {
-            $layer = 'Backend';
         }
 
         $eventDispatcher = GeneralUtility::makeInstance(EventDispatcher::class);
@@ -180,9 +178,6 @@ class UserSettings extends AbstractFormElement
 
     private function isGoogleAuthenticatorEnabled(): bool
     {
-        if ($this->data['parameterArray']['fieldConf']['config']['type'] === 'user' && !is_array($this->data['databaseRow'])) {
-            $this->data['databaseRow'] = $GLOBALS['BE_USER']->user;
-        }
         return (bool) $this->data['databaseRow']['tx_cfgoogleauthenticator_enabled'];
     }
 }

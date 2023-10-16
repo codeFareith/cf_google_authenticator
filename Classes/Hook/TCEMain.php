@@ -74,7 +74,6 @@ class TCEMain
     {
         $event = new CollectAllowedTablesEvent(
             [
-                'be_users',
                 'fe_users',
             ]
         );

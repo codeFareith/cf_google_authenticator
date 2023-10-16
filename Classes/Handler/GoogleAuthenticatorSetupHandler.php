@@ -88,7 +88,6 @@ class GoogleAuthenticatorSetupHandler
 
         $event = new CollectAllowedTablesEvent(
             [
-                'be_users',
                 'fe_users',
             ]
         );

@@ -25,7 +25,7 @@ class MFAUpdateWizard implements UpgradeWizardInterface
 {
     public function getTitle(): string
     {
-        return 'Migrate TOTP settings from be_users and fe_users';
+        return 'Migrate TOTP settings from be_users';
     }
 
     public function getDescription(): string
